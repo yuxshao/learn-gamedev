@@ -1,20 +1,16 @@
 <a id="top"></a>
 # Introduction to Game Development
 
-*A short description of your document*
+*Design Principles and Game Maker*
 
-Written and developed by [your name](http://yourwebsite.com or mailto:your@email.com) and [ADI](adi).
+Written and developed by [CU Game Dev](http://cugamedev.org/) and [ADI](adi).
 
 <a href="#top" class="top" id="getting-started">Top</a>
-## Getting Started
+## About This Document
+### Methodology
 
-### Subsections
-
-### What will this tutorial teach me?
-
-## Using this Document
-
-### Running the Sample Code
+### Prerequisites
+### The End Product
 
 You can find sample code on [GitHub][github]
 
