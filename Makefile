@@ -1,5 +1,5 @@
 .PHONY:
-default: output.html
+default: index.html
 
 .PHONY:
 git:
@@ -7,6 +7,9 @@ git:
 
 build/title.txt: git
 	@build/_make.sh init; \
+
+index.html: output.html
+	mv output.html index.html
 
 output.html: build/title.txt *.md
 	@build/_make.sh build
