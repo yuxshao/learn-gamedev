@@ -13,6 +13,8 @@ This guide will guide you through making two simple games. One will be a top-dow
 ### Prerequisites
 Installing the GameMaker program. No prior coding knowledge is required.
 
+To install GameMaker, go to http://www.yoyogames.com/studio. Click the free download, and then install the program on your computer. 
+
 ### The End Product
 2 games, one a simple top-down shooter, another being a more complex platformer.
 
@@ -141,10 +143,28 @@ Path: By drawing a path in a room, you can set it so that an object will follow 
 Timeline: Using the steps in the game, you can set it so that specific events occur at a specified time.
 
 <a href="#top" class="top" id="another-section">Top</a>
-##2b
+##2b Game Programming Overview
+
+Programming patterns and concepts from other types of software are also common in games, but a game in particular is a sort of simulation of a set of rules for the game universe. Because of this, the code structure for a game typically follows two patterns:
+
+<a id="another-subsection"></a>
+###2b.1 The Game Loop
+In a game, the core of the logic is contained in a loop running indefinitely, with each run of the loop simulating a number of “steps” of the game universe, followed by a render of the universe, and then a delay keeps the simulation running at a reasonable speed (e.g., 60fps).
+<a id="another-subsection"></a>
+### The Update Method
+Most games involve entities, like players, enemies, or powerups, interacting with each other. To capture this, game engines typically divide game logic into packages called objects, each of which, in each step of the game universe, has its own behavior.
+Depending on the game you want to make, the variety of programming, math, and physics concepts you might need are endless, from pathfinding to gravity to finite state machines. The two key concepts that games use, though, are the game loop and update method. Try to keep these two ideas in the back of your mind as we see how Game Maker games are structured following this system.
 
 <a href="#top" class="top" id="another-section">Top</a>
-##2c
+###Basic Top-Down Shooter
+
+****See link to Google Doc for this part**** Will be formatted into this later to create html of curriculum.
+
+https://docs.google.com/a/columbia.edu/document/d/1SKr8cOip11MydiQ6qdwq8lPY7en7Qw4-q-FbQEOrGlA/edit?usp=sharing
+
+
+<a href="#top" class="top" id="another-section">Top</a>
+##2d
 
 This game we just finished making can be seen as a completed MVP. As an MVP should be, the game is pretty bare bones, with no fancy sprites, sound effects, or visuals. This is purely testing out the mechanic of our game, and seeing if the mechanic runs as we want it to in-game. From here on out with this game you can add nice visuals and music, as well as add addition content such as new levels, power-ups,and the like. From here, the sky's the limit! Now that we have that simple top-down shooter in our arsenal of game making, let's move on to something that's a little more challenging to create, the iconic platformer.
 
