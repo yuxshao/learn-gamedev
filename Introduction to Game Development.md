@@ -39,8 +39,47 @@ You can find sample code on [GitHub][github]
 		-	[1.4.1 List of various game engines] (#list-engines)
 		-	[1.4.2 List of other tools] (#list-tools)
 		
--	[2.0 Another Section](#another-section)
-	-	[2.1 Another Subsection](#another-subsection)
+-	[Level 2: Your First Game! Making an MVP](#top-down-shooter)
+	-	[2.1 Parts of GameMaker](#GM-parts)
+	-	[2.2 Game Programming Overview](#game-programming-overview)
+		-	[2.2.1 The Game Loop](#game-loop)
+		-	[2.2.2 The Update Method](#update-method)
+	-	[2.3 A Basic Top-Down Shooter](#basic-top-down-shooter)
+		-	[2.3.1 Creating Resources - Sounds and Sprites](#create-resource-sounds-sprites)
+		-	[2.3.2 Basic Game Logic](#basic-game-logic)
+		-	[2.3.3 Object Interaction - Enemies](#object-interation-enemies)
+		-	[2.3.4 Control Flow & Variables - Health](#control-flow-variables-health)
+		-	[2.3.5 Alarms and Periodic Events](#alarms-periodic)
+		-	[2.3.6 Let's Polish our Game!](#polish)
+		-	[2.3.7 Last Words for the Top-Down Shooter](#last-words-tds)
+	-	[2.4 Let's Review Level 2!](#basic-top-down-shooter)
+-	[Level 3: Creating a Platformer](#level3)
+	-	[3.1 Resource Setup](#resource-setup)
+	-	[3.2 Scripts & the Step Event](#scripts-step-events)
+		-	[3.2.1 The Step Event](#step-event)
+		-	[3.2.2 Game Maker Language](#GM-language)
+		-	[3.2.3 Game Maker Defaults](#GM-defaults)
+	-	[3.3 Horizontal Movement](#horizontal-movement)
+		-	[3.3.1 A First Attempt](#first-attempt)
+		-	[3.3.2 Smooth Movement](#smooth-movement)
+	-	[3.4 Verticle Movement](#verticle-movement)
+		-	[3.4.1 Gravity](#gravity)
+		-	[3.4.2 Jumping](#jumping)
+		-	[3.4.3 Stopping Your Jump](#stopping-your-jump)
+		-	[3.4.4 Walking Animation](#walking-animation)
+	-	[3.5 Platform Collision](#platform-collision)
+		-	[3.5.1 Landing on a Block](#landing-block)
+		-	[3.5.2 Hitting a Block from the Bottom](#hitting-block-bottom)
+		-	[3.5.3 Hitting the Side of the Block](#hitting-block-side)
+		-	[3.5.4 Horizontal or Verticle Collision?](#horizontal-verticle)
+		-	[3.5.5 Jumping at the Right Time](#jump-right-time)
+		-	[3.5.6 Optional: A Quirk with GameMaker](#optional-quirk)
+	-	[3.6 Views](#views)
+	-	[3.7 Tiles](#tiles)
+	-	[3.8 A Few Additions](#additions)
+		-	[3.8.1 Enemies](#enemies)
+		-	[3.8.2 Coins](#coins)
+		-	
 -   [Additional Resources](#additionalresources)
 
 
@@ -120,10 +159,10 @@ Audacity (free music editor)
 
 
 ___________
-<a href="#top" class="top" id="another-section">Top</a>
-## Level 2
+<a href="#top" class="top" id="top-down-shooter">Top</a>
+## Level 2: Your First Game! Making an MVP
 
-<a href="#top" class="top" id="another-section">Top</a>
+<a href="#top" class="top" id="GM-parts">Top</a>
 ### 2.1 Parts of GameMaker
 
 In GameMaker, a game is made up of various parts. Here we'll describe each part and their function before we move on to using them when making our basic game.
@@ -142,29 +181,35 @@ Path: By drawing a path in a room, you can set it so that an object will follow 
 
 Timeline: Using the steps in the game, you can set it so that specific events occur at a specified time.
 
-<a href="#top" class="top" id="another-section">Top</a>
-##2b Game Programming Overview
+<a href="#top" class="top" id="game-programming-overview">Top</a>
+##2.2 Game Programming Overview
 
 Programming patterns and concepts from other types of software are also common in games, but a game in particular is a sort of simulation of a set of rules for the game universe. Because of this, the code structure for a game typically follows two patterns:
 
-<a id="another-subsection"></a>
-###2b.1 The Game Loop
+<a id="game-loop"></a>
+###2.2.1 The Game Loop
 In a game, the core of the logic is contained in a loop running indefinitely, with each run of the loop simulating a number of “steps” of the game universe, followed by a render of the universe, and then a delay keeps the simulation running at a reasonable speed (e.g., 60fps).
-<a id="another-subsection"></a>
-### The Update Method
+
+<a id="update-method"></a>
+###2.2.2 The Update Method
 Most games involve entities, like players, enemies, or powerups, interacting with each other. To capture this, game engines typically divide game logic into packages called objects, each of which, in each step of the game universe, has its own behavior.
 Depending on the game you want to make, the variety of programming, math, and physics concepts you might need are endless, from pathfinding to gravity to finite state machines. The two key concepts that games use, though, are the game loop and update method. Try to keep these two ideas in the back of your mind as we see how Game Maker games are structured following this system.
 
-<a href="#top" class="top" id="another-section">Top</a>
-###Basic Top-Down Shooter
+<a href="#top" class="top" id="basic-top-down-shooter">Top</a>
+##2.3 Basic Top-Down Shooter
+
+We’ll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player’s level. You can move horizontally and shoot upwards. 
+
+<a id="create-resource-sounds-sprites"></a>
+###2.3.1 Creating Resources - Sounds and Sprites
 
 ****See link to Google Doc for this part**** Will be formatted into this later to create html of curriculum.
 
 https://docs.google.com/a/columbia.edu/document/d/1SKr8cOip11MydiQ6qdwq8lPY7en7Qw4-q-FbQEOrGlA/edit?usp=sharing
 
 
-<a href="#top" class="top" id="another-section">Top</a>
-##2d
+<a href="#top" class="top" id="MVP-review">Top</a>
+##2.4 Let's Review Level 2!
 
 This game we just finished making can be seen as a completed MVP. As an MVP should be, the game is pretty bare bones, with no fancy sprites, sound effects, or visuals. This is purely testing out the mechanic of our game, and seeing if the mechanic runs as we want it to in-game. From here on out with this game you can add nice visuals and music, as well as add addition content such as new levels, power-ups,and the like. From here, the sky's the limit! Now that we have that simple top-down shooter in our arsenal of game making, let's move on to something that's a little more challenging to create, the iconic platformer.
 
