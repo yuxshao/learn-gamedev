@@ -75,17 +75,28 @@ You can find sample code on [GitHub][github]
 	-	[3.8 A Few Additions](#additions)
 		-	[3.8.1 Enemies](#enemies)
 		-	[3.8.2 Coins](#coins)
-
 -	[Level 4: States and Menus](#level4)
 	-	[4.1 States](#states)	
+	-	[4.2 Rooms in GameMaker](#rooms-in-GM)
+		-	[4.2.1 Basic Rooms - Game Start and Game Over](#basic-rooms-game-start-over)
+		-	[4.2.2 Persistent Objects - Room Transition Effects](#persistent-objects-room-transition)
+		-	[4.2.3 Fitting it into a Script](#fitting-it-into-script)
+	-	[4.3 Manual Drawing](#manual-drawing)
+		-	[4.3.1 The Draw Event](#draw-event)
+		-	[4.3.2 Informational Text](#info-text)
+		-	[4.3.3 A HUD](#hud)
+	-	[4.4 Menus](#menus)
+		-	[4.4.1 Pause Menu](#pause-menu)
+	-	[4.5 Last Words](#last-words-level4)	
 -	[Level 5: Design Considerations](#level5)
--   [Additional Resources](#additionalresources)
+-	[Additional Resources](#additionalresources)
 
 
 ------------------------------
 <a href="#top" class="top" id="level1">Top</a>
 ## Level 1: General Intro to Game Design and Programming
 
+Goal of Level 1: Learn the basics concepts of game programming, as well as learning what a Minimum Viable Product is.
 
 <a href="#top" class="top" id="game-design-considerations">Top</a>
 ## 1.1 Game Design Considerations
@@ -94,16 +105,19 @@ You can find sample code on [GitHub][github]
 
 ### 1.1.1 What makes a good game?
 
-If you're interested in making a game, you must have played a few games here and there. As you know, there isn't a definitive definition of what a "good" game is. A game that you think is amazing might be so-so to your friend, and vice versa. However, there are certain points of games that make them stand out from the crowd. Generally, good games give the player enough freedom to do as they please, but still give a set of rules that the player must follow. The set of rules is what we can call the mechanic of the game, which will be expanded upon later.
+If you're interested in making a game, you must have played a few games here and there. As you know, there isn't a definitive definition of what a "good" game is. A game that you think is amazing might be so-so to your friend, and vice versa. However, there are certain points of games that make them stand out from the crowd. Games that allow a player as much freedom as possible, within the rules of the game, is something that allows a game to shine. These rules, or the mechanics of the game, is essentially the rules of the world that you are creating will follow. Think about how in the real world, gravity keeps us on the ground, people need to eat food to survive, or that the day has 24 hours. 
+
+So, since you're interested in making games, let's think of a few things to consider before we delve into the world of creating them!
+
 
 <a id="Things-to-focus-on"></a>
-### 1.1.2 Things to Focus on
+### 1.1.2 Things to Focus on Before We Begin
 
-When building your game, there are a few points to consider before tackling your project. First and foremost, the game you make, either on your own or with a group, should be something that is managable, in both complexity and size. Another point to think about is the engine that you will be using when developing your game. Various engines come with different capabilities, which will influence what your game will be like. 
+There are a few things to consider before diving headfirst into making your game. Depending on the size and scope of your game, your project can either be something you can make in a day to something that takes a year, or even longer! Thinking about the size of your game, as well as the complexity of it, can help you and your group plan out your steps when making your project. 
 
-When planning out your project, it is important to give yourself guidelines of when you want certain parts of the game to be in a completed state. By giving yourself a calendar to work with will allow you and your group to be more organized when creating your project.
+Another important point to focus on is the core mechanic of your game. If you had to remove all of the extras from your game, such as power-ups, levels, story, characters, what would your game be? How will it play? And is that something that you can create for the platform you wish to build it for?
 
-Finally, when planning out your game, make sure it is something that you would enjoy playing, as well as developing!
+This tutorial will go through the steps of creating games that are pretty simple and uncomplicated. However, although most games today are more complex, many still use these basic underlying designs and mechanics. We will explain later what an MVP is, but this is something that will help you greatly when developing a finished product.
 
 <a id="how-we-develop-games"></a>
 ### 1.1.3 How we Develop Games
@@ -165,6 +179,17 @@ Autodesk Maya
 Adobe Illustrator, Photoshop, etc.
 Audacity (free music editor)
 
+<a href="#top" class="top" id="review-level1">Top</a>
+##1.5 Let's Review Level 1 with a Little Exercise
+
+Now that we know some basic concepts of game programming and what an MVP is, let's review by having you perform a little exercise.
+
+For this exercise, think of a game you want to make. Anything you want! You can either write out what you want to make or draw a diagram.
+
+After you've done that, try to boil down your game into its core mechanic. Make it as simple as possible. This will be your MVP! Now, compare the MVP with your "final" product and see the differences between them.
+
+Once you're done with these levels, you should be able to create your MVP in GameMaker, the engine we will be using to develop two simple games together.
+
 
 ___________
 <a href="#top" class="top" id="top-down-shooter">Top</a>
@@ -204,7 +229,7 @@ In this section, we’ll focus on creating and adding assets to our game. When you
 [GAME MAKER WINDOW]
 The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is, we’ll give a quick walkthrough of adding sprites, sounds, and backgrounds.
 
-Creating a Sprite
+**Creating a Sprite**
 
 To create a sprite, either click the pac-man icon in the top menu, or right-click the Sprites folder and select new sprite. The Sprite Properties window shows up. Name the sprite something appropriate, like sPlayer, for a player sprite. To modify the actual graphic of the sprite, you can choose to load a premade image or edit the sprite yourself and click the appropriate button. We’ve provided sample sprites with the tutorial that you can load. If you prefer to make your own, click “Edit Sprite” to open up the sprite editor and click “New Sprite”. Specify the dimensions (this applies only for Windows users), and double-click the “image 0” that’s appeared in the sprite editor.
 
@@ -214,11 +239,11 @@ A background is similar, and we’ve provided one. Create a background resource an
 Sidenote: IMO GM’s sprite editor is reasonably powerful but some things are hard to find, like resizing the canvas. This is because sprites can actually contain multiple subimages of the same size, to be used in e.g., animation, or different states of an object, like a stoplight with different lights on. For professional pixel art, consider drawing in GraphicsGale or Aseprite and then loading.
 The remaining options in the sprite properties dialog box have to do with how the rest of the game renders and interacts with objects with this sprite. We can get into them later.
 
-Adding a sound
+**Adding a sound**
 
 We’ve provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Double-click the Sounds folder and clicking Create Sound, or clicking the speaker icon in the top menu. Click the folder icon at the top of the Sound Properties window to load the sprite.) For our purposes, the other settings don’t need to be changed.
 
-Notes
+**Notes**
 
 One thing you might notice is that Game Maker provides a lot of options and settings to tweak for each resource. This is just because Game Maker has a lot of built-in functionality for common game use-cases, which is partly why prototyping can be really fast with GM. We avoid these settings for now as we have no use for them, but the help manual goes into them pretty well if you’re interested.
 
@@ -227,7 +252,7 @@ One thing you might notice is that Game Maker provides a lot of options and sett
 
 The main actors in GameMaker games are objects, which combine a sprite with game logic that is run on every step of the simulation. Objects are then placed in things called rooms, which serve as an environment for objects to interact with each other and you in a game.
 
-A minimal program
+**A minimal program**
 
 To see how this system works, let’s create a player that can move around. First, create a new object resource (i.e., click the [BLUE BALL ICON] in the top menu or right-click the folder and select the option) and name it something appropriate, like oPlayer. Underneath the name, set the sprite to sPlayer.
 
@@ -235,7 +260,7 @@ Then, create a room resource. In the objects tab of the Room Properties window, 
 
 Now that the room’s been added, the game is minimally functional. In the top menu of the main window, click the green triangle to test the game out. Your object will be there, motionless.
 
-Adding motion
+**Adding motion**
 
 To implement motion, we can use Game Maker’s built-in event-action functionality. Game Maker lets us program game logic into these objects by adding statements of the form, “when [EVENT], do [ACTIONS]”, like “when <spacebar> is pressed, shoot a bullet and play a sound,” or in this case, “when <left> is pressed, move left.”
 
@@ -249,7 +274,7 @@ SIDENOTE: Every object has a pair of coordinates (x, y) representing its positio
 
 If you rerun the game, your player will slide to the left when you hold the left button down. Try to repeat with the other direction to give the player full horizontal mobility.
 
-Shooting
+**Shooting**
 
 We can continue using these event-action pairs to make the player shoot bullets, and demonstrate how objects can interact.
 First, create an oBullet object and assign the sBullet sprite to the object. In the oBullet object, we add a Create event and add a [SET VERTICAL SPEED ICON] action to set the vertical speed to, say, -8, so when it spawns moves upwards. Add another event, “Outside Room”, and insert a [DESTROY] action (accessible from the main1 tab on the right) to remove the bullet once it leaves the screen (so we don’t simulate it any more than we need to).
@@ -294,7 +319,7 @@ In the collision with the bullet, we want to decrement `hp` and now only want to
 <a id="alarms-periodic"></a>
 ###2.2.5 Alarms and Periodic Events
 
-Enemy Fire
+**Enemy Fire**
 
 We can do something analogous to the interaction between player bullet and enemy with an enemy bullet. Create a sprite resource for an enemy bullet, load the graphic, and associate it with a newly created object, naming it something like oEnemyBullet. We can program the player so that the game restarts ([GAME RESTART ICON]) upon hitting an enemy bullet (or maybe after losing all its health), and then get the enemy to shoot every three seconds or so.
 
@@ -305,7 +330,7 @@ To have the enemy fire once every 3 seconds, we can have a [ALARM ICON] action s
 
 SIDENOTE: GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn’t completely restricted. For instance, we could set alarm0 to `150+random(30)` to set alarm0 to a random number from 150 to 180 every frame. The manual included with GM has a reference on all of these functions, but it’s more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example. 
 
-Enemy Spawning
+**Enemy Spawning**
 
 To create a constant stream of enemies for our game, we make an object that doesn’t interact with the game at all besides creating enemies every once in a while. This pattern is common in engines where game logic is almost entirely in objects, and normally we call these background objects controller objects and use the prefix c instead of o.
 
@@ -320,12 +345,13 @@ SIDENOTE: The reason we set y to -32 is so that the bottom of the enemy are at y
 
 We have a half-complete prototype for our shooter. Let’s polish some of the rough edges to make it a little more presentable.
 
-Backgrounds in Rooms
+**Backgrounds in Rooms**
+
 Unlike sprites, backgrounds aren’t associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. Tick “Draw background color”, “Visible when room starts”, and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. 
 
 SIDENOTE: Backgrounds are modifiable at any time by objects through a set of variables beginning with “background_”. Variables can be set using the [VARIABLE SET ICON] action, or through a script, which we’ll get into for the platformer, which is a step up in programming complexity.
 
-Animations - Explosion
+**Animations - Explosion**
 
 Precisely, sprites are made up of a set of graphics called subimages (with the same dimensions) along with other properties like a hitbox or an origin. People usually achieve animated graphics using sprites with multiple subimages and playing through the subimages.
 
@@ -333,7 +359,7 @@ In the Sprite Editor (to reach it, click Edit Sprite in the Sprite Properties wi
 
 Using our animated sprite is a matter of making a new object and assigning the explosion sprite to it. The single behavior to add to the explosion object is a [DESTROY] to itself when the animation ends, accessible from Add Event -> Other. Other objects like the enemy can create explosion objects in the event of hitting a player bullet.
 
-Other
+**Other**
 
 There are a lot more things that could be done to make the game more presentable, like restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player `x` is less than `room_width-32`, and only allowing leftward if the player x exceeds 0. 
 One other thing you may notice is that the game isn’t fun. Try to tweak the game to make it challenging! Make the game restart when an enemy reaches the bottom of the screen. Change the enemy bullet pattern, perhaps aiming at the player instead of downwards (use [MOVE FREE] in the bullet create event, with direction `point_direction(x, y, oPlayer.x, oPlayer.y)`). Get the enemies to move horizontally too, bouncing against the sides of the room, or add your own gimmick after exploring the actions GameMaker has.  
@@ -397,12 +423,12 @@ We’ll start by giving the player the ability to move left and right.
 
 For instantaneous speed, we can add the following piece of code to the step event of the player:
 
-CODE:
-if (keyboard_check(vk_left))
-x -= 4;
 
-if (keyboard_check(vk_right))
-x += 4;
+    if (keyboard_check(vk_left))
+        x -= 4;
+
+    if (keyboard_check(vk_right))
+        x += 4;
 
 That is, in each frame, the program checks if the left key is pressed or not. If it is, the player jumps to the left 4 pixels. Analogously for the right key. To be precise, keyboard_check(...) is a function provided by GM taking in a key code and outputting whether it’s down or not. 
 
@@ -417,11 +443,11 @@ We can model this using two speeds--a rightward speed and a leftward speed--each
 
 To define and initialize object member variables, we can simply assign values to them in the Create event: 
 
-/// initialize variables
-rspeed = 0;
-lspeed = 0;
-accel = 0.1;
-maxspeed = 3.5;
+    /// initialize variables
+    rspeed = 0;
+    lspeed = 0;
+    accel = 0.1;
+    maxspeed = 3.5;
 
 (Putting 3 slashes in the first line replaces the default “Execute Code” action description with the text of the first line)
 
@@ -429,23 +455,21 @@ SIDENOTE: The object-oriented mind may notice that even though the last two vari
 
 To have the right key control rspeed and the left control lspeed, we put, in the Step event:
 
-CODE:
-if (keyboard_check(vk_right)) rspeed += accel;
-else rspeed -= accel;
-if (keyboard_check(vk_left)) lspeed += accel;
-else lspeed -= accel;
+    if (keyboard_check(vk_right)) rspeed += accel;
+    else rspeed -= accel;
+    if (keyboard_check(vk_left)) lspeed += accel;
+    else lspeed -= accel;
 
 We can then restrict the two speeds by appending:
 
-CODE:
-if (rspeed > maxspeed) rspeed = maxspeed;
-if (rspeed < 0) rspeed = 0;
-if (lspeed > maxspeed) lspeed = maxspeed;
-if (lspeed < 0) lspeed = 0;
+    if (rspeed > maxspeed) rspeed = maxspeed;
+    if (rspeed < 0) rspeed = 0;
+    if (lspeed > maxspeed) lspeed = maxspeed;
+    if (lspeed < 0) lspeed = 0;
 
 (Would it matter if this second block were placed before the first? Try it out, and think about what happens, if anything happens at all, keeping in mind that this is just code that’s run once per frame)
 
-And finally, append hspeed = rspeed - lspeed. GM automatically does x += hspeed at the end of every step (if that’s not your thing, write xspeed = rspeed - lspeed and do x += xspeed yourself).
+And finally, append `hspeed = rspeed - lspeed`. GM automatically does `x += hspeed` at the end of every step (if that’s not your thing, write `xspeed = rspeed - lspeed` and do `x += xspeed` yourself).
 
 If you rerun the game, you’ll notice that while we haven’t done anything fancy to simulate physical forces like friction or drag, the player’s movement is a lot smoother and closer to the movement mechanics of, say, Super Mario Bros, or Spelunky.
 
@@ -464,7 +488,7 @@ A constant downward acceleration translates to a continuous addition of downward
 
 Jumping is usually an upward burst of motion. We can implement jumping with another constant in the step event, `jumpspeed = 6`, and a simple key check in the Step event:
 
-if (keyboard_check(vk_up)) vspeed = -jumpspeed;
+    if (keyboard_check(vk_up)) vspeed = -jumpspeed;
 
 SIDENOTE: Though we’ll eventually make it so that the player can only jump if it’s on the ground (i.e., vspeed is 0 initially), in games with multiple jumps, the player’s second jump isn’t affected by how the player’s moving before the second jump, so we say `vspeed = -jumpspeed` instead of `vspeed -= jumpspeed` (of course, this is all up to how you want jumping to work in your game).
 
@@ -473,11 +497,11 @@ SIDENOTE: Though we’ll eventually make it so that the player can only jump if it
 
 Often in platformers, one can control the player’s jump height by releasing the jump key early or late. There are many ways to implement this underneath. For instance, one could halve the player’s upward velocity when the jump key is released:
 
-if (vspeed < 0 && keyboard_check_released(vk_up)) vspeed /= 2;
+    if (vspeed < 0 && keyboard_check_released(vk_up)) vspeed /= 2;
 
 Or, for a smoother motion, consider applying a stronger gravity while the player’s moving upwards if the jump button isn’t pressed:
 
-if (vspeed < 0 && !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav
+    if (vspeed < 0 && !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav
 
 SIDENOTE: GM does not have the conditional operator (a ? b : c). Sorry.
 
@@ -490,9 +514,8 @@ If we wanted to have the animation play at a speed according to how fast we were
 
 To get the player to change the direction he’s facing, a common solution is to create another sprite with the graphics mirrored and then set the player’s sprite according to his speed, using GM’s built-in variable `sprite_index`. Something like
 
-CODE:
-if (hspeed >= 0) sprite_index = oPlayer;
-else sprite_index = oPlayerL;
+    if (hspeed >= 0) sprite_index = oPlayer;
+    else sprite_index = oPlayerL;
 
 SIDENOTE: Alternatively, GM provides variables image_xscale and image_yscale, which, as the names suggest, define how the sprite should be scaled when it’s rendered. Normally, they’re set to 1, but having image_xscale = 0.5 would squish the sprite so its width were half what it is usually. Setting it to a negative value flips the sprite, so when moving left, we can set `image_xscale = -1` to face the player left. The complication with this is that this is literally scaling with respect to the origin of the player sprite, so if we flipped the sprite, the box would teleport to the left 16 pixels (see figure). We want to put the origin somewhere so that if we flip the sprite, the image doesn’t shift any amount (see figure). This happens when the origin’s x is centred (i.e., origin is at (8, 0)).
 
@@ -500,7 +523,7 @@ SIDENOTE: Alternatively, GM provides variables image_xscale and image_yscale, wh
 
 A slick (and/or disgusting) way to do it is this line in the Step:
 
-if (hspeed != 0) image_xscale = sign(hspeed);
+    if (hspeed != 0) image_xscale = sign(hspeed);
 
 <a href="#top" class="top" id="platform-collision">Top</a>
 ##3.5 Platform Collision
@@ -511,14 +534,14 @@ This encompasses a lot of cases. What should happen if the player hits the botto
 
 A simple observation we can make is that unless we want to add friction or wall-sliding, a player hitting the side of a block only affects it his horizontal velocity, and a player hitting the top or bottom of a block only affects his vertical. We can therefore try to approach the two directions separately.
 
-The relevant set of functions is instance_place(x, y, other) and place_meeting(x, y, other), which check if an object `this` calling place_meeting would touch `other` if `this` were moved to position x, y. This is equivalent to moving `this` to (x, y), then checking if the hitboxes (as defined by the sprites of the two objects) overlap, and then moving `this` back to its original position. instance_place returns the object that may be touching (or else noone), and place_meeting returns whether or not there’s an object touching. We’ll give some examples to clarify. 
+The relevant set of functions is `instance_place(x, y, other)` and `place_meeting(x, y, other)`, which check if an object `this` calling place_meeting would touch `other` if `this` were moved to position x, y. This is equivalent to moving `this` to (x, y), then checking if the hitboxes (as defined by the sprites of the two objects) overlap, and then moving `this` back to its original position. `instance_place` returns the object that may be touching (or else noone), and `place_meeting` returns whether or not there’s an object touching. We’ll give some examples to clarify. 
 
 <a id="landing-block"></a>
 ###3.5.1 Landing on a Block
 
 Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously--once every frame. We can’t enforce the statement, “Don’t let the player fall through a block when he lands on it” directly, but we can ask each frame if he’s landed on the block, and if he has, change the player’s motion and position accordingly. 
 
-The way we can do this with GM is to check, in the update method, whether or not the player would fall into a block the next frame. This is a matter of moving the player to where it would be next frame, and seeing if the player’s hitbox in that position overlaps with the block’s. This can be captured with the condition `if (place_meeting(x+hspeed, y+vspeed, oBlock))` at the end of the other movement code, because the player’s position next frame is (x+hspeed, y+vspeed). If the condition passes, we know that unless we do something, next frame, the player will be stuck in a block.
+The way we can do this with GM is to check, in the update method, whether or not the player would fall into a block the next frame. This is a matter of moving the player to where it would be next frame, and seeing if the player’s hitbox in that position overlaps with the block’s. This can be captured with the condition `if (place_meeting(x+hspeed, y+vspeed, oBlock))` at the end of the other movement code, because the player’s position next frame is `(x+hspeed, y+vspeed)`. If the condition passes, we know that unless we do something, next frame, the player will be stuck in a block.
 
 SIDENOTE: Why wouldn’t this condition work if it were placed at the beginning of the step event? 
 
@@ -533,27 +556,27 @@ To determine how to reposition the player, consider the figure, which labels the
 
 [FIGURE: PLAYER ON TOP OF BLOCK, LABELS, GRID]
 
-`y = (y position of the block i’m touching) - (sprite height)`
+    y = (y position of the block i’m touching) - (sprite height)
 
 SIDENOTE: If you moved the origins of the player and block around, it’s a little more complicated, but doable with the instance variables sprite_xoffset and sprite_yoffset. 
 
 [FIGURE: PLAYER ON TOP OF BLOCK, SPRITE_YOFFSET, LABELS]
 
-`y = (y of block i’m touching) - (sprite_height) + (sprite_yoffset) - (y of block i’m touching’s sprite_yoffset)`
+    y = (y of block i’m touching) - (sprite_height) +    (sprite_yoffset) - (y of block i’m touching’s sprite_yoffset)
 
 SIDESIDENOTE: If in addition, you resized the hitboxes, you may need to avoid hard-coding the hitbox offsets or use a different approach, as GM doesn’t provide hitbox dimensions and offsets (it doesn’t work if the sprite hitbox setting were elliptical, or pixel-perfect). One way may be to use a loop to nudge the player upwards until he doesn’t overlap with the block anymore, but it would have to be carefully written so that the player doesn’t get nudged over the edge of the block.
 
 To summarize, we have the following block of code to make the player behave appropriately when he’s about to fall onto a block:
-z = instance_place(x+hspeed, y+vspeed, oBlock);
+   z = instance_place(x+hspeed, y+vspeed, oBlock);
 
-CODE:
-if (z != noone) {
-    vspeed = 0;
-    y = z.y - abs(sprite_height);
-    // or z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset)
-}
 
-NOTE: sprite_width, sprite_height, sprite_xoffset, and sprite_yoffset are multiplied by image_xscale and image_yscale, so e.g. if the sprite had size 16x16 and the origin were at (8, 0), and image_xscale were -1, sprite_width would be -16, and sprite_xoffset would be -8. This is why we put an absolute value.
+    if (z != noone) {
+        vspeed = 0;
+        y = z.y - abs(sprite_height);
+        // or z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset)
+    }
+
+NOTE: `sprite_width`, `sprite_height`, `sprite_xoffset`, and `sprite_yoffset` are multiplied by `image_xscale` and `image_yscale`, so e.g. if the sprite had size 16x16 and the origin were at (8, 0), and image_xscale were -1, sprite_width would be -16, and sprite_xoffset would be -8. This is why we put an absolute value.
 
 To keep it so that the player stays on the block, we can just put this block of code just under the line that applies gravity. If the player is already on the block, each frame will try to apply gravity but then instantly negate it.
 
@@ -576,16 +599,15 @@ As with landing on a block, we want to set the vspeed to 0 so the player doesn’t
 
 In this case, the top of the player intersects with the bottom of the block. We use:
 
-y = z.y + abs(z.sprite_height) \\ - abs(sprite_yoffset) + abs(z.sprite_yoffset)
+    y = z.y + abs(z.sprite_height) \\ - abs(sprite_yoffset) + abs(z.sprite_yoffset)
 
 Our final vertical collision code is
 
-CODE:
-z = instance_place(x+hspeed, y+vspeed, oBlock);
-if (z != noone) {
-    vspeed = 0;
-    if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) + abs(z.sprite_yoffset);
+    z = instance_place(x+hspeed, y+vspeed, oBlock);
+    if (z != noone) {
+        vspeed = 0;
+        if (z.y > y) y = z.y - abs(sprite_height) +     abs(sprite_yoffset) - abs(z.sprite_yoffset);
+    else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) +     abs(z.sprite_yoffset);
 }
 
 <a id="hitting-block-side"></a>
@@ -597,15 +619,14 @@ When the player hits the side of the block, he should stop all horizontal moveme
 
 Following the figures above, we get the following block of code for the step event:
 
-CODE:
-z = instance_place(x+hspeed, y+vspeed, oBlock);
-if (z != noone) {
-    hspeed = 0;
-lspeed = 0;
-rspeed = 0;
-    if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
-}
+    z = instance_place(x+hspeed, y+vspeed, oBlock);
+    if (z != noone) {
+        hspeed = 0;
+        lspeed = 0;
+        rspeed = 0;
+        if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
+    }
 
 Replace the vertical collision detection code with this to see the player react horizontally upon touching a block.
 
@@ -614,17 +635,17 @@ Replace the vertical collision detection code with this to see the player react 
 
 If you put both chunks of code in after the regular motion portion of the step event, you’ll notice that only the first chunk affects the player’s movement. This is because both checks are the same, and the first check moves the player out of the way of the block. By the time we reach the second check, there’s no block to react to, and thus no further adjustment is made.
 
-[Spoiler: To fix this, one can just change the check in the first chunk of collision code from (x+hspeed, y+vspeed) to either (x+hspeed, y) if the first check is the horizontal adjustment, or (x, y+vspeed) if vertical. To see why, see below]
+[Spoiler: To fix this, one can just change the check in the first chunk of collision code from `(x+hspeed, y+vspeed)` to either `(x+hspeed, y)` if the first check is the horizontal adjustment, or `(x, y+vspeed)` if vertical. To see why, see below]
 
 We need our code to decide whether a given collision is vertical or horizontal. One way is to compare the relative positions of the block and player, as we did to see if a collision was on the top or bottom.
 
 [FIGURE: dividing a block + surroundings into 4 quadrants to see which side you’re touching]
 
-But this is a hassle as the player collides closer and closer to a corner of the block, especially if the player’s origin or hitboxes are shifted. Instead, we can make two other checks: collision against the block at (x+hspeed, y), and at (x, y+vspeed), visualized below.
+But this is a hassle as the player collides closer and closer to a corner of the block, especially if the player’s origin or hitboxes are shifted. Instead, we can make two other checks: collision against the block at `(x+hspeed, y)`, and at `(x, y+vspeed)`, visualized below.
 
 [FIGURE: 3 checks for player]
 
-If the player is going to be hit a block from the side, the player will most likely intersect the block if the player moves to position (x+hspeed, y).
+If the player is going to be hit a block from the side, the player will most likely intersect the block if the player moves to position `(x+hspeed, y)`.
 
 [figure]
 
@@ -636,10 +657,9 @@ If the player hits from a corner, though, neither of the two checks will report 
 
 A summary of our code:
 
-CODE:
-if (hit block at (x+hspeed, y)) apply horizontal correction;
-if (hit block at (x, y+vspeed)) apply vertical correction;
-if (hit block at (x+hspeed, y+vspeed)) apply vertical correction;
+    if (hit block at (x+hspeed, y)) apply horizontal correction;
+    if (hit block at (x, y+vspeed)) apply vertical correction;
+    if (hit block at (x+hspeed, y+vspeed)) apply vertical correction;
 
 A simplification would be to remove the second line entirely, since the second line rarely fires without the third also firing--only when the player grazes the block from the top almost pixel-perfectly.
 
@@ -647,29 +667,28 @@ A simplification would be to remove the second line entirely, since the second l
 
 Our final code:
 
-CODE:
-z = instance_place(x+hspeed, y, oBlock);
-if (z != noone) {
-    hspeed = 0;
-    lspeed = 0;
-    rspeed = 0;
-if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
-}
+    z = instance_place(x+hspeed, y, oBlock);
+    if (z != noone) {
+        hspeed = 0;
+        lspeed = 0;
+        rspeed = 0;
+        if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
+    } 
 
-z = instance_place(x+hspeed, y+vspeed, oBlock);
-if (z != noone) {
-    vspeed = 0;
-    if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) + abs(z.sprite_yoffset);
-}
+    z = instance_place(x+hspeed, y+vspeed, oBlock);
+    if (z != noone) {
+        vspeed = 0;
+        if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+        else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) + abs(z.sprite_yoffset);
+    }
 
 <a id="jump-right=time"></a>
 ###3.5.4 Jumping at the Right Time
 
-At this point we can restrict the player so he can only jump if he’s touching the ground. We can replace our current jump line with something like
+At this point we can restrict the player so he can only jump if he’s touching the ground. We can replace our current jump line with something like:
 
-if (keyboard_check_pressed(vk_up) && place_meeting(x, y+1, oBlock)) vspeed = -jumpspeed;
+    if (keyboard_check_pressed(vk_up) && place_meeting(x, y+1, oBlock)) vspeed = -jumpspeed;
 
 so that the player is only allowed to jump if he’s on the ground (i.e., a block sits at most one pixel below him).
 
@@ -686,29 +705,27 @@ Over the course of two game loops, the player moves from right above the block t
 
 We have no avenue to get GM to test fractional positions, but we don’t need to if we round the positions we test ourselves to make sure we’re testing the right spots. For instance, in the case described above, this wouldn’t be a problem if GM rounded up. In general we’d like to round up if the player’s moving right/down, and down if the player’s moving left/up. Define a few variables:
 
-CODE:
-var xrounded; if (hspeed > 0) xrounded = ceil(x+hspeed); else xrounded = floor(x+hspeed);
-var yrounded; if (vspeed > 0) yrounded = ceil(y+vspeed); else yrounded = floor(x+vspeed);
+    var xrounded; if (hspeed > 0) xrounded = ceil(x+hspeed); else xrounded = floor(x+hspeed);
+    var yrounded; if (vspeed > 0) yrounded = ceil(y+vspeed); else yrounded = floor(x+vspeed);
 
 SIDENOTE: For variables local to the event, you can prepend the variable initialization with `var`.
 
 Then use them in the collision code:
 
-CODE:
-z = instance_place(xrounded, y, oBlock);
-if (z != noone) {
-    hspeed = 0; lspeed = 0; rspeed = 0;
-    xrounded = floor(x);
-if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
-}
+    z = instance_place(xrounded, y, oBlock);
+    if (z != noone) {
+        hspeed = 0; lspeed = 0; rspeed = 0;
+        xrounded = floor(x);
+        if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
+    }
 
-z = instance_place(xrounded, yrounded, oBlock);
-if (z != noone) {
-    vspeed = 0;
-    if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) + abs(z.sprite_yoffset);
-}
+    z = instance_place(xrounded, yrounded, oBlock);
+    if (z != noone) {
+        vspeed = 0;
+        if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+        else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) + abs(z.sprite_yoffset);
+    }
 
 This concludes our main platforming engine section. Hopefully it didn’t seem like just a list of magical steps, but instead a case study in breaking a problem in simulation down to simpler steps. Of course, we omitted a big part of the process: testing and experimentation, figuring out what’s wrong at each step. A platforming engine is hard to make on your first try, and even on your n-th try, because there are so many cases to consider and bang your head over.
 
@@ -750,7 +767,7 @@ We’ll finish with a quick look at adding a particular type of enemy and coins. T
 
 We’ll go over how to implement a Goomba-like enemy: a slow walking figure that turns around upon hitting a wall or edge and that the player can stomp on. Start by creating the object from the sprite.
 
-MOVEMENT:
+**Movement**
 
 If we aren’t expecting to subject our enemy to complicated physics, we can have the enemy move horizontally, and reversing direction upon hitting a wall.
 
@@ -758,32 +775,28 @@ What about cliffs? We could also have the enemies detect the edge of the platfor
 
 We might end up with something like `hspeed = -0.25` in the Create event and in the Step event:
 
-CODE:
+    if (place_meeting(x+hspeed, y, oBlock) || place_meeting(x+hspeed, y, oEnemyBlock)) hspeed *= -1;
 
-if (place_meeting(x+hspeed, y, oBlock) || place_meeting(x+hspeed, y, oEnemyBlock)) hspeed *= -1;
-
-COLLISION:
+**Collision**
 
 How do we tell if a given collision between the enemy and player is a stomp or not? Two common ways: comparing the heights of the two objects, and looking at the velocity of the player.
 
 The former might look like something in the player Step event, above the line that applies gravity:
 
-CODE:
-
-z = instance_place(x, y, oEnemy);
-if (z != noone) {
-    if (z.y - 5 > y) {
-        with z { instance_destroy(); }
-        vspeed = -jumpspeed/2;
+    z = instance_place(x, y, oEnemy);
+    if (z != noone) {
+        if (z.y - 5 > y) {
+            with z { instance_destroy(); }
+            vspeed = -jumpspeed/2;
+        }
+        else instance_destroy();
     }
-    else instance_destroy();
-}
 
 NOTE: with <object> { … } runs a block of code as if that object were running it. For instance, accessing x in this block would get <object>’s x.
 
-Super Mario Bros. actually just checks if the player’s falling, with the condition (vspeed > 0) instance of (z.y - 5 > y). You should test out what feels right.
+Super Mario Bros. actually just checks if the player’s falling, with the condition `(vspeed > 0)` instance of `(z.y - 5 > y)`. You should test out what feels right.
 
-DEATH ANIMATION:
+**Death Animation**
 
 To make the interaction less rough, we might want to add a death animation for the enemy, perhaps by having the enemy fall off the screen. A common way to do this is to replace the enemy with a different, identically-looking object with the sole purpose of falling off the screen, rather than keeping track of whether or not the enemy’s dead.
 
@@ -801,46 +814,362 @@ ___________
 <a href="#top" class="top" id="level4">Top</a>
 ##Level 4: States and Menus
 
-<a id="states"></a>
-### 4.1 What are they?
+<a href="#top" class="top" id="states">Top</a>
+### 4.1 States in Games
 
-A finite state machine is an abstract model that can represent a program. In the machine are states, and at certain states the machine will perform a different action based on the input it receieves. Based on the input, the machine can move to another state, where it will follow a different set of rules than the previous one. (Taking the class Computer Science Theory will let you get more in-depth with FSM, along with other models of computation!)
+Games are very much governed by states, and at each level, too. On the finest scale, any instant in the game can be represented by the value of all the variables in all the objects and rest of the memory of the game, making up the save state of the game. On a higher level, your game may have room states, being in a menu at one point, a level at another, and the credits at yet another time. In the platformer tutorial earlier, we tried to make sure the player would never reach an invalid state where he overlapped with an object, and it helped us reason through how to program his movement.
 
-<a id="another-subsection"></a>
-###4b Application in games?
+In this tutorial we’ll be looking a little more closely at how Game Maker manages complexity using rooms as states, and how we can use states at a smaller level. Start with either your platformer project, or download the completed platformer project.
 
-In a way, a game is a very elaborate computer program, and as such the idea of a FSM can come in handy when planning out your game. The states in an FSM can be seen as different scenarios in your game, and in different scenarios, ideally different things should happen. Thinking of the player's choices as inputs, at different scenarios you would want the game to make choices based on those inputs. 
+<a href="#top" class="top" id="rooms-in-GM">Top</a>
+###4.2 Rooms in GameMaker
 
-<a id="another-subsection"></a>
-###4c How does GM's rooms give this functionality?
+Game Maker by default splits games into rooms, representing large-scale states of the game. Multiple rooms is simple with GM, as they’re treated just like other resources: right-click the rooms folder on the left and select “Create Room”, or click the [NEW ROOM] icon in the top menu.
 
-The rooms in GameMaker can be seen as a state. The player will give the inputs, and depending on what room that the game is currently on will determine the outcome of those inputs. A room in GM have specific properties that will determine the outcome of a player's actions. For example, in a room with heavier gravity than the previous room will cause the player's jump height to be lower. Moving between rooms can also be seen as moving between states. Many things, like score, lives, and the like can determine which room will be the next room that the player will go to.
+By default, Game Maker will load up and start in the room that’s at the top of the rooms list in the left menu. Game Maker has a bunch of actions for moving between rooms, available in the main1 tab, or as functions starting with `room_` (reference in the manual). 
 
-<a href="#top" class="top" id="additionalresources">Top</a>
-##4b
+<a id="basic-rooms-game-start-over"></a>
+###4.2.1 Basic Rooms - Game Start and Over
 
-<a href="#top" class="top" id="additionalresources">Top</a>
-##4c
+One of the most basic uses of rooms is for several screens in the game, like a start menu, a game over screen, or a credits room. In this section, we’ll quickly go through the simple application of adding an intro and game over screen, using the tools we know so far.
 
+Creating an intro screen is as simple as creating another room and dragging the new room above the room with the level, so the game starts out with this room.
+
+[figure: two rooms in the menu]
+
+In general it’s a good idea to keep the window size the same between rooms, so either add a view to the room of size 320x240, or (preferably) resize the room to 320x240, and change the speed to 60.
+
+Then, load the intro sprite image and associate it with an object, oIntro, and place it in the room. You can program the object so it animates slowly (e.g., image_speed = 0.1) and so that when it detects a space press, it goes to the next room in the list of rooms in the menu.
+
+    if (keyboard_check(vk_space)) room_goto_next();
+
+We can similarly have an object with a sprite saying “Game Over” in its own rGameOver room, and have the player go to this room upon hitting an enemy, instead of destroying himself. To avoid setting up the room properties all over again, it may be more useful to duplicate the intro room (right-click, select from menu), and then just replace the object with the game over object.
+
+<a id="persistent-objects-room-transition"></a>
+###4.2.2 Persistent Objects - Room Transition
+
+[Game Maker used to provide effects while the game changed from one room to another, but after they rewrote their graphics engine to extend better to other platforms, they had to get rid of their built-in room transitions]
+
+A nice effect to smoothen the transition from one room to another is a fade-out and fade-in. One common way to implement this is through one of the few channels of communicating between room transitions: persistent objects. Objects can be marked persistent through a checkbox in the Object Properties window, and this sets the object so that the object isn’t destroyed when the game moves to a different room, unlike regular objects.
+
+SIDENOTE: The other way to keep data across room transitions is to mark the room itself as persistent, so that upon exiting and re-entering the room, its state doesn’t change or reset. Global variables are another way, but they can be thought of as just member variables of an object named “global” that’s persistent across rooms.
+
+[fig: persistent area]
+
+To add a fade-in-fade-out transition, we can delegate all room transition calls to an object (in OOP: a sort of awkward wrapper for room transitions) that fades the screen to black, then moves to a set room, then fades out. Because this object acts between two rooms, we have to mark it as persistent.
+
+For now, if your sprite sBlock is completely black, we can use that as the sprite for our room transition object, oTransition. Otherwise, make and use a purely black sprite of any size.
+
+We want oTransition to fill up the entire screen, which means scaling the sprite so it fills the entire screen, and possibly also positioning it so it lines up with the view. Alternatively, we can, in the Create event, just scale the sprite up so big that it fills up the entire room:
+
+    image_xscale = room_width*1000;
+    image_yscale = room_height*1000;
+
+oTransition should also keep track of if it’s transitioned or not, so we should add a `transitioned = false;` line to the Create event.
+
+We also want to have the sprite fade in and out. To do this, we set `image_alpha = 0;` in the Create event, and in the Step event, slowly increase the opacity until it’s opaque, transition the room, and then slowly decrease the opacity. In the Step event:
+
+    if (!transitioned) image_alpha += 0.1; else image_alpha -= 0.1;
+    if (image_alpha > 1 && !transitioned) { room_goto(newRoom); transitioned = true; }
+
+Finally, the object should be destroyed once it’s done: In the Step event,
+
+    if (image_alpha < 0) instance_destroy();
+
+For an object like oIntro to use a fading room transition to enter the level, the room_goto_next(); code can be replaced with
+
+    var z = instance_create(0, 0, oTransition);
+    z.newRoom = room_next(room);
+
+so that the newRoom of oTransition is set like a parameter.
+
+NOTE: In case the new room is significantly bigger than the old room, we should resize the transition sprite so it covers the entirety of the new room. That is, add, underneath the transition line,
+
+    image_xscale = room_width*1000;
+    image_yscale = room_height*1000;
+
+<a id="fitting-it-into-script"></a>
+###4.2.3 Fitting Transitions Into a Script
+
+If you don’t want to use a “transitioned” variable, or if you want to configure how long the fade should be, you can instead use a variable like fadeLength to tackle both problems. It’s a little makeshift-y. To summarize, in Create:
+
+    fadeLength = 60; // 60 frames to fade to black
+    image_xscale = room_width*1000;
+    image_yscale = room_height*1000;
+    image_alpha = 0;
+
+In Step:
+
+    mage_alpha += 1.0/fadeLength;
+    if (image_alpha > 1 && fadeLength > 0) {
+        room_goto(newRoom);
+        fadeLength *= -1;
+    }
+    image_xscale = room_width*1000;
+    image_yscale = room_height*1000;
+    if (image_alpha < 0) instance_destroy();
+
+Usage might then be:
+
+    var z = instance_create(0, 0, oTransition);
+    z.newRoom = room_next(room); z.fadeLength = 30;
+
+We can also package this into our own global utility function, or what GM calls a script. To do this, create a new script resource, giving it the name you’d like to use to call the function, e.g., room_fade_to. We want to take two arguments: the new room, and (optionally) the length of the fade. 
+
+The script body will be similar to the example usage above, except to refer to arguments, we use the identifiers argument[0...15] and argument_count for the number of arguments passed into the script. The body would look like:
+
+    var z = instance_create(0, 0, oTransition);
+    z.newRoom = argument[0];
+    if (argument_count > 1) z.fadeLength = argument[1];
+
+Usage would then be reduced to `room_fade_to(room_next(room), 30);`
+
+[checkpoint]
+
+<a href="#top" class="top" id="manual-drawing">Top</a>
+##4.3 Manual Drawing
+
+<a id="draw-event"></a>
+###4.3.1 The Draw Event
+
+A brief digression from states: In games it’s often useful to control what’s rendered onto the screen, beyond just relying on sprites assigned to objects. Internally, what GM does is run through the update method of every object in a room once per frame, and then go through all the objects again to render the sprites on the screen in their new positions, with all the modifiers added (scaling, alpha, etc.). This second run through all the objects that draws them all is captured in another event: the Draw event. 
+
+The pass that draws all the objects is more complicated than the first pass that steps through objects, because drawing needs to be done in a specific order. Something in the background, for instance, should be drawn before something in the foreground, since drawing something necessarily covers up what was drawn there already. To define drawing order, objects in GM have a depth; objects with lower depth are drawn later, and thus above objects with higher depth (i.e., deeper objects are drawn first and covered up by objects that aren’t as deep).
+
+In GM Studio for Windows, there’s a whole family of draw events, meant to help organize the common types of drawing actions in games. Everything’s doable with the vanilla Draw event, though--the only one available on Mac. 
+
+If there’s no Draw event specified for an object, GM by default draws the object’s sprite, with transformation (scaling, rotation) and coloring (alpha) applied. We can override this by specifying our own Draw event, which is useful if we want an object to draw things like text or shapes. GM provides an tab for drawing actions, as well as a slew of drawing functions starting with `draw_` and setting functions starting with `draw_set_`.
+
+<a id="info-text"></a>
+###4.3.2 Informational Text
+
+To demonstrate custom drawing, we’ll add a basic lives system to the game and have a screen to display how many lives the player has between deaths, like in Super Mario Bros.
+
+To start, create a new room between rIntro and rLevel by duplicating rIntro and emptying the object in the room. We’ll make a new object, cLifeInfo, to display the number of remaining lives and, after a few seconds, move back to the level room.
+
+In addition, install and load the Press Start font as a resource, naming it something like fDefault. To fit with the pixel aesthetic, it’s a good idea to disable anti-aliasing and high quality, as well as to set the font size to 6. 
+
+Finally, we’ll make cCounter persistent and move it to rInfo, out of rLevel (i.e., delete from rLevel, create in rInfo), so that things like lives, coins, and score are set from the very beginning. In cCounter’s create event, initialize plives to 3. We want something approximately like
+
+[room figure]
+
+which can be achieved using `draw_set_color`, which sets the color to be used in drawing the entities in the other functions: `draw_text`, `draw_rect`, and `draw_sprite`. For me,
+
+    draw_set_color(c_white);
+    draw_rectangle(room_width/4, room_height/4, room_width*3/4, room_height*3/4, false);
+
+    draw_set_font(fDefault);
+    draw_sprite(sPlayer, 0, room_width/2-14, room_height/2+2);
+    draw_set_color(c_gray);
+    draw_text(room_width/2, room_height/2-3, "x");
+    draw_text(room_width/2+12, room_height/2-2, string(cCounter.plives));
+
+positions the objects correctly. If you’re not using the included font, offsets might differ slightly. (GM has tooltips to explain what all the arguments mean; the manual is also a reference)
+
+SIDENOTE: The hassle with fonts and GM projects is due to licensing: GM font resources are merely pointers to fonts installed on your computer. When the game is compiled into an executable, GM turns the font into an image to be shipped with the rest of the game, so the games are portable, but not their source. I don’t blame you if you want to use a font actually installed on your computer for this step.
+
+In addition, add behavior using an alarm that fades the room into the level room after a few seconds, and update the player-enemy collision behavior so it subtracts a life and moves to rInfo, or rGameOver if there are no more lives.
+
+<a id="hud"></a>
+###4.3.3 A HUD (Head-Up Display)
+
+We can easily extend this to a head-up display, or HUD, in the level. This HUD will display information about coins and lives at the top of the screen. Create a new cHUD object with a low depth (say, -10000) and place it in the level room. In the Draw event, we might include something like:
+
+    draw_set_font(fDefault);
+
+    draw_sprite(sPlayer, 0, 11, 3);
+    draw_text(21, 5, string(cCounter.plives));
+
+   draw_sprite(sCoin, 0, 30, 3);
+    draw_text(46, 5, string(cCounter.coins));
+
+If you test the game, you’ll notice that the HUD doesn’t scroll with the view. To fix this, we need to render at positions offset by the view position, accessible by view_xview[0...7] and view_yview[0...7]. Moreover, the view that’s currently active is accessed by view_current. We have a final Draw event with code:
+
+    var vx = view_xview[view_current], vy = view_yview[view_current];
+    draw_set_font(fDefault);
+
+    draw_sprite(sPlayer, 0, 11+vx, 3+vy);
+    draw_text(21+vx, 5+vy, string(cCounter.plives));
+
+    draw_sprite(sCoin, 0, 30+vx, 3+vy);
+    draw_text(46+vx, 5+vy, string(cCounter.coins));
+
+<a href="#top" class="top" id="menus">Top</a>
+##4.4 Menus
+
+To demonstrate a basic deliberate use of states, we’ll turn the introduction screen into a start menu, with three options: starting the game, setting the number of initial lives, and exiting the game. 
+
+Load sIntro2 from the animation provided. Then, a basic Draw event for oIntro might be:
+
+    var xoff = -7;
+    var yoff = 7;
+    var space = 13;
+
+    draw_sprite(sIntro2, image_index, 0, 0);
+
+    draw_set_font(fDefault);
+    draw_text(room_width/2 + xoff, room_height/2 + yoff, "Start");
+    draw_text(room_width/2 + xoff - 1, room_height/2 + yoff + space, "Lives: " + string(cCounter.plives));
+    draw_text(room_width/2 + xoff, room_height/2 + 2*space + yoff, "End");
+
+This draws a title text, followed by 3 text options. The state of the menu will then be represented by the currently selected menu item, which we can put in a variable, state, initialized to 0 in the Create event.
+
+Then, during each Step, oIntro can update its state depending on the input. Something like:
+
+    if (keyboard_check(vk_up)) state += 1;
+    if (keyboard_check(vk_down)) state -= 1
+    state = (state + 3) % 3;
+
+would make the state cycle between 0, 1, and 2. (% is the modulus operator. a % b is the remainder when a is divided by b, if a is nonnegative) This roughly corresponds to the transition function in a finite state automata, since it specifies how the input changes the state.
+
+To make use of these states, we need to render something to show what state is currently active, e.g., by putting a sprite to the left of the active option.
+
+    draw_sprite(sCoin, 0, room_width/2 + xoff - 19, room_height/2 + yoff + space*state - 4);
+
+This puts a coin sprite to the left of the menu options, at the height of the selected option, using the expression space*state (which is a good expression to use because when state goes up by one, space*state increases by space, thus moving the sprite down by one menu item height). 
+
+Finally, we need to have the states correspond to behavior. This is as simple as making a set of if statements or switch statement.
+
+    switch (state) {
+    case 0:
+        if (keyboard_check_pressed(vk_space)) room_fade_to(room_next(room));
+        break;
+
+    case 1:
+        if (keyboard_check_pressed(vk_right)) cCounter.plives += 1;
+        if (keyboard_check_pressed(vk_left)) cCounter.plives -= 1;
+        break;
+
+    case 2:
+        if (keyboard_check_pressed(vk_space)) game_end();
+        break;
+    }
+
+A menu is the most explicit demonstration of states in a game, but it doesn’t have to be like that. A coin and its collect animation can be put into one object if the coin keeps track of its state: whether it’s collected or not. The player in a more complicated platformer might behave differently depending on whether or not he’s in the air or on the ground, or if he has a powerup or not. 
+
+<a id="pause-menu"></a>
+###4.4.1 Pause Menu
+
+One final demonstration of states, and how GM’s built-in states--rooms--can implement this easily. On a high level, we want to have behavior in the game loop like this:
+
+    state - game running:
+        simulate a step in the level
+        *check if the player wants to pause (e.g. pressed p)
+
+    state - game paused:
+        display a pause message
+        *check if player wants to unpause
+
+    state - game in other screen:
+        simulate a step in the other screen
+
+The reason rooms work so well here is that one can control whether or not to simulate a step in the level using the current room. That is, a level and pause room correspond exactly with the game unpaused and paused states above.
+
+To implement this, start by making a persistent object cPause and put it in the first room of the game. Also duplicate rInfo to create an empty rPause room with a black background.
+
+We want cPause to make the pause state correspond exactly with the rooms. To do this, cPause needs to render and perform logic according to the room. Rendering correctly would mean drawing “PAUSED” in the rPause room:
+
+    if (room == rPause)
+    {
+        draw_set_color(c_white);
+        draw_text(room_width/2-30, room_height/2-2, "PAUSED");
+    }
+
+and performing correct logic means enabling pausing and unpausing depending on the room:
+
+    switch (room) {
+    case rIntro: case rInfo: case rGameOver: // for menu/info rooms,
+        // don’t do anything    
+        break;
+
+    case rPause: // in the pause room,
+        // if p is pressed, go back to the room you came from and unset the persistence
+        break;
+
+    default: // for all remaining rooms (levels),
+        // if p is pressed, mark this room persistent and go to the pause room
+        break;
+    }
+
+which roughly translates to, in the Step event:
+
+    switch (room) {
+    case rIntro: case rInfo: case rGameOver:
+        break;
+    case rPause:
+        if (keyboard_check_pressed(ord('P'))) {
+            room_goto(prevRoom);
+            room_persistent = prevPersistent;
+        }
+        break;
+    default:
+        if (keyboard_check_pressed(ord('P'))) {
+            prevRoom = room;
+            prevPersistent = room_persistent;
+            room_persistent = true;
+            room_goto(rPause);
+        }
+        break;
+    }
+
+Which remembers if the room was persistent before the pause room, and sets it back to the previous setting upon unpause.
+
+NOTE: The slight problem with this is that room_goto(...) changes the room only at the end of all the steps, so resetting the room persistence must be done a step later, when we’re actually back in the room. To do this, we give cPause an extra flag, resetPersistent, and initialize it to false in the Create event, to keep track of whether or not the room’s persistent flag needs to be reset or not.
+
+    switch (room) {
+    case rIntro: case rInfo: case rGameOver:
+        break;
+    case rPause:
+        if (keyboard_check_pressed(ord('P'))) {
+            room_goto(prevRoom);
+            resetPersistent = true;
+        }
+        break;
+    default:
+        if (resetPersistent) {
+            resetPersistent = false;
+            room_persistent = prevPersistent;
+        }
+        if (keyboard_check_pressed(ord('P'))) {
+            prevRoom = room;
+            prevPersistent = room_persistent;
+            room_persistent = true;
+            room_goto(rPause);
+        }
+        break;
+    }
+
+<a href="#top" class="top" id="last-words-level4">Top</a>
+##4.5 A Few Last Words for Level 4
+
+The concept of states is simple to grasp and also simple to program. As we mentioned earlier, it can often be implicit in your code too: you might use an if-statement to give different behavior to the player depending on if he’s in the air and or on the ground, thus giving him a state.
+
+Deliberately thinking about software, and especially a game, in terms of states, however, is powerful and useful for simplifying the complex workings of such a program. Most of the time, bugs and exploits come from the game going into an invalid state, and so ensuring that nothing breaks within a state and no state goes to an invalid state is a good defense against errors. Hopefully this step in our tutorial gave some more concrete examples of states in game programming, along with a little more exposure to some functions GM provides.
+
+___________
 <a href="#top" class="top" id="level5">Top</a>
 ##Level 5: Design considerations: What will make your game stand out from the crowd?
 
 Congratulations! You made it to the end of this lesson! Now that you have made two games, and have gotten a feel for game design, why don't you start embellishing these games to make them truly stand out? We don't go step by step for these suggestions, but we'll give helpful hints to guide you.
 
-Now, here are some gimmicks you can try to add into your game!
+Now, here are some gimmicks you can try to add into your game! For now, pick one you want to work on and try implementing that in the platformer we made together.
 
-Power-up items: Remember how we added coins in our platformer? Adding items is probably the next thing that came into your mind. Adding an item is very similar to adding a coin into your platformer, and the effect they have can be determined by you! Just like how we wrote how to make the coin counter go up as you collected more coins, you can code in specific effects, like the player getting larger or becoming invinsible, as well.
+**Power-up items**
 
-Gaining extra lives based on some value: Have you played Super Mario Bros.? If you have, you would probably know that collecting 100 coins nets you an extra life. Why don't you try adding that in to your game? But, it doesn't have to necessariliy be the number of coins. Why not have it so that for every 1000 points in your score you get an extra life? Try to get creative here! And why an extra life? Why not make it that the player becomes invincible? Or super big? Or anything really that you can come up with!
+Remember how we added coins in our platformer? Adding items is probably the next thing that came into your mind. Adding an item is very similar to adding a coin into your platformer, and the effect they have can be determined by you! Just like how we wrote how to make the coin counter go up as you collected more coins, you can code in specific effects, like the player getting larger or becoming invinsible, as well.
 
-Special platforms/spaces: Now that you know that everything in a room in GameMaker is an object, why not play with that idea and try to make special platforms or spaces? How about a space that makes the player super fast for a few seconds? Or maybe a spring to let them jump higher? By making special space objects and adding events to either the player or the space itself to give these effects can help make your platformer more dynamic and open up new revenues for in-game puzzles and more creative level designs!
+**Gaining extra lives based on some value**
+
+Have you played Super Mario Bros.? If you have, you would probably know that collecting 100 coins nets you an extra life. Why don't you try adding that in to your game? But, it doesn't have to necessariliy be the number of coins. Why not have it so that for every 1000 points in your score you get an extra life? Try to get creative here! And why an extra life? Why not make it that the player becomes invincible? Or super big? Or anything really that you can come up with!
+
+**Special platforms/spaces**
+
+Now that you know that everything in a room in GameMaker is an object, why not play with that idea and try to make special platforms or spaces? How about a space that makes the player super fast for a few seconds? Or maybe a spring to let them jump higher? By making special space objects and adding events to either the player or the space itself to give these effects can help make your platformer more dynamic and open up new revenues for in-game puzzles and more creative level designs!
 
 
 The possibilities are endless when designing a game. This is a world you're creating, so don't be afraid to experiment when making it! 
+
 ___________
-
-
-
 <a href="#top" class="top" id="additionalresources">Top</a>
 ## Additional Resources
 
