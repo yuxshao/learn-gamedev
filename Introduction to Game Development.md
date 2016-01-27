@@ -153,30 +153,37 @@ This is used mainly in testing purposes to see if your mechanic works as intende
 <a href="#top" class="top" id="tools-used">Top</a>
 ## 1.4 Tools used in the Gaming Industry
 
-The Game Development industry uses a plethora of tools when developing games. From the small indie studios to the large triple-A productions, these tool are used in the creation of all sorts of games.
+Game developers use a plethora of tools for every component of the development process, from audio to visuals to 3D models to overall frameworks. Below are some tools popular in the industry, whether used by small indie studios to large triple-A producers.
 
 <a id="list-engines"></a>
-### 1.4.1 List of game engines
+### 1.4.1 Game Engines
 
-Here's a list of some of the game engines that are used:
+Here's a list of some of the game engines that are frequently used:
 
-Unity
-Unreal Engine
-GameMaker
-RPG Maker
-Twine
+* Unity - Unity is powerful and one of the most popular engine for production-level games.
+* Unreal Engine - Comparable to Unity but with its beginnings much earlier, Unreal Engine is known for many console releases like BioShock Infinite.
+* GameMaker - One of the oldest game development software, GM retains its status as a good tool for *prototyping* and learning development, but also with a set of features that give it power comparable to the big players in 2-dimensional games.
+* RPG Maker - A popular choice for RPGs.
+* Twine - A popular choice for point-and-click and story games.
+
+The list goes on. Construct 2 is similar to GameMaker for web-based 2D games, while other more minimal frameworks like L&Ouml;VE and Phaser are also popular.
 
 <a id="list-tools"></a>
 ### 1.4.2 List of various other tools
 
-These might come in handy later on when creating assets, music, and other parts of your game.
+Triple-A studios often have professional software for making visual and audio assets, like Autodesk Maya, Cubase, and Adobe Illustrator. For the more humble developers like us, a set of free software is available:
 
-Autodesk Maya 
-Adobe Illustrator, Photoshop, etc.
-Audacity (free music editor)
+* Blender - 3D-modelling software, alternative to Maya
+* Audacity - Audio editor
+* GIMP - Graphics editor, alternative to Photoshop
+* Aseprite - Pixel art editor
+* GraphicsGale - Pixel art editor
+* BFXR - Sound effect generator
+
+A more complete list can be found [here](http://ludumdare.com/compo/tools/).
 
 <a href="#top" class="top" id="review-level1">Top</a>
-##1.5 Let's Review Level 1 with a Little Exercise
+## 1.5 Review
 
 Now that we know some basic concepts of game programming and what an MVP is, let's review by having you perform a little exercise.
 
@@ -186,8 +193,6 @@ After you've done that, try to boil down your game into its core mechanic. Make 
 
 Once you're done with these levels, you should be able to create your MVP in GameMaker, the engine we will be using to develop two simple games together.
 
-
-___________
 <a href="#top" class="top" id="top-down-shooter">Top</a>
 ## Level 2: Your First Game! Making an MVP
 
