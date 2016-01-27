@@ -8,17 +8,12 @@ Written and developed by [CU Game Dev](http://cugamedev.org/) and [ADI](adi).
 <a href="#top" class="top" id="getting-started">Top</a>
 ## About This Document
 ### Methodology
-This guide will guide you through making two simple games. One will be a top-down shooter style game that will help you become familiar with the GameMaker program that we will be using and with the concept of a MVP (minimum viable product). Afterwards, you will be guided on making a more complex platformer-style game, building upon what we have learned previously.
+This guide will guide you through making two simple games. One will be a top-down shooter style game that will help you become familiar with GameMaker, the program we'll be using, and with the concept of a MVP (minimum viable product). Afterwards, you will be guided on making a more complex platformer-style game, building upon what we have learned previously.
 
 ### Prerequisites
-Installing the GameMaker program. No prior coding knowledge is required.
+You must first download and install GameMaker. For Windows users, download from here [here](http://www.yoyogames.com/studio/download), and for Mac, download the Lite edition from [here](http://yoyogames.com/legacy).
 
-To install GameMaker, go to http://www.yoyogames.com/studio. Click the free download, and then install the program on your computer. 
-
-### The End Product
-2 games, one a simple top-down shooter, another being a more complex platformer.
-
-You can find sample code on [GitHub][github]
+The top-down shooter will assume no coding knowledge at all to try to introduce all the basic features of GM as an engine for learning game development. For the platformer, coding knowledge will be a major plus as we dive deeper into the capabilities of the progra.
 
 <a href="#top" class="top" id="table-of-contents">Top</a>
 ## Table of Contents
@@ -87,7 +82,7 @@ You can find sample code on [GitHub][github]
 		-	[4.3.3 A HUD](#hud)
 	-	[4.4 Menus](#menus)
 		-	[4.4.1 Pause Menu](#pause-menu)
-	-	[4.5 Last Words](#last-words-level4)	
+	-	[4.5 Last Words](#last-words-level4)
 -	[Level 5: Design Considerations](#level5)
 -	[Additional Resources](#additionalresources)
 
@@ -105,7 +100,7 @@ Goal of Level 1: Learn the basics concepts of game programming, as well as learn
 
 ### 1.1.1 What makes a good game?
 
-If you're interested in making a game, you must have played a few games here and there. As you know, there isn't a definitive definition of what a "good" game is. A game that you think is amazing might be so-so to your friend, and vice versa. However, there are certain points of games that make them stand out from the crowd. Games that allow a player as much freedom as possible, within the rules of the game, is something that allows a game to shine. These rules, or the mechanics of the game, is essentially the rules of the world that you are creating will follow. Think about how in the real world, gravity keeps us on the ground, people need to eat food to survive, or that the day has 24 hours. 
+If you're interested in making a game, you must have played a few games here and there. As you know, there isn't a definitive definition of what a "good" game is. A game that you think is amazing might be so-so to your friend, and vice versa. However, there are certain points of games that make them stand out from the crowd. Games that allow a player as much freedom as possible, within the rules of the game, is something that allows a game to shine. These rules, or the mechanics of the game, are essentially the rules of the world that you are creating will follow. Think about how in the real world, gravity keeps us on the ground, people need to eat food to survive, or that the day has 24 hours. 
 
 So, since you're interested in making games, let's think of a few things to consider before we delve into the world of creating them!
 
@@ -122,21 +117,22 @@ This tutorial will go through the steps of creating games that are pretty simple
 <a id="how-we-develop-games"></a>
 ### 1.1.3 How we Develop Games
 
-There are many ways to develop games, however, in this lesson we will be focused on developing a game centered around a mechanic.
+There are many ways to develop games. Some games arise out of a story that compels people to tell it. Others grow out of a gameplay feature that happens to be fun. In this lesson, we'll focus on developing a game with this latter approach: developing a mechanic and expanding on the game from that.
 
 <a href="#top" class="top" id="game-programming">Top</a>
 ## 1.2 Game Programming
 
-Programming patterns and concepts from other types of software are also common in games, but a game in particular is a sort of simulation of a set of rules for the game universe. Because of this, the code structure for a game typically follows two patterns:
+A game is a piece of software, so programming patterns and concepts from other types of software are also common in games. However, a game in particular is a special type of program: a sort of simulation of a set of rules for the game universe. Because of this, the code structure for a game typically follows two patterns:
 
 <a id="game-loop"></a>
 ###1.2.1 The Game Loop
-In a game, the core of the logic is contained in a loop running indefinitely, with each run of the loop simulating a number of “steps” of the game universe, followed by a render of the universe, and then a delay keeps the simulation running at a reasonable speed (e.g., 60fps).
+In a game, the core of the logic is contained in a loop running indefinitely, with each run of the loop simulating a number of *steps* of the game universe, followed by a render of the universe, and then a delay keeps the simulation running at a reasonable speed (e.g., 60fps).
 
 <a id="update-method"></a>
 ###2.2.2 The Update Method
-Most games involve entities, like players, enemies, or powerups, interacting with each other. To capture this, game engines typically divide game logic into packages called objects, each of which, in each step of the game universe, has its own behavior.
-Depending on the game you want to make, the variety of programming, math, and physics concepts you might need are endless, from pathfinding to gravity to finite state machines. The two key concepts that games use, though, are the game loop and update method. Try to keep these two ideas in the back of your mind as we see how Game Maker games are structured following this system.
+Most games involve entities, like players, enemies, or powerups, interacting with each other. To capture this, game engines typically divide game logic into packages called *objects*, each of which, in each step of the game universe, has its own behavior.
+
+Depending on the game you want to make, the variety of programming, math, and physics concepts you might need to incorporate are endless, from pathfinding to gravity to finite state machines. The two key concepts that games use, though, are the *game loop* and *update method*. Try to keep these two ideas in the back of your mind as we see how Game Maker games are structured following this system.
 
 
 <a href="#top" class="top" id="MVP">Top</a>
