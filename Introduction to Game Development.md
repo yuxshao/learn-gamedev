@@ -18,6 +18,13 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 <a href="#top" class="top" id="table-of-contents">Top</a>
 ## Table of Contents
 
+### TODO
+* Migrate everything over from Google Docs
+* Update the table of contents
+* Replace bad characters with ' and "
+* Format code snippets
+* Expand level 5
+
 -	[Level 1: General Intro to Game Design and Programming](#level1)
 	-	[1.1 Game Design considerations](#game-design-considerations)
 		-	[1.1.1 What makes a good game?](#What-makes-a-good-game)
@@ -276,39 +283,66 @@ The main actors in GameMaker games are objects, which combine a sprite with game
 
 #### 2.2.1 A Minimal Program
 
-To see how this system works, let's create a player that can move around. First, create a new object resource (i.e., click the [BLUE BALL ICON] in the top menu or right-click the folder and select the option) and name it something appropriate, like oPlayer. Underneath the name, set the sprite to sPlayer.
+To see how this system works, let¿s create a player that can move around. First, create a new object resource (right-click the folder and select, or click ![New Object](../images/shooter/new_object.png)) and name it something appropriate, like `oPlayer`. Underneath the name, set the sprite to `sPlayer`.
 
-Then, create a room resource. In the objects tab of the Room Properties window, select oPlayer, then click somewhere in the grid to place the player in the room (in addition, you can change the size of the grid with the SnapX and SnapY values at the top of the window). Then, in the settings tab, change the width and height to 320x480, and FPS to 60.
+![Player Properties](../images/shooter/obj_player.png))
 
-Now that the room's been added, the game is minimally functional. In the top menu of the main window, click the green triangle to test the game out. Your object will be there, motionless.
+Then, create a room resource. In the Objects tab of the Room Properties window, select oPlayer, then click somewhere in the grid to place the player in the room (you can change the size of the grid with the SnapX and SnapY values at the top of the window). Then, in the settings tab, name the room rGame, change the width and height to 320x480, and FPS to 60.
 
-**Adding motion**
+![Room Properties](../images/shooter/room_editor.png)
 
-To implement motion, we can use Game Maker's built-in event-action functionality. Game Maker lets us program game logic into these objects by adding statements of the form, “when [EVENT], do [ACTIONS]”, like “when <spacebar> is pressed, shoot a bullet and play a sound,” or in this case, “when <left> is pressed, move left.”
+Now that the room¿s been added, the game is minimally functional. In the main window menu, click the green triangle (![Play Game](../images/shooter/play.png)) to test the game out. Your object will be there, motionless.
 
-To see how GameMaker provides this, in the Object Properties window of your player, click “Add Event” at the bottom, select “Keyboard” (not Keyboard press), and then “Left”. A “press <Left>” event should pop up, representing the “When left is pressed…” part of the statement. Drag the action [JUMP TO POSITION ICON] on the right to the actions window, inputting setting x to -3 and y to 0, and ticking relative, to finish the statement with a “jump to your left 3 pixels.”
+##### Checkpoint
 
-Underneath the hood, GM is adding a piece of logic to the object's programming that checks if the left button is down at a particular instant and moves left if it is. This check isn't truly continuous because of the sequential nature of programs, but it's as close to continuous as possible. Instead, this piece of logic is added to the object's update method, which is run once every time step, or simulation of the game loop. This abstraction--of associating a sequence of actions to an event for every object--is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/1_minimal.gmz).
 
-SIDENOTE: Every object has a pair of coordinates (x, y) representing its position, and GameMaker draws the sprite of the object at that position once every frame. The action we added moves the object (-3, 0) from where it was before, since we ticked relative. If we hadn't ticked relative, the object would teleport to the absolute location (-3, 0) (i.e., a bit to the left of the origin, or top-left corner of the screen/room), and stay there, as soon as you pressed left.
+#### 2.2.2 Adding Motion
 
-[FIGURE: COORDINATE SYSTEM IN GAMEMAKER]
+To implement motion, we can use Game Maker¿s built-in event-action functionality. Game Maker lets us program game logic into these objects by adding statements of the form, `when [EVENT], do [ACTIONS]`, like `when <spacebar> is pressed, shoot a bullet and play a sound` or in this case, `when <left> is pressed, move left.`
+
+To see how GameMaker provides this, in the Object Properties window of your player, click ¿Add Event¿ at the bottom, select ¿Keyboard¿ (not Keyboard press), and then ¿Left¿. A ¿press <Left>¿ event should pop up, representing the ¿When left is pressed¿¿ part of the statement. Drag the action ![Move to point](../images/shooter/act_move.png) on the right to the actions window, inputting setting `x` to `-3` and `y` to `0`, and ticking relative, to finish the statement with a ¿jump to your left 3 pixels.¿
+
+![Move Left](../images/shooter/move_left.png)
+
+##### Sidenote
+
+Underneath the hood, GM is adding a piece of logic to the game¿s programming that checks if the left button is down at a particular instant and moves the player left if it is. This check isn¿t truly continuous because of the sequential nature of programs, but it¿s as close to continuous as possible. Specifically, this piece of logic is added to the object¿s update method, which is run once every time step, or simulation of the game loop, so *every frame, the program checks if left is pressed, and moves the player 3 pixels to the left if it is.*
+
+This abstraction--of associating a sequence of actions to an event for every object--is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.
+
+##### Sidenote
+
+Every object has a pair of coordinates `(x, y)` representing its position, and GameMaker draws the sprite of the object at that position once every frame. The action we added moves the object `(-3, 0)` from where it was before, since we ticked relative. If we hadn¿t ticked relative, the object would teleport to the absolute location `(-3, 0)` (i.e., a bit to the left of the global origin, or top-left corner of the screen/room), and stay there, as soon as you pressed left.
+(In the representation below, pressing left would move the ship to (45, 44) the next frame)
+
+![Coordinate System in GM](../images/shooter/coords.png)
 
 If you rerun the game, your player will slide to the left when you hold the left button down. Try to repeat with the other direction to give the player full horizontal mobility.
 
-**Shooting**
+#### 2.2.3 Shooting
 
 We can continue using these event-action pairs to make the player shoot bullets, and demonstrate how objects can interact.
-First, create an oBullet object and assign the sBullet sprite to the object. In the oBullet object, we add a Create event and add a [SET VERTICAL SPEED ICON] action to set the vertical speed to, say, -8, so when it spawns moves upwards. Add another event, “Outside Room”, and insert a [DESTROY] action (accessible from the main1 tab on the right) to remove the bullet once it leaves the screen (so we don't simulate it any more than we need to).
-Back in the oPlayer object properties box, add a press <Space> event (click Add Event, then Key Press, then Space) and put in there a [CREATE INSTANCE ICON] action with object oBullet, position x = 12, y = 0, and with relative ticked. We can drag another action underneath, [SOUND PLAY ICON] from the main1 tab, and select to play the shoot sound we added earlier.
+First, create an oBullet object and assign the sBullet sprite to the object. In the oBullet object, we add a Create event and add a ![vspeed](../images/shooter/act_vsp.png) action to set the vertical speed to -8. This means ¿when I¿m spawned, set my speed to 8 pixels up every frame.¿ Add another event, ¿Outside Room¿, and insert a ![destroy](../images/shooter/act_destroy.png) action (accessible from the main1 tab on the right) to remove the bullet once it leaves the screen (so we don¿t simulate it any more than we need to).
+Back in the oPlayer object properties box, add a press <Space> event (click Add Event, then Key Press, then Space) and put in there a ![create](../images/shooter/act_create.png) action with object oBullet, position x = 12, y = 0, and with relative ticked. We can drag another action underneath,  from the main1 tab, and select to play the shoot sound we added earlier. Understandably, this spawns the bullet and plays a sound when space is pressed.
 
-SIDENOTE: The [CREATE ICON] action creates a bullet at (12, 0) relative to the player position. The way we've set it up, this means that the bullet we create will be placed such that its top-left corner is 12 pixels to the right of the player's top-left corner (see the figure).
+##### Sidenote
+![create](../images/shooter/act_create.png) creates a bullet at (12, 0) relative to the player position. The way we¿ve set it up, this means that the bullet we create will be placed such that its top-left corner is 12 pixels to the right of the player¿s top-left corner (see the figure).
 
-[FIGURE: creating an object at a position]
+![Origin corner](../images/shooter/origin_corner.png)
 
-SIDESIDENOTE: If you're interested in avoiding these ugly numbers, take a look at sprite origins, which are special coordinates for each sprite, editable in the sprite properties window. When GM renders an object at a position (x, y), it draws the object's sprite so that the origin of that sprite is at (x, y). Sprites are created with origins at (0, 0). You can move the origin to the centre of the sprite by clicking “Center” on both the player and bullet sprites. Creating a bullet at (0, 0) relative to the player will then make the centre of the bullet align with the centre of the player, as desired. 
+##### Sidenote
+If you¿re interested in avoiding these ugly numbers, take a look at sprite origins, which are special coordinates for each sprite, editable in the sprite properties window. When GM renders an object at a position (x, y), it draws the object¿s sprite so that the origin of that sprite is at (x, y). Sprites are created with origins at (0, 0). You can move the origin to the centre of the sprite by clicking ¿Center¿ on both the player and bullet sprites. Creating a bullet at (0, 0) relative to the player will then make the centre of the bullet align with the centre of the player, as desired.
 
-[FIGURE: creating an object at a position--origin centre]
+![Origin centre](../images/shooter/origin_center.png)
+
+(Green x shows origin of both bullet and player, which we now set to the centre of the sprite. Creating a bullet at (0, 0) relative to the player thus aligns the two origins)
+
+The remainder of this shooter will keep sprite origins at (0, 0), but expect to use sprite origins in the next step--the platformer.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/2_moveshoot.gmz).
 
 <a id="object-interaction-enemies"></a>
 ###2.2.3 Object Interaction: Enemies
