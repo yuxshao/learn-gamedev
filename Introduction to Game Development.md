@@ -217,44 +217,64 @@ After you've done that, try to boil down your game into its core mechanic. Make 
 Once you're done with these levels, you should be able to create your MVP in GameMaker.
 
 <a href="#top" class="top" id="top-down-shooter">Top</a>
-## Level 2: Your First Game! Making an MVP
+## Level 2: A Top-Down Shooter
 
-<a href="#top" class="top" id="basic-top-down-shooter">Top</a>
-### 2.2 Basic Top-Down Shooter
+We¿ll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player¿s level. You can move horizontally and shoot upwards.
 
-We'll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player's level. You can move horizontally and shoot upwards. 
-
-<a id="create-resource-sounds-sprites"></a>
-###2.2.1 Creating Resources - Sounds and Sprites
-
-In this section, we'll focus on creating and adding assets to our game. When you first open GameMaker, you should see a window similar to the one in the screenshot below.
-[GAME MAKER WINDOW]
+For Windows, when you first open GM Studio, you should see a window similar to the one in the screenshot below.
+![GM Window](../images/shooter/start.png)
 The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is, we'll give a quick walkthrough of adding sprites, sounds, and backgrounds.
 
-**Creating a Sprite**
+Navigate to the ¿New¿ tab and select a location to put all the files related to the game we¿ll be making. GM studio projects are folders with extension .gmx, containing a main project file with an extension .project.gmx, and several subfolders for the game¿s resources. In addition it¿s possible to export and send the entire project as a single compressed .gmz file (File > Export Project in the next window).
 
-To create a sprite, either click the pac-man icon in the top menu, or right-click the Sprites folder and select new sprite. The Sprite Properties window shows up. Name the sprite something appropriate, like sPlayer, for a player sprite. To modify the actual graphic of the sprite, you can choose to load a premade image or edit the sprite yourself and click the appropriate button. We've provided sample sprites with the tutorial that you can load. If you prefer to make your own, click “Edit Sprite” to open up the sprite editor and click “New Sprite”. Specify the dimensions (this applies only for Windows users), and double-click the “image 0” that's appeared in the sprite editor.
+Once you select a name and location for your project, a window like the one below should pop up. Something similar to the window below should be the first window you see on Mac, after the little popup asking you to buy the full version. If GM asks if you want to enable advanced mode, answer yes.
 
-Try to add another sprite to represent the player's bullets! A graphic is provided.
+![GM Interface](../images/shooter/interface.png)
 
-A background is similar, and we've provided one. Create a background resource and load ours or draw your own backdrop for our ultimate space battle. Try to make it tile!
-Sidenote: IMO GM's sprite editor is reasonably powerful but some things are hard to find, like resizing the canvas. This is because sprites can actually contain multiple subimages of the same size, to be used in e.g., animation, or different states of an object, like a stoplight with different lights on. For professional pixel art, consider drawing in GraphicsGale or Aseprite and then loading.
-The remaining options in the sprite properties dialog box have to do with how the rest of the game renders and interacts with objects with this sprite. We can get into them later.
+The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is (or tries to be), we¿ll give a quick walkthrough of adding sprites, sounds, and backgrounds to a project.
 
-**Adding a sound**
+<a id="create-resource-sounds-sprites"></a>
+###2.1 Creating Resources - Sounds and Sprites
 
-We've provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Double-click the Sounds folder and clicking Create Sound, or clicking the speaker icon in the top menu. Click the folder icon at the top of the Sound Properties window to load the sprite.) For our purposes, the other settings don't need to be changed.
+In this section, we¿ll focus on creating and adding assets to our game.
 
-**Notes**
+#### 2.1.1 Creating a Sprite
 
-One thing you might notice is that Game Maker provides a lot of options and settings to tweak for each resource. This is just because Game Maker has a lot of built-in functionality for common game use-cases, which is partly why prototyping can be really fast with GM. We avoid these settings for now as we have no use for them, but the help manual goes into them pretty well if you're interested.
+To create a sprite, either click the pac-man icon (![New Sprite](../images/shooter/new_sprite.png)) in the top menu, or right-click the Sprites folder and select new sprite. The Sprite Properties window shows up.
+
+![Sprite Properties](../images/shooter/sprite_properties.png)
+
+Name the sprite something appropriate, like sPlayer, for a player sprite. To modify the actual graphic of the sprite, you can choose to load a premade image or edit the sprite yourself and click the appropriate button. We¿ve provided sample sprites with the tutorial that you can load. If you prefer to make your own, click ¿Edit Sprite¿ to open up the Sprite Editor and click ¿New Sprite¿. Specify the dimensions, and double-click the ¿image 0¿ that¿s appeared in the sprite editor to open up the Image Editor and start drawing. After you load the image or draw your own, your Sprite Editor should look something like what¿s shown below.
+
+![Sprite Editor](../images/shooter/sprite_editor.png)
+
+Save and close the editor and properties window--you¿re done with this sprite. Try to add another sprite to represent the player¿s bullets! A graphic is provided.
+
+A background is similar. Create a background resource (right-click the folder or click ![New Background](../images/shooter/new_back.png)) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!
+
+##### Sidenote
+
+In my opinion, GM¿s Image Editor is reasonably powerful but some things are hard to find, like resizing the canvas. (Resizing is particularly annoying because sprites can actually contain multiple subimages of the same size, to be used in e.g., animation, or different states of an object, like a stoplight with different images corresponding to different lights on.) For professional pixel art, consider drawing in GraphicsGale or Aseprite and then loading.
+
+The remaining options (origin, collision, texture) in the sprite properties dialog box have to do with how the rest of the game renders and interacts with objects with this sprite. We¿ll get into some of them later.
+
+#### 2.1.2 Adding a Sound
+
+We¿ve provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Right-click the folder, or click ![New Sound](../images/shooter/new_sound.png)) For our purposes, just loading the sound and naming it properly (e.g., sShoot) is enough. The other settings don¿t need to be changed.
+
+##### Sidenote
+
+One thing you might notice is that Game Maker provides a lot of options and settings to tweak for each resource. This is just because Game Maker has a lot of built-in functionality for common game use-cases, which is partly why prototyping can be really fast with GM. We avoid these settings for now as we have no use for them, but the help manual goes into them pretty well if you¿re interested.
+
+In addition, many settings shown in the screenshots might not be available in GM for Mac. In that case, don¿t worry. If we don¿t mention it in the text, the settings aren¿t changed, and the default functionality in GM for Mac is good enough.
+
 
 <a id="basic-game-logic"></a>
-###2.2.2 Basic Game Logic
+### 2.2 Basic Game Logic
 
-The main actors in GameMaker games are objects, which combine a sprite with game logic that is run on every step of the simulation. Objects are then placed in things called rooms, which serve as an environment for objects to interact with each other and you in a game.
+The main actors in GameMaker games are objects, which combine a sprite with game logic that is run on every step of the simulation. Objects are then placed in things called Rooms, which serve as an environment for objects to interact with each other and you in a game.
 
-**A minimal program**
+#### 2.2.1 A Minimal Program
 
 To see how this system works, let's create a player that can move around. First, create a new object resource (i.e., click the [BLUE BALL ICON] in the top menu or right-click the folder and select the option) and name it something appropriate, like oPlayer. Underneath the name, set the sprite to sPlayer.
 
