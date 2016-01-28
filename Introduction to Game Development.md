@@ -769,7 +769,7 @@ Our final vertical collision code is
     if (z != noone) {
         vspeed = 0;
         if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-    else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+        else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
     }
 
 <a id="hitting-block-side"></a>
@@ -780,10 +780,10 @@ When the player hits the side of the block, he should stop all horizontal moveme
     z = instance_place(x+hspeed, y+vspeed, oBlock);
     if (z != noone) {
         hspeed = 0;
-    lspeed = 0;
-    rspeed = 0;
+        lspeed = 0;
+        rspeed = 0;
         if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-    else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
     }
 
 Replace the vertical collision detection code with this to see the player react horizontally upon touching a block, though it may be hard and awkward to test as the player can't land any more.
@@ -833,15 +833,15 @@ Our final code:
         hspeed = 0;
         lspeed = 0;
         rspeed = 0;
-    if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-    else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
     }
 
     z = instance_place(x+hspeed, y+vspeed, oBlock);
     if (z != noone) {
         vspeed = 0;
         if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-    else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+        else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
     }
 
 <a id="jump-right-time"></a>
@@ -876,15 +876,15 @@ Then use them in the collision code:
     if (z != noone) {
         hspeed = 0; lspeed = 0; rspeed = 0;
         xrounded = floor(x);
-    if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-    else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
     }
 
     z = instance_place(xrounded, yrounded, oBlock);
     if (z != noone) {
         vspeed = 0;
         if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-    else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+        else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
     }
 
 This concludes our main platforming engine section. Hopefully it didn't seem like just a list of magical steps, but instead a case study in breaking a problem in simulation down to simpler components. Of course, we omitted a big part of the process: testing and experimentation, figuring out what's wrong at each step. A platforming engine is hard to make on your first try, and even on your n-th try, because there are so many cases to consider and bang your head over.
@@ -1305,7 +1305,7 @@ and performing correct logic means enabling pausing and unpausing depending on t
 
     switch (room) {
     case rIntro: case rInfo: case rGameOver: // for menu/info rooms,
-        // don't do anything    
+        // don't do anything
         break;
     case rPause: // in the pause room,
         // if p is pressed, go back to the room you came from and unset the persistence
@@ -1338,7 +1338,7 @@ which roughly translates to, in the Step event:
 
 Which remembers if the room was persistent before the pause room, and sets it back to the previous setting upon unpause.
 
-The slight problem with this is that room_goto(...) changes the room only at the end of all the steps, so resetting the room persistence must be done a step later, when we're actually back in the room. To do this, we give cPause an extra flag, resetPersistent, and initialize it to false in the Create event, to keep track of whether or not the room's persistent flag needs to be reset or not.
+The slight problem with this is that `room_goto(...)` changes the room only at the end of all the steps, so resetting the room persistence must be done a step later, when we're actually back in the room. To do this, we give cPause an extra flag, resetPersistent, and initialize it to false in the Create event, to keep track of whether or not the room's persistent flag needs to be reset or not.
 
     switch (room) {
     case rIntro: case rInfo: case rGameOver:
