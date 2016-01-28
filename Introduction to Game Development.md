@@ -1,7 +1,7 @@
 <a id="top"></a>
 # Introduction to Game Development
 
-*Design Principles and Game Maker*
+*Design Principles and Game Programming*
 
 Written and developed by [CU Game Dev](http://cugamedev.org/) and [ADI](adi).
 
@@ -21,7 +21,7 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 # Table of Contents
 
 ### TODO
-* Expand level 5
+* talk about how in teh sample the platformer level is really small but you should make a bigger one
 * talk about finite state machines
 * Flesh out MVP section if possible?
 * Talk about sprite editor in MAC: removing a sprite means cutting it. Also, sprite strips?
@@ -61,7 +61,7 @@ separator
 		-	[2.5.1 Enemy Fire](#enemy-fire)
 		-	[2.5.2 Enemy Spawning](#enemy-spawning)
 	-	[2.6 Polishing up our Game](#polish)
-		-	[2.6.1 Enemy Fire](#backgrounds-rooms)
+		-	[2.6.1 Backgrounds in Rooms](#backgrounds-rooms)
 		-	[2.6.2 Animations & Explosions](#animations-explosions)
 		-	[2.6.3 Other Suggestions](#other-suggestions)
 -	[Level 3: Creating a Platformer](#level3)
@@ -74,10 +74,9 @@ separator
 		-	[3.3.1 A First Attempt](#first-attempt)
 		-	[3.3.2 Smooth Movement](#smooth-movement)
 	-	[3.4 Vertical Movement](#vertical-movement)
-		-	[3.4.1 Gravity](#gravity)
-		-	[3.4.2 Jumping](#jumping)
-		-	[3.4.3 Stopping Your Jump](#stopping-your-jump)
-		-	[3.4.4 Walking Animation](#walking-animation)
+		-	[3.4.1 Gravity & Jumping](#gravity)
+		-	[3.4.2 Stopping Your Jump](#stopping-your-jump)
+		-	[3.4.3 Walking Animation](#walking-animation)
 	-	[3.5 Platform Collision](#platform-collision)
 		-	[3.5.1 Landing on a Block](#landing-block)
 		-	[3.5.2 Hitting a Block from the Bottom](#hitting-block-bottom)
@@ -108,9 +107,11 @@ separator
 
 ------------------------------
 <a href="#top" class="top" id="level1">Top</a>
-# Level 1: Game Design & Programming Intro
+# Level 1: Design & Programming Intro
 
-Goal of Level 1: Learn the basics concepts of game programming, as well as learning what a Minimum Viable Product is.
+> **Goal** - Learn about common game development tools, basics game programming concepts, and minimum viable products is.
+
+In this first section, we'll speak a little about getting into a game development mindset, mention a few considerations when making a game, and introduce a bunch of tools that studios and individuals use in making a game.
 
 <a href="#top" class="top" id="game-design-considerations">Top</a>
 ## 1.1 Game Design Considerations
@@ -151,7 +152,7 @@ In a game, the core of the logic is contained in a loop running indefinitely, wi
 ### 1.2.2 The Update Method
 Most games involve entities, like players, enemies, or powerups, interacting with each other. To capture this, game engines typically divide game logic into packages called *objects*, each of which, in each step of the game universe, has its own behavior.
 
-Depending on the game you want to make, the variety of programming, math, and physics concepts you might need to incorporate are endless, from pathfinding to gravity to finite state machines. The two key concepts that games use, though, are the *game loop* and *update method*. Try to keep these two ideas in the back of your mind as we see how Game Maker games are structured following this system.
+Depending on the game you want to make, the variety of programming, math, and physics concepts you might need to incorporate are endless, from pathfinding to gravity to finite state machines. The two key concepts that games use, though, are the *game loop* and *update method*. It's not that important to know exactly what they mean at this point, but try to keep these two ideas in the back of your mind as we see how Game Maker games are structured following this system.
 
 
 <a href="#top" class="top" id="MVP">Top</a>
@@ -245,7 +246,7 @@ Once you're done with these levels, you should be able to create your MVP in Gam
 <a href="#top" class="top" id="top-down-shooter">Top</a>
 # Level 2: A Top-Down Shooter
 
-Goal of Level 2: Create a basic game and get familiar with GameMaker
+> **Goal** - Create a basic game and get familiar with GameMaker
 
 We'll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player's level. You can move horizontally and shoot upwards.
 
@@ -287,10 +288,7 @@ A background is similar. Create a background resource (right-click the folder or
 
 The remaining options (origin, collision, texture) in the sprite properties dialog box have to do with how the rest of the game renders and interacts with objects with this sprite. We'll get into some of them later.
 
-<a id="add-sound"></a>
-### 2.1.2 Adding a Sound
-
-We¿ve provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Right-click the folder, or click ![New Sound](../images/shooter/new_sound.png)) For our purposes, just loading the sound and naming it properly (e.g., sShoot) is enough. The other settings don¿t need to be changed.
+<a id="adding-a-sound"></a>
 ### 2.1.2 Adding a Sound
 
 We've provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Right-click the folder, or click ![New Sound](../images/shooter/new_sound.png)) For our purposes, just loading the sound and naming it properly (e.g., sShoot) is enough. The other settings don't need to be changed.
@@ -512,7 +510,7 @@ In the next tutorial, we'll go through the scripting capabilities of Game Maker 
 <a href="#top" class="top" id="level3">Top</a>
 #Level 3: Making a Platformer
 
-Goal for Level 3: Making a basic platformer game and going more in-depth with game programming.
+> **Goal** - Gearn more about the features of GM, familiarize with the game programming mindset, and make a basic platformer.
 
 In this platformer tutorial we'll take a different approach with GM, instead limiting ourselves to just a few of the built-in features related to resources and coding the rest ourselves, to get a feel for how GameMaker works underneath the event-driven model (and how game engines in general work), and look a bit at some of the problems games programmers face in implementing mechanics.
 
@@ -621,7 +619,7 @@ If you rerun the game, you'll notice that while we haven't done anything fancy t
 The vertical movement in a platformer is governed by gravity, which is usually a constant downwards acceleration. In addition to that, the player should be able to jump. For this section, we'll add gravity but no ground, and instead give the player the ability to jump in the air.
 
 <a id="gravity"></a>
-###3.4.1 Gravity
+###3.4.1 Gravity & Jumping
 
 A constant downward acceleration translates to a continuous addition of downward speed. We can do this by defining `grav = 0.23` in the Create event and then `vspeed += grav` in the Step event.
 
@@ -900,7 +898,7 @@ Now, we'll head back to a few more common concepts in game programming.
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/5_blocks.gmz).
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/5_blocks.gmz). The level in the zip here is minimal; try to make your own!
 
 <a href="#top" class="top" id="views">Top</a>
 ##3.6 Views
@@ -1007,7 +1005,7 @@ You can download the GM project with everything up to this step [here](../resour
 <a href="#top" class="top" id="level4">Top</a>
 ##Level 4: States and Menus
 
-Goal in Level 4: To create a menu screen, multiple rooms, room transitions, and game start and over screens by utilizing the concept of states in video games.
+> **Goal** Use the concept of states in games by creating a multiple game screens with rooms, and learn about manual drawing
 
 <a href="#top" class="top" id="states">Top</a>
 ### 4.1 States in Games
@@ -1378,29 +1376,29 @@ Deliberately thinking about software, and especially a game, in terms of states,
 <a href="#top" class="top" id="level5">Top</a>
 ##Level 5: Design considerations: What will make your game stand out from the crowd?
 
-Goal for Level 5: Implimenting your own ideas on the basic platformer created.
+> **Goal** Implement your own ideas into the basic platformer we made.
 
 Congratulations! You made it to the end of this lesson! Now that you have made two games, and have gotten a feel for game design, why don't you start embellishing these games to make them truly stand out? We don't go step by step for these suggestions, but we'll give helpful hints to guide you.
 
 Now, here are some gimmicks you can try to add into your game! For now, pick one you want to work on and try implementing that in the platformer we made together.
 
-**Power-up items**
+##### Power-up items
 
 Remember how we added coins in our platformer? Adding items is probably the next thing that came into your mind. Adding an item is very similar to adding a coin into your platformer, and the effect they have can be determined by you! Just like how we wrote how to make the coin counter go up as you collected more coins, you can code in specific effects, like the player getting larger or becoming invinsible, as well.
 
-**Gaining extra lives based on some value**
+##### Extra life mechanism
 
 Have you played Super Mario Bros.? If you have, you would probably know that collecting 100 coins nets you an extra life. Why don't you try adding that in to your game? But, it doesn't have to necessariliy be the number of coins. Why not have it so that for every 1000 points in your score you get an extra life? Try to get creative here! And why an extra life? Why not make it that the player becomes invincible? Or super big? Or anything really that you can come up with!
 
-**Special platforms/spaces**
+##### Special platforms/spaces
 
 Now that you know that everything in a room in GameMaker is an object, why not play with that idea and try to make special platforms or spaces? How about a space that makes the player super fast for a few seconds? Or maybe a spring to let them jump higher? By making special space objects and adding events to either the player or the space itself to give these effects can help make your platformer more dynamic and open up new revenues for in-game puzzles and more creative level designs!
 
-**Shooting and running, at the same time**
+##### Shooting and Running
 
 Have you ever played Mega Man? Well, even if you haven't, you probably know that our little blue hero can run and shoot out bullets at the same time to kill enemies in his way. Why not try to implement this mechanic in your game by using the techniques from the top-down shooter to help you? Just keep in mind where the bullets are being created, in what direction they should go depending on the inputs, and how frequently they can be shot.
 
-**Setting a time limit**
+##### Time Limit
 
 A time limit is a pretty common aspect in platformers. We can't have the player just sit around while the game runs, now can we? Try creating a time limit for the platformer level you designed. You can have it so that after a certain amount of seconds have passed that a sound or visual effect can happen to alert the player. Think about how the game is running, and with that knowledge try to implement a limit to how long the player can take for your level!
 
@@ -1409,11 +1407,13 @@ The possibilities are endless when designing a game. This is a world you're crea
 <a href="#top" class="top" id="additionalresources">Top</a>
 ## Additional Resources
 
-Along with this tutorial, there is a wealth of information available on Python all across the web. Below are some good places to start:
+This tutorial tries to give a quick overview of a lot of aspects of game development. The best way to learn more game programming is to have a project in mind. Think about the mechanics your project would need, and search up tutorials for those specific behaviors, thus building up your library of techniques. This piecewise learning process is particularly well suited to games just because it's so easy to think of something concrete to add.
 
-- [ADI Resources][learn]
-- [Codecademy][codecademy]
+Other than that, some good resources for game development are listed below:
 
+* [Ludum Dare](http://ludumdare.com/compo/) - A game jam with a great community and links to tutorials and tools
+* [Gamasutra](http://gamasutra.com/) - A news site for game developers, with articles on design and programming
+* [gamedev.net](http://www.gamedev.net/page/index.html) - A huge community and library of tutorials, from basic beginner development, to design, to advanced graphics
 
 
 [github]: https://github.com/yuxshao/learn-gamedev.git
