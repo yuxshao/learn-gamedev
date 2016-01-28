@@ -394,7 +394,7 @@ GM provides a scripting language to allow for traditional control flow structure
 
 Every object is allowed to have any (reasonable) number of values associated with it, called variables, that store things like numbers, pieces of text, or other objects. Their use is what you'd expect: keeping track of, e.g., an individual's score in an arcade game, or status message in an MMO. We'll use variables to keep track of enemy health, so that 3 hits will destroy an enemy ship instead of just one.
 
-While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the ![var set](../images/shooter/act_var.png) action in the control tab. To start the enemy off with 3 health, use ![var set](../images/shooter/act_var.png) to set `hp` (not `health&mdash;see below) to 3 in the Create event. Since this is the first mention of the variable `hp`, it also tells GameMaker that this object has a variable called `hp`.
+While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the ![var set](../images/shooter/act_var.png) action in the control tab. To start the enemy off with 3 health, use ![var set](../images/shooter/act_var.png) to set `hp` (not `health`&mdash;see below) to 3 in the Create event. Since this is the first mention of the variable `hp`, it also tells GameMaker that this object has a variable called `hp`.
 
 ![enemy hp](../images/shooter/enemyhp.png)
 
