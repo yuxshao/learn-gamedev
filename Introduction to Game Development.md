@@ -265,9 +265,9 @@ Save and close the editor and properties window--you¿re done with this sprite. T
 
 A background is similar. Create a background resource (right-click the folder or click ![New Background](../images/shooter/new_back.png)) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!
 
-##### Sidenote
+> ##### Sidenote
 
-In my opinion, GM¿s Image Editor is reasonably powerful but some things are hard to find, like resizing the canvas. (Resizing is particularly annoying because sprites can actually contain multiple subimages of the same size, to be used in e.g., animation, or different states of an object, like a stoplight with different images corresponding to different lights on.) For professional pixel art, consider drawing in GraphicsGale or Aseprite and then loading.
+> In my opinion, GM¿s Image Editor is reasonably powerful but some things are hard to find, like resizing the canvas. (Resizing is particularly annoying because sprites can actually contain multiple subimages of the same size, to be used in e.g., animation, or different states of an object, like a stoplight with different images corresponding to different lights on.) For professional pixel art, consider drawing in GraphicsGale or Aseprite and then loading.
 
 The remaining options (origin, collision, texture) in the sprite properties dialog box have to do with how the rest of the game renders and interacts with objects with this sprite. We¿ll get into some of them later.
 
@@ -275,11 +275,11 @@ The remaining options (origin, collision, texture) in the sprite properties dial
 
 We¿ve provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Right-click the folder, or click ![New Sound](../images/shooter/new_sound.png)) For our purposes, just loading the sound and naming it properly (e.g., sShoot) is enough. The other settings don¿t need to be changed.
 
-##### Sidenote
+> ##### Sidenote
 
-One thing you might notice is that Game Maker provides a lot of options and settings to tweak for each resource. This is just because Game Maker has a lot of built-in functionality for common game use-cases, which is partly why prototyping can be really fast with GM. We avoid these settings for now as we have no use for them, but the help manual goes into them pretty well if you¿re interested.
+> One thing you might notice is that Game Maker provides a lot of options and settings to tweak for each resource. This is just because Game Maker has a lot of built-in functionality for common game use-cases, which is partly why prototyping can be really fast with GM. We avoid these settings for now as we have no use for them, but the help manual goes into them pretty well if you¿re interested.
 
-In addition, many settings shown in the screenshots might not be available in GM for Mac. In that case, don¿t worry. If we don¿t mention it in the text, the settings aren¿t changed, and the default functionality in GM for Mac is good enough.
+> In addition, many settings shown in the screenshots might not be available in GM for Mac. In that case, don¿t worry. If we don¿t mention it in the text, the settings aren¿t changed, and the default functionality in GM for Mac is good enough.
 
 
 <a id="basic-game-logic"></a>
@@ -311,20 +311,22 @@ To see how GameMaker provides this, in the Object Properties window of your play
 
 ![Move Left](../images/shooter/move_left.png)
 
-##### Sidenote
+> ##### Sidenote
 
-Underneath the hood, GM is adding a piece of logic to the game¿s programming that checks if the left button is down at a particular instant and moves the player left if it is. This check isn¿t truly continuous because of the sequential nature of programs, but it¿s as close to continuous as possible. Specifically, this piece of logic is added to the object¿s update method, which is run once every time step, or simulation of the game loop, so *every frame, the program checks if left is pressed, and moves the player 3 pixels to the left if it is.*
+> Underneath the hood, GM is adding a piece of logic to the game¿s programming that checks if the left button is down at a particular instant and moves the player left if it is. This check isn¿t truly continuous because of the sequential nature of programs, but it¿s as close to continuous as possible. Specifically, this piece of logic is added to the object¿s update method, which is run once every time step, or simulation of the game loop, so *every frame, the program checks if left is pressed, and moves the player 3 pixels to the left if it is.*
 
-This abstraction--of associating a sequence of actions to an event for every object--is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.
+> This abstraction--of associating a sequence of actions to an event for every object--is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.
 
-##### Sidenote
 
-Every object has a pair of coordinates `(x, y)` representing its position, and GameMaker draws the sprite of the object at that position once every frame. The action we added moves the object `(-3, 0)` from where it was before, since we ticked relative. If we hadn¿t ticked relative, the object would teleport to the absolute location `(-3, 0)` (i.e., a bit to the left of the global origin, or top-left corner of the screen/room), and stay there, as soon as you pressed left.
-(In the representation below, pressing left would move the ship to (45, 44) the next frame)
 
-![Coordinate System in GM](../images/shooter/coords.png)
+> ##### Sidenote
 
-If you rerun the game, your player will slide to the left when you hold the left button down. Try to repeat with the other direction to give the player full horizontal mobility.
+> Every object has a pair of coordinates `(x, y)` representing its position, and GameMaker draws the sprite of the object at that position once every frame. The action we added moves the object `(-3, 0)` from where it was before, since we ticked relative. If we hadn¿t ticked relative, the object would teleport to the absolute location `(-3, 0)` (i.e., a bit to the left of the global origin, or top-left corner of the screen/room), and stay there, as soon as you pressed left.
+> (In the representation below, pressing left would move the ship to `(45, 44)` the next frame)
+
+> ![Coordinate System in GM](../images/shooter/coords.png)
+
+> If you rerun the game, your player will slide to the left when you hold the left button down. Try to repeat with the other direction to give the player full horizontal mobility.
 
 ### 2.2.3 Shooting
 
@@ -332,19 +334,18 @@ We can continue using these event-action pairs to make the player shoot bullets,
 First, create an oBullet object and assign the sBullet sprite to the object. In the oBullet object, we add a Create event and add a ![vspeed](../images/shooter/act_vsp.png) action to set the vertical speed to -8. This means ¿when I¿m spawned, set my speed to 8 pixels up every frame.¿ Add another event, ¿Outside Room¿, and insert a ![destroy](../images/shooter/act_destroy.png) action (accessible from the main1 tab on the right) to remove the bullet once it leaves the screen (so we don¿t simulate it any more than we need to).
 Back in the oPlayer object properties box, add a press <Space> event (click Add Event, then Key Press, then Space) and put in there a ![create](../images/shooter/act_create.png) action with object oBullet, position x = 12, y = 0, and with relative ticked. We can drag another action underneath,  from the main1 tab, and select to play the shoot sound we added earlier. Understandably, this spawns the bullet and plays a sound when space is pressed.
 
-##### Sidenote
-![create](../images/shooter/act_create.png) creates a bullet at (12, 0) relative to the player position. The way we¿ve set it up, this means that the bullet we create will be placed such that its top-left corner is 12 pixels to the right of the player¿s top-left corner (see the figure).
+> ##### Sidenote
+> ![create](../images/shooter/act_create.png) creates a bullet at (12, 0) relative to the player position. The way we¿ve set it up, this means that the bullet we create will be placed such that its top-left corner is 12 pixels to the right of the player¿s top-left corner (see the figure).
 
-![Origin corner](../images/shooter/origin_corner.png)
+> ![Origin corner](../images/shooter/origin_corner.png)
 
-##### Sidenote
-If you¿re interested in avoiding these ugly numbers, take a look at sprite origins, which are special coordinates for each sprite, editable in the sprite properties window. When GM renders an object at a position (x, y), it draws the object¿s sprite so that the origin of that sprite is at (x, y). Sprites are created with origins at (0, 0). You can move the origin to the centre of the sprite by clicking ¿Center¿ on both the player and bullet sprites. Creating a bullet at (0, 0) relative to the player will then make the centre of the bullet align with the centre of the player, as desired.
+> If you¿re interested in avoiding these ugly numbers, take a look at sprite origins, which are special coordinates for each sprite, editable in the sprite properties window. When GM renders an object at a position (x, y), it draws the object¿s sprite so that the origin of that sprite is at (x, y). Sprites are created with origins at (0, 0). You can move the origin to the centre of the sprite by clicking ¿Center¿ on both the player and bullet sprites. Creating a bullet at (0, 0) relative to the player will then make the centre of the bullet align with the centre of the player, as desired.
 
-![Origin centre](../images/shooter/origin_center.png)
+> ![Origin centre](../images/shooter/origin_center.png)
 
-(Green x shows origin of both bullet and player, which we now set to the centre of the sprite. Creating a bullet at (0, 0) relative to the player thus aligns the two origins)
+> (Green x shows origin of both bullet and player, which we now set to the centre of the sprite. Creating a bullet at (0, 0) relative to the player thus aligns the two origins)
 
-The remainder of this shooter will keep sprite origins at (0, 0), but expect to use sprite origins in the next step--the platformer.
+> The remainder of this shooter will keep sprite origins at (0, 0), but expect to use sprite origins in the next step--the platformer.
 
 ##### Checkpoint
 
@@ -358,9 +359,9 @@ By this point adding resources should be familiar. Just as we did with the playe
 
 We¿ll eventually make it so that the game periodically spawns enemies that slowly move down. One way to have the enemies move down is to program the enemies to have a downward speed upon creation: Add Event -> Create, and drag the ![vspeed](../images/shooter/act_vsp.png) action to the actions window, with a speed of 0.5 or so.
 
-##### Sidenote
+> ##### Sidenote
 
-This is another built-in feature of GM. Just as every object has a position (x, y), every object has a horizontal and vertical speed (hspeed, vspeed), and every frame, the object¿s position is shifted by the speed. Setting the vertical speed to 1 would make the object move down a pixel every frame. As with position, ticking relative in the ![vspeed](../images/shooter/act_vsp.png) action would instead add 1 to the current vertical speed of the object (it doesn¿t matter here since the object starts out stationary).
+> This is another built-in feature of GM. Just as every object has a position (x, y), every object has a horizontal and vertical speed (hspeed, vspeed), and every frame, the object¿s position is shifted by the speed. Setting the vertical speed to 1 would make the object move down a pixel every frame. As with position, ticking relative in the ![vspeed](../images/shooter/act_vsp.png) action would instead add 1 to the current vertical speed of the object (it doesn¿t matter here since the object starts out stationary).
 
 Another behavior we might want is to have them disappear upon hitting a player bullet. This can be done with the collision event: In the oEnemy¿s Object Properties window, click Add Event -> Collision -> oBullet to include the event and drag the ![destroy](../images/shooter/act_destroy.png) action (tab main1) to the actions window. Additionally we might want the bullet to be destroyed too, which we can do by dragging another ![destroy](../images/shooter/act_destroy.png) and set the target to ¿Other¿ instead of ¿Self¿.
 
@@ -382,15 +383,15 @@ While there¿s no explicit way to declare what variables you want an object to ha
 
 ![enemy hp](../images/shooter/enemyhp.png)
 
-##### Sidenote
+> ##### Sidenote
 
-GameMaker provides a built-in global variable (i.e., not different for each object) called health for player health. I guess it¿s there for people new to GM since there¿s a tab dedicated to these variables (score, health, lives), but they¿re no different from regular variables. We won¿t be using these global variables and indeed it¿s an inconvenience to have these variable names reserved by GM like that.
+> GameMaker provides a built-in global variable (i.e., not different for each object) called health for player health. I guess it¿s there for people new to GM since there¿s a tab dedicated to these variables (score, health, lives), but they¿re no different from regular variables. We won¿t be using these global variables and indeed it¿s an inconvenience to have these variable names reserved by GM like that.
 
 In the collision with the bullet, we want to decrement `hp` and now only want to disappear if the health hits 0. To do this, we can ![var set](../images/shooter/act_var.png) to set `hp` to -1, ticking relative. Then underneath, use a  ![var check](../images/shooter/act_var2.png) to check if `hp` is equal to 0, and put the self-![destroy](../images/shooter/act_destroy.png) action right underneath the condition. The ![var check](../images/shooter/act_var2.png) will skip the following action unless the condition is satisfied, so the enemy ship is only destroyed if the health reaches 0.
 
-##### Sidenote
+> ##### Sidenote
 
-If you want a conditional item to apply to a block of events, you can use the ![blocks](../images/shooter/blocks.png) items to specify how far the block should reach. We¿ll see an example of bigger conditionals in the explosion section.
+> If you want a conditional item to apply to a block of events, you can use the ![blocks](../images/shooter/blocks.png) items to specify how far the block should reach. We¿ll see an example of bigger conditionals in the explosion section.
 
 <a id="alarms-periodic"></a>
 ##2.4 Alarms and Periodic Events
@@ -407,9 +408,9 @@ In our case, to have the enemy fire once every 3 seconds, we can have a ![alarm]
 
 ![shoot](../images/shooter/enemyshoot.png)
 
-##### Sidenote
+> ##### Sidenote
 
-GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn¿t completely restricted. For instance, we could set Alarm 0 to `150+random(30)` to set Alarm 0 to a random number from 150 to 180, instead of 180 every time. The manual included with GM has a reference on all of these functions, but it¿s more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example.
+> GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn¿t completely restricted. For instance, we could set Alarm 0 to `150+random(30)` to set Alarm 0 to a random number from 150 to 180, instead of 180 every time. The manual included with GM has a reference on all of these functions, but it¿s more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example.
 
 ##### Checkpoint
 
@@ -424,8 +425,8 @@ Create a cEnemies (or cEnemySpawner) object without attaching a sprite, with an 
 To put the enemies at random positions, we can set the `y` to be `-32` and `x` to be `irandom(room_width-32)`, which generates a random integer from 0 to the coordinate of the rightmost side of the room every time it¿s called. This approximately evenly distributes the enemies.
 
 Finally, put the controller object somewhere in the room. People normally put controllers in the top left, but we programmed this controller so its location doesn¿t matter. It pops up as a blue question mark, but that¿s only visible in the room editor.
-##### Sidenote
-The reason we set y to -32 is so that the bottom of the enemy are at `y = 0`, or the top of the screen, when they¿re spawned. Similarly, `room_width-32` is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is `x = 0`, where the left end of the enemy touches the left edge of the room). 
+> ##### Sidenote
+> The reason we set y to -32 is so that the bottom of the enemy are at `y = 0`, or the top of the screen, when they¿re spawned. Similarly, `room_width-32` is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is `x = 0`, where the left end of the enemy touches the left edge of the room). 
 
 ##### Checkpoint
 
@@ -442,9 +443,9 @@ Unlike sprites, backgrounds aren¿t associated with objects, but rather with room
 
 ![backgrounds](../images/shooter/backgrounds.png)
 
-##### Sidenote
+> ##### Sidenote
 
-Backgrounds are modifiable at any time by objects through a set of variables beginning with "background\_". Variables can be set using the [VARIABLE SET ICON] action, or through a script, which we¿ll get into for the platformer, which is a step up in programming complexity.
+> Backgrounds are modifiable at any time by objects through a set of variables beginning with "background\_". Variables can be set using the ![variable set](../images/shooter/act_var.png) action, or through a script, which we¿ll get into for the platformer, which is a step up in programming complexity.
 
 ### 2.5.2 Animations and Explosions
 
@@ -464,6 +465,9 @@ There are a lot more things that could be done to make the game more presentable
 
 One other thing you may notice is that the game isn¿t very fun. Try to tweak the game to make it challenging! Make the game restart when an enemy reaches the bottom of the screen, or touches you. Change the enemy bullet pattern, perhaps aiming at the player instead of downwards (use ![move in direction](../images/shooter/act_dir.png) in the bullet Create event, with direction `point_direction(x, y, oPlayer.x, oPlayer.y)`). Maybe also limit how many bullets there can be on the screen by preventing the player from shooting if there are too many (using ![count number](../images/shooter/act_count.png) in the control tab). Get the enemies to move horizontally too, bouncing against the sides of the room, or add your own gimmick after exploring the actions GameMaker has. 
 
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz).
 
 <a href="#top" class="top" id="MVP-review">Top</a>
 ## 2.6 A few last words
@@ -479,38 +483,37 @@ In the next tutorial, we'll go through the scripting capabilities of Game Maker 
 <a href="#top" class="top" id="level3">Top</a>
 #Level 3: Making a Platformer
 
-In this platformer tutorial we'll take a different approach with GM, instead limiting ourselves to just a few of the built-in features related to resources and coding the rest ourselves, to get a feel for how GameMaker works underneath the event-driven model (and how game engines in general work), and look a bit at some of the problems games programmers face in implementing mechanics.
+In this platformer tutorial we¿ll take a different approach with GM, instead limiting ourselves to just a few of the built-in features related to resources and coding the rest ourselves, to get a feel for how GameMaker works underneath the event-driven model (and how game engines in general work), and look a bit at some of the problems games programmers face in implementing mechanics.
 
 This section in particular will be a little more math-oriented as we figure out how to get our player to behave and move exactly how we want. 
 
 <a href="#top" class="top" id="resource-setup">Top</a>
 ##3.1 Resource Setup
 
-Create and load the player and enemy sprite, as well as the background tileset, checking “Use as tileset” in the properties. Alternatively, draw your own if you feel brave, but try to keep the poses similar and the image dimensions 16x16. In addition, create a 16x16 black square to represent the blocks our player is going to interact with, and create the corresponding oBlock object. The black sprite box is just for the level editor and won't be what the player sees, though; we'll cover the blocks up later with a tileset to make it visually pleasing. 
+Create and load the player and enemy sprite, as well as the background. Also load the background tileset, checking ¿Use as tileset¿ in the background properties. Alternatively, draw your own if you feel brave, but try to keep the poses similar and the image dimensions 16x16. In addition, create a 16x16 black square to represent the blocks our player is going to interact with, and create the corresponding `oBlock` object. The black sprite box is just for the level editor and won¿t be what the player sees, though; we¿ll cover the blocks up later with a tileset to make it visually pleasing. 
 
 <a href="#top" class="top" id="scripts-step-events">Top</a>
 ##3.2 Scripts & the Step Event
 
 <a id="step-event"></a>
 ###3.2.1 The Step Event
-
-Game Maker exposes the update method of every object through the step event. That is, actions in the step event are run every frame the object exists. Most, if not all event action pairs could be reduced to a set of actions in only the step event. For instance, you could have an enemy disappear upon hitting your bullet by using the [CHECK COLLISION ICON] against the bullet and following that with a [DESTROY ICON] in the enemy's step event. The logic is the same: “When I hit a bullet, destroy myself” is the same as “At each frame, if I am hitting a bullet, destroy myself.” Again, the emphasis with these patterns is the continuous repetition of blocks of code that may be deficient in traditional sequential programs.
+Game Maker exposes the update method of every object through the Step event. That is, unlike actions in keyboard press events, which are only triggered on the single frame the keyboard button is pressed, actions in the step event are run every frame the object exists. Most, if not all event action pairs could be reduced to a set of actions in only the step event. For instance, you could have an enemy disappear upon hitting your bullet by using the ![collision](../images/platformer/act_collision.png) against the bullet and following that with a ![destroy](../images/platformer/act_destroy.png) in the enemy¿s step event. The logic is the same: ¿When I hit a bullet, destroy myself¿ is the same as ¿At each frame, do this: if I am touching a bullet, destroy myself.¿ Again, the emphasis with these patterns is the continuous repetition of blocks of code that aren¿t as common in traditional sequential programs.
 
 <a id="GM-language"></a>
 ###3.2.2 The GameMaker Language
 
-[screenshot]
+In the control tab, Game Maker provides the ![code](../images/platformer/act_code.png) action, which really opens up the full functionality of the tool by giving access to all the programming functions. The code editor has tooltips as well as syntax checking and highlighting. The language itself is C-like, but without explicit type (ints, doubles, strings default) and more merciful of traditional syntactic errors (e.g., code will compile without a semicolon; you can do things like `if x = 5`). There are a few things that someone with a programming background might cringe at, but I personally think the conveniences GM provides (in the form of resource management, collision detection, room editing, useful built-in variables, etc.) outweighs any sort of annoyances in GM¿s code interface.
 
-In the control tab, Game Maker provides the [EXECUTE CODE] action, which really opens up the full functionality of the tool by giving access to all the programming functions. The code editor has tooltips as well as syntax checking and highlighting. The language itself is C-like, but without explicit type (ints, doubles, strings default) and more merciful of traditional syntactic errors (e.g., code will compile without a semicolon; you can do things like `if (x = 5)`). There are a few things that someone with a programming background might cringe at, but I personally think the conveniences GM provides (in the form of resource management, collision detection, room editing, built-in variables, etc.) outweighs any sort of annoyances in GM's code interface.
+![example code](../images/platformer/code.png)
 
-[SAMPLE CODE/IMAGE OF CODE EDITOR]
-
-With these two tools, we can reduce any object behavior to a single [EXECUTE CODE] action in the step event, and possibly another in the create event (for setup) and destroy event (for cleanup). However, it's still useful to divide logic into different events and actions if possible, if only just to better organize and clarify the object's behavior.
+With these two tools, we can reduce any object behavior to a single ![code](../images/platformer/act_code.png) in the step event, and possibly another in the Create event (for setup) and Destroy event (for cleanup). However, it¿s still useful to divide logic into different events and actions if possible, if only just to better organize and clarify the object¿s behavior.
 
 <a id="GM-defaults"></a>
 ###3.2.3 The GameMaker Defaults
 
-Game Maker has a bunch of options that might look relevant here, like “Uses Physics” (windows only) or “Solid” in the Object Properties window. One of them uses a powerful 2d physics engine, but it's overkill for our purposes. The other is a very naive collision system that would result in an annoying, broken platforming engine. You would be sad.
+Game Maker has a bunch of options that might look relevant for our platformer, like ¿Uses Physics¿ (windows only) or ¿Solid¿ in the Object Properties window. One of them uses a powerful 2D physics engine, but it¿s overkill for our purposes. The other is a very naive collision system that would result in an annoying, broken platforming engine. It would make you sad.
+
+![settings](../images/platformer/settings.png)
 
 <a href="#top" class="top" id="horizontal-movement">Top</a>
 ##3.3 Horizontal Movement
@@ -520,8 +523,7 @@ We'll start by giving the player the ability to move left and right.
 <a id="first-attempt"></a>
 ###3.3.1 A First Attempt
 
-For instantaneous speed, we can add the following piece of code to the step event of the player:
-
+For instantaneous speed, we can add the following piece of code to a ![code](../images/platformer/act_code.png) action in the Step event of the player:
 
     if (keyboard_check(vk_left))
         x -= 4;
@@ -529,14 +531,22 @@ For instantaneous speed, we can add the following piece of code to the step even
     if (keyboard_check(vk_right))
         x += 4;
 
-That is, in each frame, the program checks if the left key is pressed or not. If it is, the player jumps to the left 4 pixels. Analogously for the right key. To be precise, keyboard_check(...) is a function provided by GM taking in a key code and outputting whether it's down or not. 
+That is, in each frame, the program checks if the left key is pressed or not. If it is, the player jumps to the left 4 pixels. Analogously for the right key. To be precise, `keyboard_check(...)` is a function provided by GM taking in a key code and returning whether it's down or not. 
 
-If you put the player in a room (appropriately set up) and run the game, you'll see that pressing left moves the player left and right right. 
+If you put the player in a room (appropriately set up: 320x240, 60fps, background) and run the game, you¿ll see that pressing left moves the player left and right right, as expected.
+
+> ##### Sidenote
+
+> If you want the window to be bigger and everything zoomed in, check out the Views section near the bottom of the tutorial.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/1_minimal.gmz).
 
 <a id="smooth-movement"></a>
 ###3.3.2 Smooth Movement
 
-Most platformers consider player acceleration and deceleration. In a smooth platforming engine, we'd expect pressing a horizontal to gently accelerate the player in that direction up to a maximum speed, releasing that direction to slowly decelerate the player, and pressing the opposite direction to shift towards that opposite direction. 
+Most platformers consider player acceleration and deceleration. In a smooth platforming engine, we¿d expect pressing a horizontal to gently accelerate the player in that direction up to a maximum speed, releasing that direction to slowly decelerate the player, and pressing the opposite direction to shift towards that opposite direction. 
 
 We can model this using two speeds--a rightward speed and a leftward speed--each individually controlled by the corresponding key.
 
@@ -545,14 +555,16 @@ To define and initialize object member variables, we can simply assign values to
     /// initialize variables
     rspeed = 0;
     lspeed = 0;
-    accel = 0.1;
+    accel = 0.2;
     maxspeed = 3.5;
 
 (Putting 3 slashes in the first line replaces the default “Execute Code” action description with the text of the first line)
 
-SIDENOTE: The object-oriented mind may notice that even though the last two variables are actually constants (at least, for our purposes) specific to all player objects, it's common practice to group these with other member variables. This may be a little unsettling, but it's the best solution given GM's restricted capabilities (AFAIK). Further, the idea and purpose of an object in games are slightly different than in traditional OOP use-cases; these represent packages of code that are simulated according to a ruleset, not possible interfaces or services for other users or other classes, and the people who do work with your object's code are much less likely to want to break it. Magic numbers are still bad for the same reasons as in other programs, so we define variables here.
+> ##### Technical Sidenote
 
-To have the right key control rspeed and the left control lspeed, we put, in the Step event:
+> The object-oriented mind may notice that even though the last two variables are actually constants (at least, for our purposes) specific to all player objects, it's common practice to group these with other member variables. This may be a little unsettling, but it's the best solution given GM's restricted capabilities (as far as I know). Further, the idea and purpose of an object in games are slightly different than in traditional OOP cases; these represent packages of code that are simulated according to a ruleset, not so much possible interfaces or services for other users or other classes, and the people who do work with your object's code are much less likely to want to break it. Magic numbers are still bad for the same reasons as in other programs, so we define variables here.
+
+To have the right key control `rspeed` and the left control `lspeed`, we put, in the Step event:
 
     if (keyboard_check(vk_right)) rspeed += accel;
     else rspeed -= accel;
@@ -575,12 +587,12 @@ If you rerun the game, you'll notice that while we haven't done anything fancy t
 <a href="#top" class="top" id="vertical-movement">Top</a>
 ##3.4 Vertical Movement
 
-The vertical movement in a platformer is governed by gravity, which is usually a constant downwards acceleration. In addition to that, the player should be able to jump. For this section, we'll add gravity but no ground, and instead give the player the ability to jump in the air.
+The vertical movement in a platformer is governed by gravity, which is usually a constant downwards acceleration. In addition to that, the player should be able to jump. For this section, we¿ll add gravity but no ground, and instead give the player the ability to jump in the air.
 
 <a id="gravity"></a>
 ###3.4.1 Gravity
 
-A constant downward acceleration translates to a continuous addition of downward speed. We can do this by defining `grav = 0.5` in the Create event and then `vspeed += grav` in the Step event.
+A constant downward acceleration translates to a continuous addition of downward speed. We can do this by defining `grav = 0.23` in the Create event and then `vspeed += grav` in the Step event.
 
 <a id="jumping"></a>
 ###3.4.2 Jumping
@@ -589,20 +601,28 @@ Jumping is usually an upward burst of motion. We can implement jumping with anot
 
     if (keyboard_check(vk_up)) vspeed = -jumpspeed;
 
-SIDENOTE: Though we'll eventually make it so that the player can only jump if it's on the ground (i.e., vspeed is 0 initially), in games with multiple jumps, the player's second jump isn't affected by how the player's moving before the second jump, so we say `vspeed = -jumpspeed` instead of `vspeed -= jumpspeed` (of course, this is all up to how you want jumping to work in your game).
+> ##### Sidenote
+
+> Though we¿ll eventually make it so that the player can only jump if it¿s on the ground (i.e., `vspeed` is 0 initially), in games with multiple jumps, the player¿s second jump isn¿t affected by how the player¿s moving before the second jump, so we say `vspeed = -jumpspeed` instead of `vspeed -= jumpspeed` (of course, this is all up to how you want jumping to work in your game).
 
 <a id="stopping-your-jump"></a>
 ### 3.4.3 Stopping Your Jump
 
-Often in platformers, one can control the player's jump height by releasing the jump key early or late. There are many ways to implement this underneath. For instance, one could halve the player's upward velocity when the jump key is released:
+Often in platformers, one can control the player¿s jump height by releasing the jump key early or late. There are many ways to implement this underneath. For instance, one could halve the player¿s upward velocity when the jump key is released:
 
     if (vspeed < 0 && keyboard_check_released(vk_up)) vspeed /= 2;
 
-Or, for a smoother motion, consider applying a stronger gravity while the player's moving upwards if the jump button isn't pressed:
+Or, for a smoother motion, consider applying a stronger gravity while the player¿s moving upwards if the jump button isn¿t pressed:
 
     if (vspeed < 0 && !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav
 
-SIDENOTE: GM does not have the conditional operator (a ? b : c). Sorry.
+> ##### Sidenote
+
+> GM does not have the [conditional operator](https://en.wikipedia.org/wiki/%3F:) (`a ? b : c`). Sorry.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/2_smooth.gmz).
 
 <a id="walking-animation"></a>
 ###3.4.4 Walking Animation
@@ -611,148 +631,171 @@ If you loaded all 4 subimages of the player sprite, you might want to have the p
 
 If we wanted to have the animation play at a speed according to how fast we were moving, we might do something like `image_speed = 0.05*hspeed`.
 
-To get the player to change the direction he's facing, a common solution is to create another sprite with the graphics mirrored and then set the player's sprite according to his speed, using GM's built-in variable `sprite_index`. Something like
+To get the player to change the direction he¿s facing, a common solution is to create another sprite sPlayerL with the graphics mirrored and then set the player¿s sprite according to his velocity, using GM¿s built-in variable `sprite_index`. Something in the Step event like
 
-    if (hspeed >= 0) sprite_index = oPlayer;
-    else sprite_index = oPlayerL;
+    if (hspeed >= 0) sprite_index = sPlayer;
+    else sprite_index = sPlayerL;
 
-SIDENOTE: Alternatively, GM provides variables image_xscale and image_yscale, which, as the names suggest, define how the sprite should be scaled when it's rendered. Normally, they're set to 1, but having image_xscale = 0.5 would squish the sprite so its width were half what it is usually. Setting it to a negative value flips the sprite, so when moving left, we can set `image_xscale = -1` to face the player left. The complication with this is that this is literally scaling with respect to the origin of the player sprite, so if we flipped the sprite, the box would teleport to the left 16 pixels (see figure). We want to put the origin somewhere so that if we flip the sprite, the image doesn't shift any amount (see figure). This happens when the origin's x is centred (i.e., origin is at (8, 0)).
+> ##### Sidenote
 
-[FIGURE: flipping] [FIGURE: origins and flipping right]
+> Alternatively, GM provides variables `image_xscale` and `image_yscale`, which, as the names suggest, define how the sprite should be scaled when it¿s rendered. Normally, they¿re set to 1, but having `image_xscale = 0.5` would squish the sprite so its width were half what it is usually. Setting it to a negative value flips the sprite, so when moving left, we can set `image_xscale = -1` to face the player left. The complication with this is that this is literally scaling with respect to the origin of the player sprite, so if we flipped the sprite, the box would teleport to the left 16 pixels (see figure). We want to put the origin somewhere so that if we flip the sprite, the image doesn¿t shift any amount (see figure). This happens when the origin¿s x is centred (i.e., origin is at `(8, 0)`).
 
-A slick (and/or disgusting) way to do it is this line in the Step:
+> ![origin flipping](../images/platformer/origin_scale.png)
 
-    if (hspeed != 0) image_xscale = sign(hspeed);
+> A slick (and/or disgusting) way to do it is this line in the Step:
+
+>     if (hspeed != 0) image_xscale = sign(hspeed);
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/3_animation.gmz).
 
 <a href="#top" class="top" id="platform-collision">Top</a>
 ##3.5 Platform Collision
 
-This is the more technically challenging part of platformer physics: determining collision detection and response. Roughly, we want to implement a statement like “If the player hits a block, stop the player from moving into the block and set his velocity accordingly.”
+This is the more technically challenging part of platformer physics: determining collision detection and response. Roughly, we want to implement a statement like ¿If the player hits a block, stop the player from moving into the block and set his velocity accordingly.¿
 
 This encompasses a lot of cases. What should happen if the player hits the bottom of a block? What if he lands on a block? Or if he hits the side of a block? And what about if he hits the exact corner of a block?
 
 A simple observation we can make is that unless we want to add friction or wall-sliding, a player hitting the side of a block only affects it his horizontal velocity, and a player hitting the top or bottom of a block only affects his vertical. We can therefore try to approach the two directions separately.
 
-The relevant set of functions is `instance_place(x, y, other)` and `place_meeting(x, y, other)`, which check if an object `this` calling place_meeting would touch `other` if `this` were moved to position x, y. This is equivalent to moving `this` to (x, y), then checking if the hitboxes (as defined by the sprites of the two objects) overlap, and then moving `this` back to its original position. `instance_place` returns the object that may be touching (or else noone), and `place_meeting` returns whether or not there's an object touching. We'll give some examples to clarify. 
+The relevant set of functions is `instance_place(x, y, other)` and `place_meeting(x, y, other)`, which check if an object `this` calling `place_meeting` would touch `other` if `this` were moved to position `(x, y)`. This is equivalent to moving `this` to `(x, y)`, then checking if the hitboxes (as defined by the sprites of the two objects) overlap, and then moving `this` back to its original position. `instance_place` returns the object that may be touching (or else noone), and `place_meeting` returns whether or not there¿s an object touching. We¿ll give some examples to clarify, including a very basic one right below. 
+
+![place meeting](../images/platformer/place_meeting.png)
+
+In the figure above, `place_meeting(x+10, y, oBlue)` from `oRed`¿s object code would return `true` because moving oRed to the position `(x+10, y)` (10 pixels to the right) would make an intersection with `oBlue`. On the other hand, `place_meeting(x+5, y, oBlue)` would return `false`, since `oRed` would not be touching `oBlue` if `oRed` moved right 5 pixels.
 
 <a id="landing-block"></a>
 ###3.5.1 Landing on a Block
 
-Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously--once every frame. We can't enforce the statement, “Don't let the player fall through a block when he lands on it” directly, but we can ask each frame if he's landed on the block, and if he has, change the player's motion and position accordingly. 
+Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously--once every frame. We can¿t enforce the statement, ¿Don¿t let the player fall through a block when he lands on it¿ directly, but we can ask each frame if he¿s landed on the block, and if he has, change the player¿s motion and position accordingly. 
 
-The way we can do this with GM is to check, in the update method, whether or not the player would fall into a block the next frame. This is a matter of moving the player to where it would be next frame, and seeing if the player's hitbox in that position overlaps with the block's. This can be captured with the condition `if (place_meeting(x+hspeed, y+vspeed, oBlock))` at the end of the other movement code, because the player's position next frame is `(x+hspeed, y+vspeed)`. If the condition passes, we know that unless we do something, next frame, the player will be stuck in a block.
+The way we can do this with GM is to check, in the update method, whether or not the player would fall into a block the next frame. This is a matter of moving the player to where it would be next frame, and seeing if the player¿s hitbox in that position overlaps with the block¿s. This can be captured with the condition `if (place_meeting(x+hspeed, y+vspeed, oBlock))` at the end of the other movement code, because the player¿s position next frame is (x+hspeed, y+vspeed). If the condition passes, we know that unless we do something, next frame, the player will be stuck in a block.
 
-SIDENOTE: Why wouldn't this condition work if it were placed at the beginning of the step event? 
+> ##### Sidenote
+> Why wouldn¿t this condition work if it were placed at the beginning of the step event? 
 
 What we need to do is twofold:
-
 1. Stop the player from continuing to fall by setting the vspeed to 0.
-2. Reposition the player so that next frame, instead of being inside the block, he's instead right on top of the block. 
+2. Reposition the player so that next frame, instead of being inside the block, he¿s instead right on top of the block. 
 
-[FIGURE: frame 1, frame 2 player on block, X frame 2 player overlap block, moving down]
+This is shown in the figure below, with what happens if we don¿t do anything (red arrow), and what happens if we perform steps 1 and 2.
 
-To determine how to reposition the player, consider the figure, which labels the origins of the player and the block. We want the bottom of the player to line up with the top of the block, and in order to do that, the player's origin must be 16 pixels (the player sprite height) above the block's.
+![landing](../images/platformer/howtoland.png)
 
-[FIGURE: PLAYER ON TOP OF BLOCK, LABELS, GRID]
+To determine how to reposition the player, consider the figure, which labels the origins of the player and the block. We want the bottom of the player to line up with the top of the block, and in order to do that, the player¿s origin must be 16 pixels (the player sprite height) above the block¿s.
 
-    y = (y position of the block i'm touching) - (sprite height)
+![landing](../images/platformer/land.png)
 
-SIDENOTE: If you moved the origins of the player and block around, it's a little more complicated, but doable with the instance variables sprite_xoffset and sprite_yoffset. 
+    y = (y position of the block i¿m touching) - (sprite height)
 
-[FIGURE: PLAYER ON TOP OF BLOCK, SPRITE_YOFFSET, LABELS]
+> ##### Sidenote
 
-    y = (y of block i'm touching) - (sprite_height) +    (sprite_yoffset) - (y of block i'm touching's sprite_yoffset)
+> If you moved the origins of the player and block around, it¿s a little more complicated, but doable with the instance variables `sprite_xoffset` and `sprite_yoffset`. We want the bottom of the player to line up with the top of the block, i.e.,
 
-SIDESIDENOTE: If in addition, you resized the hitboxes, you may need to avoid hard-coding the hitbox offsets or use a different approach, as GM doesn't provide hitbox dimensions and offsets (it doesn't work if the sprite hitbox setting were elliptical, or pixel-perfect). One way may be to use a loop to nudge the player upwards until he doesn't overlap with the block anymore, but it would have to be carefully written so that the player doesn't get nudged over the edge of the block.
+>     y - sprite_yoffset + sprite_height = block¿s y - block¿s sprite_yoffset
 
-To summarize, we have the following block of code to make the player behave appropriately when he's about to fall onto a block:
-   z = instance_place(x+hspeed, y+vspeed, oBlock);
+> Rearranging into an equation that sets the player¿s y, we get
 
+>     y = (y of block i¿m touching) - (sprite_height) + (sprite_yoffset) - (y of block i¿m touching¿s sprite_yoffset)
 
+> ##### Sidenote
+
+> If in addition, you resized the sprite hitboxes (which you probably didn¿t), you may need to avoid hard-coding the hitbox offsets or use a different approach, as GM doesn¿t provide hitbox dimensions and offsets (it doesn¿t work if the sprite hitbox setting were elliptical, or pixel-perfect). One way may be to use a loop to nudge the player upwards until he doesn¿t overlap with the block anymore, but it would have to be carefully written so that the player doesn¿t get nudged over the edge of the block.
+
+To summarize, we have the following block of code to make the player behave appropriately when he¿s about to fall onto a block:
+
+    z = instance_place(x+hspeed, y+vspeed, oBlock);
     if (z != noone) {
         vspeed = 0;
         y = z.y - abs(sprite_height);
         // or z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset)
     }
 
-NOTE: `sprite_width`, `sprite_height`, `sprite_xoffset`, and `sprite_yoffset` are multiplied by `image_xscale` and `image_yscale`, so e.g. if the sprite had size 16x16 and the origin were at (8, 0), and image_xscale were -1, sprite_width would be -16, and sprite_xoffset would be -8. This is why we put an absolute value.
+> ##### Sidenote
 
-To keep it so that the player stays on the block, we can just put this block of code just under the line that applies gravity. If the player is already on the block, each frame will try to apply gravity but then instantly negate it.
+> `sprite_width`, `sprite_height`, `sprite_xoffset`, and `sprite_yoffset` are multiplied by `image_xscale` and `image_yscale`, so e.g. if the sprite had size 16x16 and the origin were at `(8, 0)`, and `image_xscale` were -1, `sprite_width` would be -16, and `sprite_xoffset` would be -8. This is why we put an absolute value.
+
+To keep it so that the player stays on the block, we can just put this block of code just under the line that applies gravity. If the player is already on the block, with the way we order our code, each frame will try to apply gravity but then instantly negate it.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/4_landing.gmz).
 
 <a id="hitting-block-bottom"></a>
 ###3.5.2 Hitting a Block from the Bottom
 
-If you put a few blocks in the room and test the game out, you'll notice that no matter which direction you hit the block from, the player will always teleport above the block. We'll now cover the other vertical direction.
+If you put a few blocks in the room and test the game out, you¿ll notice that no matter which direction you hit the block from, the player will always teleport above the block. We¿ll now cover the other vertical direction.
 
 But how can our code tell if the player hit the block from the top or bottom? Our current code simply checks for an overlap and puts the player on top of the block if there is. A few solutions:
 
-1. Assuming the player isn't currently overlapping with the block, if the player would hit the block next frame, the player must be hitting the top of the block if he's moving down (vspeed > 0) and the bottom if he's moving up (vspeed < 0).
-
+1. Assuming the player isn¿t currently overlapping with the block, if the player would hit the block next frame, the player must be hitting the top of the block if he¿s moving down (vspeed > 0) and the bottom if he¿s moving up (vspeed < 0).
 2. We can just check if the player is above (y < z.y) or below (y > z.y) the block.
 
-If we want to add more functionality in the future we should use the second method, as it more directly relates to the question we're asking. What if we want to add moving platforms later that cause a hitbox overlap? If the player's moving up while on top of the platform, the first check would fail.
+If we want to add more functionality in the future we should use the second method, as it more directly relates to the question we¿re asking. What if we want to add moving platforms later that cause a hitbox overlap? If the player¿s moving up while on top of the platform, the first check would fail.
 
-As with landing on a block, we want to set the vspeed to 0 so the player doesn't phase through the block. To find where to reposition the player to, it may be helpful to make a figure:
+![hitting from bottom](../images/platformer/hitbottom.png)
 
-[FIGURE: player under block]
+As with landing on a block, we want to set the vspeed to 0 so the player doesn¿t phase through the block. To find where to reposition the player to, it may be helpful to make a figure:
 
-In this case, the top of the player intersects with the bottom of the block. We use:
+In this case, the top of the player should intersect with the bottom of the block. We use
 
-    y = z.y + abs(z.sprite_height) \\ - abs(sprite_yoffset) + abs(z.sprite_yoffset)
+    y = z.y + abs(z.sprite_height) \\ + abs(sprite_yoffset) - abs(z.sprite_yoffset)
 
 Our final vertical collision code is
 
     z = instance_place(x+hspeed, y+vspeed, oBlock);
     if (z != noone) {
         vspeed = 0;
-        if (z.y > y) y = z.y - abs(sprite_height) +     abs(sprite_yoffset) - abs(z.sprite_yoffset);
-    else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) +     abs(z.sprite_yoffset);
-}
+        if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+    else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+    }
 
 <a id="hitting-block-side"></a>
 ###3.5.3 Hitting the Side of a Block
 
-When the player hits the side of the block, he should stop all horizontal movement, both left and right, and be repositioned so he is next to the block.
-
-[FIGURE: player hitting side, grid, labels]
-
-Following the figures above, we get the following block of code for the step event:
+When the player hits the side of the block, he should stop all horizontal movement, both left and right, and be repositioned so he is next to the block. This is essentially the same as vertical collision, except heights are replaced with widths, and y with x.
 
     z = instance_place(x+hspeed, y+vspeed, oBlock);
     if (z != noone) {
         hspeed = 0;
-        lspeed = 0;
-        rspeed = 0;
+    lspeed = 0;
+    rspeed = 0;
         if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-        else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
+    else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
     }
 
-Replace the vertical collision detection code with this to see the player react horizontally upon touching a block.
+Replace the vertical collision detection code with this to see the player react horizontally upon touching a block, though it may be hard and awkward to test as the player can¿t land any more.
 
-<a id="horizontal-verticle"></a>
+<a id="horizontal-vertical"></a>
 ###3.5.3 Horizontal or Vertical Collision?
 
-If you put both chunks of code in after the regular motion portion of the step event, you'll notice that only the first chunk affects the player's movement. This is because both checks are the same, and the first check moves the player out of the way of the block. By the time we reach the second check, there's no block to react to, and thus no further adjustment is made.
+If you put both chunks of code in after the regular motion portion of the step event, you¿ll notice that only the first chunk affects the player¿s movement. This is because both checks are the same, and the first check moves the player out of the way of the block. By the time we reach the second check, there¿s no block to react to, and thus no further adjustment is made.
 
-[Spoiler: To fix this, one can just change the check in the first chunk of collision code from `(x+hspeed, y+vspeed)` to either `(x+hspeed, y)` if the first check is the horizontal adjustment, or `(x, y+vspeed)` if vertical. To see why, see below]
+> ##### Spoiler
+
+> To fix this, one can just change the check in the first chunk of collision code from `(x+hspeed, y+vspeed)` to either `(x+hspeed, y)` if the first check is the horizontal adjustment, or `(x, y+vspeed)` if vertical. To see why, see below.
 
 We need our code to decide whether a given collision is vertical or horizontal. One way is to compare the relative positions of the block and player, as we did to see if a collision was on the top or bottom.
 
-[FIGURE: dividing a block + surroundings into 4 quadrants to see which side you're touching]
+![quadrants](../images/platformer/quadrants.png)
 
-But this is a hassle as the player collides closer and closer to a corner of the block, especially if the player's origin or hitboxes are shifted. Instead, we can make two other checks: collision against the block at `(x+hspeed, y)`, and at `(x, y+vspeed)`, visualized below.
+(I.e., divide the block into quadrants, and do a calculation that determines the quadrant the player covers the most when he touches the block)
+But this is a hassle to compute as the player collides closer and closer to a corner of the block, especially if the player¿s origin or hitboxes are shifted. Instead, we can make two other checks: collision against the block at `(x+hspeed, y)`, and at `(x, y+vspeed)`, visualized below.
 
-[FIGURE: 3 checks for player]
+![3 checks](../images/platformer/3check.png)
 
-If the player is going to be hit a block from the side, the player will most likely intersect the block if the player moves to position `(x+hspeed, y)`.
+If the player is going to be hit a block from the side (figure above), the player will most likely intersect the block if the player moves to position `(x+hspeed, y)`, and we can react with our horizontal collision code in this case. Similarly if the player is going to hit a block from the top or bottom, there¿ll probably be an intersection for `(x, y+vspeed)` and we can apply vertical collision there.
 
-[figure]
+(Figure: hitting from top)
 
-Then we can react with our horizontal collision code in this case. Similarly if the player is going to hit a block from the top or bottom, there'll probably be an intersection for (x, y+vspeed) and we can apply vertical collision there.
+![vertical check](../images/platformer/vcheck.png)
 
-[figure]
+(Figure: hitting from corner)
 
-If the player hits from a corner, though, neither of the two checks will report a collision, and nothing will be done. Our player will end up in a block. This case is extremely rare for any platformer with a reasonable resolution/framerate, and requires a very precise jump. In this case, we can apply either horizontal or vertical correction. We'll be nice and put the player on top (or bottom) of the block if he meets the block at a corner. 
+![corner check](../images/platformer/cornercheck.png)
+
+If the player hits from a corner, though, neither of the two checks will report a collision, and nothing will be done. Our player will end up in a block. This case is extremely rare for any platformer with a reasonable resolution/framerate, and requires a very precise jump. This is why we have our third check, and in this case, we can apply either horizontal or vertical correction. We¿ll be nice and put the player on top (or bottom) of the block if he meets the block at a corner. 
 
 A summary of our code:
 
@@ -760,9 +803,7 @@ A summary of our code:
     if (hit block at (x, y+vspeed)) apply vertical correction;
     if (hit block at (x+hspeed, y+vspeed)) apply vertical correction;
 
-A simplification would be to remove the second line entirely, since the second line rarely fires without the third also firing--only when the player grazes the block from the top almost pixel-perfectly.
-
-[Figure: player grazing from top]
+A simplification would be to remove the second line entirely, since the second line rarely fires without the third also firing--only when the player grazes the block from the top almost pixel-perfectly, which is unnoticeable to the player.
 
 Our final code:
 
@@ -771,15 +812,15 @@ Our final code:
         hspeed = 0;
         lspeed = 0;
         rspeed = 0;
-        if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-        else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
-    } 
+    if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+    else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+    }
 
     z = instance_place(x+hspeed, y+vspeed, oBlock);
     if (z != noone) {
         vspeed = 0;
         if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-        else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) + abs(z.sprite_yoffset);
+    else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
     }
 
 <a id="jump-right=time"></a>
@@ -794,41 +835,44 @@ so that the player is only allowed to jump if he's on the ground (i.e., a block 
 <a id="optional-quirk"></a>
 ###3.5.5 Optional: A Quirk with GM
 
-(This happens in the latest version of GM studio on Windows. Not sure about earlier versions. Feel free to scroll to the bottom for the solution.)
+(This happens in the latest version of GM studio on Windows. Not sure about earlier versions. Feel free to scroll to the bottom for the solution, or maybe this doesn¿t even affect you)
 
-If you look carefully, you might see your player vibrate as he stands (especially if you're zoomed in). This is especially obvious if you have him move left against a wall and watch him turn. This is sadly a small problem with GM's collision detection: it does rounds down object coordinates before checking in instance_place. 
+If you look carefully, you might see your player vibrate as he stands (if you¿re zoomed in, and your player accel and grav have 2 decimal places). This is especially obvious if you have him move left against a wall and watch him turn. This is sadly a small problem with GM¿s collision detection: it does rounds down object coordinates before checking in instance_place. 
 
-Over the course of two game loops, the player moves from right above the block to slightly inside the block and back out. The first movement is because the player is pulled down slightly from gravity, over less than a pixel. GM does the collision check, testing the player's original position (because of rounding down), and sees that nothing's there, even though we can clearly see the player overlapping with the block. From this position, moving another few fractions of a pixel down would put it over a pixel beneath its original position, and GM detects that, moving the player back to right above block.
+Over the course of two game loops, the player moves from right above the block to slightly inside the block and back out. The first movement is because the player is pulled down slightly from gravity, over less than a pixel. GM does the collision check, testing the player¿s original position (because of rounding down), and sees that nothing¿s there, even though we can clearly see the player overlapping with the block. From this position, moving another few fractions of a pixel down would put it over a pixel beneath its original position, and GM detects that, moving the player back to right above block.
 
-[FIGURE: player overlapping and then moving back and then overlapping]
-
-We have no avenue to get GM to test fractional positions, but we don't need to if we round the positions we test ourselves to make sure we're testing the right spots. For instance, in the case described above, this wouldn't be a problem if GM rounded up. In general we'd like to round up if the player's moving right/down, and down if the player's moving left/up. Define a few variables:
+We have no avenue to get GM to test fractional positions, but we don¿t need to if we round the positions we test ourselves to make sure we¿re testing the right spots. For instance, in the case described above, this wouldn¿t be a problem if GM rounded up. In general we¿d like to round up if the player¿s moving right/down, and down if the player¿s moving left/up. Define a few variables:
 
     var xrounded; if (hspeed > 0) xrounded = ceil(x+hspeed); else xrounded = floor(x+hspeed);
-    var yrounded; if (vspeed > 0) yrounded = ceil(y+vspeed); else yrounded = floor(x+vspeed);
+    var yrounded; if (vspeed > 0) yrounded = ceil(y+vspeed); else yrounded = floor(y+vspeed);
 
-SIDENOTE: For variables local to the event, you can prepend the variable initialization with `var`.
+> ##### Sidenote
+> For variables local to the event, you can prepend the variable initialization with `var`.
 
 Then use them in the collision code:
 
-    z = instance_place(xrounded, y, oBlock);
-    if (z != noone) {
-        hspeed = 0; lspeed = 0; rspeed = 0;
-        xrounded = floor(x);
+        z = instance_place(xrounded, y, oBlock);
+        if (z != noone) {
+            hspeed = 0; lspeed = 0; rspeed = 0;
+            xrounded = floor(x);
         if (z.x > x) x = z.x - abs(sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
-        else x = z.x + abs(z.sprite_width) - abs(sprite_xoffset) + abs(z.sprite_xoffset);
-    }
+        else x = z.x + abs(z.sprite_width) + abs(sprite_xoffset) - abs(z.sprite_xoffset);
+        }
 
-    z = instance_place(xrounded, yrounded, oBlock);
-    if (z != noone) {
-        vspeed = 0;
-        if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
-        else y = z.y + abs(z.sprite_height) - abs(sprite_yoffset) + abs(z.sprite_yoffset);
-    }
+        z = instance_place(xrounded, yrounded, oBlock);
+        if (z != noone) {
+            vspeed = 0;
+            if (z.y > y) y = z.y - abs(sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+        else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
+        }
 
-This concludes our main platforming engine section. Hopefully it didn't seem like just a list of magical steps, but instead a case study in breaking a problem in simulation down to simpler steps. Of course, we omitted a big part of the process: testing and experimentation, figuring out what's wrong at each step. A platforming engine is hard to make on your first try, and even on your n-th try, because there are so many cases to consider and bang your head over.
+This concludes our main platforming engine section. Hopefully it didn¿t seem like just a list of magical steps, but instead a case study in breaking a problem in simulation down to simpler components. Of course, we omitted a big part of the process: testing and experimentation, figuring out what¿s wrong at each step. A platforming engine is hard to make on your first try, and even on your n-th try, because there are so many cases to consider and bang your head over.
 
-We head back to a few more common concepts in game programming.
+Now, we'll head back to a few more common concepts in game programming.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/5_blocks.gmz).
 
 <a href="#top" class="top" id="views">Top</a>
 ##3.6 Views
