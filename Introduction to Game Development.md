@@ -454,8 +454,6 @@ You can download the GM project with everything up to this step [here](../resour
 
 We have a half-complete prototype for our shooter. Let's polish some of the rough edges to make it a little more presentable.
 
-We have a half-complete prototype for our shooter. Let's polish some of the rough edges to make it a little more presentable.
-
 <a id="backgrounds-rooms"></a>
 ### 2.6.1 Backgrounds in Rooms
 
