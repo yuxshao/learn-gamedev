@@ -12,7 +12,7 @@ build/title.txt: git
 	@build/_make.sh init; \
 
 index.html: output.html
-	cp output.html index.html
+	sed 's/file:\/\/\/home\/steven\/Files\/Desktop\/Schoolwork\/3\/GameDev\/curriculum\/repo\/build\/\.\././g' output.html > index.html
 
 output.html: build/title.txt *.md
 	@build/_make.sh build
