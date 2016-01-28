@@ -24,6 +24,7 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 * Replace bad characters with ' and "
 * Format code snippets
 * Expand level 5
+* talk about finite state machines
 * Flesh out MVP section if possible?
 * Talk about sprite editor in MAC: removing a sprite means cutting it. Also, sprite strips?
 
@@ -33,15 +34,15 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 		-	[1.1.2 Things to focus on](#Things-to-focus-on)
 		-	[1.1.3 How we develop games](#how-we-develop-games)
 	-	[1.2 Game Programming](#game-programming)
-		-	[1.2.1 Game Loop] (#game-loop)
-		-	[1.2.2 Update Method] (#update-method)
-		-	[1.2.3 Other common themes] (#other-themes)
-	-	[1.3 Minimum Viable Product] (#MVP)
+		-	[1.2.1 Game Loop](#game-loop)
+		-	[1.2.2 Update Method](#update-method)
+		-	[1.2.3 Other common themes](#other-themes)
+	-	[1.3 Minimum Viable Product](#MVP)
 		-	[1.3.1 What is it?](#bare-bones)
 		-	[1.3.2 Uses of the MVP](#uses-MVP)
 	-	[1.4 Tools Used in the Game Industry](#tools-used)
-		-	[1.4.1 List of various game engines] (#list-engines)
-		-	[1.4.2 List of other tools] (#list-tools)
+		-	[1.4.1 List of various game engines](#list-engines)
+		-	[1.4.2 List of other tools](#list-tools)
 		
 -	[Level 2: Your First Game! Making an MVP](#top-down-shooter)
 	-	[2.1 Parts of GameMaker](#GM-parts)
@@ -71,7 +72,7 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 		-	[3.5.1 Landing on a Block](#landing-block)
 		-	[3.5.2 Hitting a Block from the Bottom](#hitting-block-bottom)
 		-	[3.5.3 Hitting the Side of the Block](#hitting-block-side)
-		-	[3.5.4 Horizontal or Vertical Collision?](#horizontal-verticle)
+		-	[3.5.4 Horizontal or Vertical Collision?](#horizontal-vertical)
 		-	[3.5.5 Jumping at the Right Time](#jump-right-time)
 		-	[3.5.6 Optional: A Quirk with GameMaker](#optional-quirk)
 	-	[3.6 Views](#views)
@@ -89,9 +90,9 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 		-	[4.3.1 The Draw Event](#draw-event)
 		-	[4.3.2 Informational Text](#info-text)
 		-	[4.3.3 A HUD](#hud)
-	-	[4.4 Menus](#menus)
-		-	[4.4.1 Pause Menu](#pause-menu)
-	-	[4.5 Last Words](#last-words-level4)
+	-	[4.4 A Menu](#menus)
+	-	[4.5 A Pause Screen](#pause-menu)
+	-	[4.6 Last Words](#last-words-level4)
 -	[Level 5: Design Considerations](#level5)
 -	[Additional Resources](#additionalresources)
 
@@ -982,90 +983,96 @@ You can download the GM project with everything up to this step [here](../resour
 <a href="#top" class="top" id="states">Top</a>
 ### 4.1 States in Games
 
-Games are very much governed by states, and at each level, too. On the finest scale, any instant in the game can be represented by the value of all the variables in all the objects and rest of the memory of the game, making up the save state of the game. On a higher level, your game may have room states, being in a menu at one point, a level at another, and the credits at yet another time. In the platformer tutorial earlier, we tried to make sure the player would never reach an invalid state where he overlapped with an object, and it helped us reason through how to program his movement.
+Games are very much governed by states, and at each level, too. On a high level, your game may have room states, being in a menu at one point, a level at another, and the credits at yet another time. On the finest scale, any instant in the game can be represented by the value of all the variables in all the objects and rest of the memory of the game, making up the save state of the game. In the platformer tutorial earlier, we tried to make sure the player would never reach an invalid state where he overlapped with an object, and it helped us reason through how to program his movement.
 
-In this tutorial we'll be looking a little more closely at how Game Maker manages complexity using rooms as states, and how we can use states at a smaller level. Start with either your platformer project, or download the completed platformer project.
+In this tutorial we¿ll be looking a little more closely at how Game Maker manages complexity using rooms as states, and how we can use states at a smaller level. Start with either your platformer project, or use the completed platformer project (the last platformer checkpoint).
 
 <a href="#top" class="top" id="rooms-in-GM">Top</a>
 ###4.2 Rooms in GameMaker
 
-Game Maker by default splits games into rooms, representing large-scale states of the game. Multiple rooms is simple with GM, as they're treated just like other resources: right-click the rooms folder on the left and select “Create Room”, or click the [NEW ROOM] icon in the top menu.
+Game Maker by default splits games into rooms, representing large-scale states of the game. Multiple rooms is simple with GM, as they¿re treated just like other resources: right-click the rooms folder on the left and select ¿Create Room¿, or click the ![new room](../images/menu/new_room.png) icon in the top menu.
 
-By default, Game Maker will load up and start in the room that's at the top of the rooms list in the left menu. Game Maker has a bunch of actions for moving between rooms, available in the main1 tab, or as functions starting with `room_` (reference in the manual). 
+By default, Game Maker will load up and start in the room that¿s at the top of the rooms list in the left menu. Game Maker has a bunch of actions for moving between rooms, available in the main1 tab, or as functions starting with `room_` (reference in the manual). 
 
 <a id="basic-rooms-game-start-over"></a>
 ###4.2.1 Basic Rooms - Game Start and Over
 
-One of the most basic uses of rooms is for several screens in the game, like a start menu, a game over screen, or a credits room. In this section, we'll quickly go through the simple application of adding an intro and game over screen, using the tools we know so far.
+One of the most basic uses of rooms is for several screens in the game, like a start menu, a game over screen, or a credits room. In this section, we¿ll quickly go through the simple application of adding an intro and game over screen, using the tools we know so far.
 
 Creating an intro screen is as simple as creating another room and dragging the new room above the room with the level, so the game starts out with this room.
 
-[figure: two rooms in the menu]
+![many rooms](../images/menu/manyroom.png)
 
-In general it's a good idea to keep the window size the same between rooms, so either add a view to the room of size 320x240, or (preferably) resize the room to 320x240, and change the speed to 60.
+In general it¿s a good idea to keep the window size the same between rooms, so either add a view to the room of size 320x240, or (preferably) resize the room to 320x240, and change the speed to 60.
 
-Then, load the intro sprite image and associate it with an object, oIntro, and place it in the room. You can program the object so it animates slowly (e.g., image_speed = 0.1) and so that when it detects a space press, it goes to the next room in the list of rooms in the menu.
+Then, load the intro sprite image and associate it with an object, `oIntro`, and place it in the room. You can program the object so it animates slowly (e.g., `image_speed = 0.1`) and so that when it detects a space press, it goes to the next room in the list of rooms in the menu. Step event:
 
     if (keyboard_check(vk_space)) room_goto_next();
 
-We can similarly have an object with a sprite saying “Game Over” in its own rGameOver room, and have the player go to this room upon hitting an enemy, instead of destroying himself. To avoid setting up the room properties all over again, it may be more useful to duplicate the intro room (right-click, select from menu), and then just replace the object with the game over object.
+We can similarly have an object with a sprite saying ¿Game Over¿ in its own rGameOver room, and have the player go to this room upon hitting an enemy, instead of destroying himself. To avoid setting up the room properties all over again, it may be more useful to duplicate the intro room (right-click, select from menu), and then just replace the object with the game over object.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/1_rooms.gmz).
 
 <a id="persistent-objects-room-transition"></a>
-###4.2.2 Persistent Objects - Room Transition
+###4.2.2 Persistent Objects - Room Transition Effects
 
-[Game Maker used to provide effects while the game changed from one room to another, but after they rewrote their graphics engine to extend better to other platforms, they had to get rid of their built-in room transitions]
+> ##### Sidenote
+> Game Maker used to provide effects while the game changed from one room to another, but after they rewrote their graphics engine to extend better to other platforms, they had to get rid of their built-in room transitions. GM for Mac should still have the transitions available though.]
 
-A nice effect to smoothen the transition from one room to another is a fade-out and fade-in. One common way to implement this is through one of the few channels of communicating between room transitions: persistent objects. Objects can be marked persistent through a checkbox in the Object Properties window, and this sets the object so that the object isn't destroyed when the game moves to a different room, unlike regular objects.
+A nice effect to smoothen the transition from one room to another is a fade-out and fade-in. One common way to implement this is through one of the few channels of communicating between room transitions: persistent objects. Objects can be marked persistent through a checkbox in the Object Properties window, and this sets the object so that the object isn¿t destroyed when the game moves to a different room, unlike regular objects. 
 
-SIDENOTE: The other way to keep data across room transitions is to mark the room itself as persistent, so that upon exiting and re-entering the room, its state doesn't change or reset. Global variables are another way, but they can be thought of as just member variables of an object named “global” that's persistent across rooms.
+> ##### Sidenote
+> The other way to keep data across room transitions is to mark the room itself as persistent, so that upon exiting and re-entering the room, its state doesn¿t change or reset. Global variables are another way, but they can be thought of as just member variables of an object named ¿global¿ that¿s persistent across rooms. 
 
-[fig: persistent area]
+![persistent](../images/menu/persistent.png)
 
 To add a fade-in-fade-out transition, we can delegate all room transition calls to an object (in OOP: a sort of awkward wrapper for room transitions) that fades the screen to black, then moves to a set room, then fades out. Because this object acts between two rooms, we have to mark it as persistent.
 
-For now, if your sprite sBlock is completely black, we can use that as the sprite for our room transition object, oTransition. Otherwise, make and use a purely black sprite of any size.
+For now, if your sprite sBlock is completely black, we can use that as the sprite for our room transition object, oTransition. Otherwise, make and use a purely black sprite of any size. Remember also to set the depth of oTransition to something low, like -100000, so it appears in front of the other objects in the room. We¿ll get into depth a little more later.
 
-We want oTransition to fill up the entire screen, which means scaling the sprite so it fills the entire screen, and possibly also positioning it so it lines up with the view. Alternatively, we can, in the Create event, just scale the sprite up so big that it fills up the entire room:
+We want oTransition to fill up the entire screen, which means scaling the sprite so it fills the entire screen, and possibly also positioning it so it lines up with the view. Alternatively, we can, in the Step event, just scale the sprite up so big that it fills up the entire room:
 
     image_xscale = room_width*1000;
     image_yscale = room_height*1000;
 
-oTransition should also keep track of if it's transitioned or not, so we should add a `transitioned = false;` line to the Create event.
+(Why not in the Create event? See the note below)
 
-We also want to have the sprite fade in and out. To do this, we set `image_alpha = 0;` in the Create event, and in the Step event, slowly increase the opacity until it's opaque, transition the room, and then slowly decrease the opacity. In the Step event:
+oTransition should also keep track of if it¿s transitioned or not, so we should add a `transitioned = false;` line to the Create event.
+
+We also want to have the sprite fade in and out. To do this, we set `image_alpha = 0;` in the Create event, and in the Step event, slowly increase the opacity until it¿s opaque, transition the room, and then slowly decrease the opacity. In the Step event:
 
     if (!transitioned) image_alpha += 0.1; else image_alpha -= 0.1;
     if (image_alpha > 1 && !transitioned) { room_goto(newRoom); transitioned = true; }
 
-Finally, the object should be destroyed once it's done: In the Step event,
+Finally, the object should be destroyed once it¿s done: In the Step event,
 
     if (image_alpha < 0) instance_destroy();
 
-For an object like oIntro to use a fading room transition to enter the level, the room_goto_next(); code can be replaced with
+For an object like oIntro to use a fading room transition to enter the level, the `room_goto_next();` code can be replaced with
 
     var z = instance_create(0, 0, oTransition);
     z.newRoom = room_next(room);
 
 so that the newRoom of oTransition is set like a parameter.
-
-NOTE: In case the new room is significantly bigger than the old room, we should resize the transition sprite so it covers the entirety of the new room. That is, add, underneath the transition line,
+##### Sidenote
+In case the new room is significantly bigger than the old room, we should resize the transition sprite so it covers the entirety of the new room. This is easiest if we just have the following two lines in the Step event, since we can¿t immediately grab the dimensions of the new room after swapping rooms.
 
     image_xscale = room_width*1000;
     image_yscale = room_height*1000;
 
 <a id="fitting-it-into-script"></a>
-###4.2.3 Fitting Transitions Into a Script
+#### Fitting it into a Script
 
-If you don't want to use a “transitioned” variable, or if you want to configure how long the fade should be, you can instead use a variable like fadeLength to tackle both problems. It's a little makeshift-y. To summarize, in Create:
+If you don¿t want to use a ¿transitioned¿ variable, or if you want to configure how long the fade should be, you can instead use a variable like fadeLength to tackle both problems. It¿s a little makeshift-y. To summarize, in Create:
 
-    fadeLength = 60; // 60 frames to fade to black
-    image_xscale = room_width*1000;
-    image_yscale = room_height*1000;
+    fadeLength = 30; // 30 frames to fade to black
     image_alpha = 0;
 
 In Step:
 
-    mage_alpha += 1.0/fadeLength;
+    image_alpha += 1.0/fadeLength;
     if (image_alpha > 1 && fadeLength > 0) {
         room_goto(newRoom);
         fadeLength *= -1;
@@ -1077,19 +1084,21 @@ In Step:
 Usage might then be:
 
     var z = instance_create(0, 0, oTransition);
-    z.newRoom = room_next(room); z.fadeLength = 30;
+    z.newRoom = room_next(room); z.fadeLength = 20;
 
-We can also package this into our own global utility function, or what GM calls a script. To do this, create a new script resource, giving it the name you'd like to use to call the function, e.g., room_fade_to. We want to take two arguments: the new room, and (optionally) the length of the fade. 
+We can also package this into our own global utility function, or what GM calls a script. To do this, create a new script resource, giving it the name you¿d like to use to call the function, e.g., `room_fade_to`. We want to take two arguments: the new room, and (optionally) the length of the fade. 
 
-The script body will be similar to the example usage above, except to refer to arguments, we use the identifiers argument[0...15] and argument_count for the number of arguments passed into the script. The body would look like:
+The script body will be similar to the example usage above, except to refer to arguments, we use the identifiers `argument[0...15]` and `argument_count` for the number of arguments passed into the script. The body would look like:
 
     var z = instance_create(0, 0, oTransition);
     z.newRoom = argument[0];
     if (argument_count > 1) z.fadeLength = argument[1];
 
-Usage would then be reduced to `room_fade_to(room_next(room), 30);`
+Usage would then be reduced to `room_fade_to(room_next(room), 20);`
 
-[checkpoint]
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/2_transition.gmz).
 
 <a href="#top" class="top" id="manual-drawing">Top</a>
 ##4.3 Manual Drawing
@@ -1097,58 +1106,75 @@ Usage would then be reduced to `room_fade_to(room_next(room), 30);`
 <a id="draw-event"></a>
 ###4.3.1 The Draw Event
 
-A brief digression from states: In games it's often useful to control what's rendered onto the screen, beyond just relying on sprites assigned to objects. Internally, what GM does is run through the update method of every object in a room once per frame, and then go through all the objects again to render the sprites on the screen in their new positions, with all the modifiers added (scaling, alpha, etc.). This second run through all the objects that draws them all is captured in another event: the Draw event. 
+A brief digression from states: In games it¿s often useful to control what¿s rendered onto the screen, beyond just relying on sprites assigned to objects. Internally, what GM does is run through the update method of every object in a room once per frame, and *then* go through all the objects again to render the sprites on the screen in their new positions, with all the modifiers added (scaling, alpha, etc.). This second run through all the objects that *draws* them all is captured in another event: the Draw event. 
 
-The pass that draws all the objects is more complicated than the first pass that steps through objects, because drawing needs to be done in a specific order. Something in the background, for instance, should be drawn before something in the foreground, since drawing something necessarily covers up what was drawn there already. To define drawing order, objects in GM have a depth; objects with lower depth are drawn later, and thus above objects with higher depth (i.e., deeper objects are drawn first and covered up by objects that aren't as deep).
+The pass that draws all the objects is more complicated than the first pass that steps through objects, because drawing needs to be done in a specific order. Something in the background, for instance, should be drawn before something in the foreground, since drawing something necessarily covers up what was drawn there already. To define drawing order, objects in GM have a depth; objects with lower depth are drawn later, and thus above objects with higher depth (i.e., deeper objects are drawn first and covered up by objects that aren¿t as deep).
 
-In GM Studio for Windows, there's a whole family of draw events, meant to help organize the common types of drawing actions in games. Everything's doable with the vanilla Draw event, though--the only one available on Mac. 
+In GM Studio for Windows, there¿s a whole family of draw events, like Start Draw and Draw GUI, meant to help organize the common types of drawing actions in games. Everything¿s doable with the vanilla Draw event, though--the only one available on Mac. 
 
-If there's no Draw event specified for an object, GM by default draws the object's sprite, with transformation (scaling, rotation) and coloring (alpha) applied. We can override this by specifying our own Draw event, which is useful if we want an object to draw things like text or shapes. GM provides an tab for drawing actions, as well as a slew of drawing functions starting with `draw_` and setting functions starting with `draw_set_`.
+If there¿s no Draw event specified for an object, GM by default just draws the object¿s sprite, with transformation (scaling, rotation) and coloring (alpha) applied. We can override this by specifying our own Draw event, which is useful if we want an object to draw things like text or shapes. GM provides an tab for drawing actions, as well as a slew of drawing functions starting with `draw_` and setting functions starting with `draw_set_`.
+
 
 <a id="info-text"></a>
 ###4.3.2 Informational Text
 
-To demonstrate custom drawing, we'll add a basic lives system to the game and have a screen to display how many lives the player has between deaths, like in Super Mario Bros.
+To demonstrate custom drawing, we¿ll add a basic lives system to the game and have a screen to display how many lives the player has between deaths, like in Super Mario Bros.
+To start, create a new room between rIntro and rLevel by duplicating rIntro and emptying the object in the room. We¿ll make and put in that room a new object, cLifeInfo, to display the number of remaining lives and, after a few seconds, move back to the level room.
+In addition, install and load the Press Start font as a resource, naming it something like fDefault. To fit with the pixel aesthetic, it¿s a good idea to disable anti-aliasing and high quality, as well as to set the font size to 6. 
+Finally, we¿ll make cCounter persistent and move it to rIntro, out of rLevel (i.e., delete from rLevel, create in rIntro), so that things like lives, coins, and score are set from the very beginning. In cCounter¿s create event, initialize plives to 3. We want something approximately like
 
-To start, create a new room between rIntro and rLevel by duplicating rIntro and emptying the object in the room. We'll make a new object, cLifeInfo, to display the number of remaining lives and, after a few seconds, move back to the level room.
+![life info screen](../images/menu/lifeinfo.png)
 
-In addition, install and load the Press Start font as a resource, naming it something like fDefault. To fit with the pixel aesthetic, it's a good idea to disable anti-aliasing and high quality, as well as to set the font size to 6. 
+Which has the following components:
+* A white rectangle on a black background
+* A player sprite
+* 2 pieces of grey text in the middle.
 
-Finally, we'll make cCounter persistent and move it to rInfo, out of rLevel (i.e., delete from rLevel, create in rInfo), so that things like lives, coins, and score are set from the very beginning. In cCounter's create event, initialize plives to 3. We want something approximately like
+We can do this with the functions `draw_text`, `draw_rectangle`, and `draw_sprite`, which take in position coordinates for where to draw, along with some other arguments, like the text to draw, or the sprite index. We also need to specify color and font, which can be done with `draw_set_color` and `draw_set_font`, which take in a color and font, respectively. These two `draw_set` functions are similar to selecting a font or color in a drawing program, while `draw_text`, etc., actually put the graphics on the screen.
 
-[room figure]
+For me,
 
-which can be achieved using `draw_set_color`, which sets the color to be used in drawing the entities in the other functions: `draw_text`, `draw_rect`, and `draw_sprite`. For me,
-
+    // draw a white rectangle
     draw_set_color(c_white);
     draw_rectangle(room_width/4, room_height/4, room_width*3/4, room_height*3/4, false);
 
-    draw_set_font(fDefault);
-    draw_sprite(sPlayer, 0, room_width/2-14, room_height/2+2);
+    // draw the player sprite
+    draw_sprite(sPlayer, 0, room_width/2-14, room_height/2-6);
+
+    // draw gray text in our font
     draw_set_color(c_gray);
+    draw_set_font(fDefault);
     draw_text(room_width/2, room_height/2-3, "x");
     draw_text(room_width/2+12, room_height/2-2, string(cCounter.plives));
 
-positions the objects correctly. If you're not using the included font, offsets might differ slightly. (GM has tooltips to explain what all the arguments mean; the manual is also a reference)
-
-SIDENOTE: The hassle with fonts and GM projects is due to licensing: GM font resources are merely pointers to fonts installed on your computer. When the game is compiled into an executable, GM turns the font into an image to be shipped with the rest of the game, so the games are portable, but not their source. I don't blame you if you want to use a font actually installed on your computer for this step.
+positions the objects correctly. If you¿re not using the included font, offsets might differ slightly. (GM has tooltips to explain what all the arguments mean; the manual is also a reference)
+> ##### SIDENOTE
+> The hassle with fonts and GM projects is due to licensing: GM font resources are merely pointers to fonts installed on your computer. When the game is compiled into an executable, GM turns the font into an image to be shipped with the rest of the game, so the games are portable, but not their source. I don¿t blame you if you want to use a font already installed on your computer for this step.
 
 In addition, add behavior using an alarm that fades the room into the level room after a few seconds, and update the player-enemy collision behavior so it subtracts a life and moves to rInfo, or rGameOver if there are no more lives.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/3_lifeinfo.gmz).
 
 <a id="hud"></a>
 ###4.3.3 A HUD (Head-Up Display)
 
-We can easily extend this to a head-up display, or HUD, in the level. This HUD will display information about coins and lives at the top of the screen. Create a new cHUD object with a low depth (say, -10000) and place it in the level room. In the Draw event, we might include something like:
+We can easily extend this to a head-up display, or HUD, in the level. This HUD will display information about coins and lives at the top of the screen. Create a new cHUD object with a low depth (say, -200000) and place it in the level room. To get something like
+
+![hud](../images/menu/hud.png)
+
+We need to draw 2 sprites and two strings of text. In the Draw event, after fiddling around with the position offsets, we might include something like 
 
     draw_set_font(fDefault);
 
     draw_sprite(sPlayer, 0, 11, 3);
     draw_text(21, 5, string(cCounter.plives));
 
-   draw_sprite(sCoin, 0, 30, 3);
+    draw_sprite(sCoin, 0, 30, 3);
     draw_text(46, 5, string(cCounter.coins));
 
-If you test the game, you'll notice that the HUD doesn't scroll with the view. To fix this, we need to render at positions offset by the view position, accessible by view_xview[0...7] and view_yview[0...7]. Moreover, the view that's currently active is accessed by view_current. We have a final Draw event with code:
+If you test the game, you¿ll notice that the HUD doesn¿t scroll with the view (why? Think about it before you read the next sentence). To fix this, we need to render at positions offset by the view position, accessible by `view_xview[0...7]` and `view_yview[0...7]`. Moreover, the view that¿s currently active is accessed by `view_current`. We have a final Draw event with code:
 
     var vx = view_xview[view_current], vy = view_yview[view_current];
     draw_set_font(fDefault);
@@ -1159,80 +1185,88 @@ If you test the game, you'll notice that the HUD doesn't scroll with the view. T
     draw_sprite(sCoin, 0, 30+vx, 3+vy);
     draw_text(46+vx, 5+vy, string(cCounter.coins));
 
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/4_hud.gmz).
+
 <a href="#top" class="top" id="menus">Top</a>
-##4.4 Menus
+##4.4 A Menu
 
-To demonstrate a basic deliberate use of states, we'll turn the introduction screen into a start menu, with three options: starting the game, setting the number of initial lives, and exiting the game. 
+To demonstrate a basic deliberate use of states, we¿ll turn the introduction screen into a start menu, with three options: starting the game, setting the number of initial lives, and exiting the game. 
 
-Load sIntro2 from the animation provided. Then, a basic Draw event for oIntro might be:
+![screen](../images/menu/screen.png)
+
+Load sIntro2 from the animation provided. We want to have oIntro draw the title sprite, along with 3 menu options. A basic Draw event for oIntro might be:
 
     var xoff = -7;
     var yoff = 7;
     var space = 13;
 
+    // draw title sprite
     draw_sprite(sIntro2, image_index, 0, 0);
 
     draw_set_font(fDefault);
+    // draw the 3 pieces of text
     draw_text(room_width/2 + xoff, room_height/2 + yoff, "Start");
     draw_text(room_width/2 + xoff - 1, room_height/2 + yoff + space, "Lives: " + string(cCounter.plives));
     draw_text(room_width/2 + xoff, room_height/2 + 2*space + yoff, "End");
 
-This draws a title text, followed by 3 text options. The state of the menu will then be represented by the currently selected menu item, which we can put in a variable, state, initialized to 0 in the Create event.
+The state of the menu will then be represented by the currently selected menu item, which we can put in a variable, state, initialized to 0 in the Create event.
 
 Then, during each Step, oIntro can update its state depending on the input. Something like:
 
-    if (keyboard_check(vk_up)) state += 1;
-    if (keyboard_check(vk_down)) state -= 1
+    if (keyboard_check_pressed(vk_up)) state -= 1;
+    if (keyboard_check_pressed(vk_down)) state += 1
     state = (state + 3) % 3;
 
-would make the state cycle between 0, 1, and 2. (% is the modulus operator. a % b is the remainder when a is divided by b, if a is nonnegative) This roughly corresponds to the transition function in a finite state automata, since it specifies how the input changes the state.
+would make the state cycle between 0, 1, and 2. (`%` is the [modulus operator](https://en.wikipedia.org/wiki/Modulo_operation). `a % b` is the remainder when a is divided by b, if a is nonnegative) This roughly corresponds to the transition function in a finite state automaton, since it specifies how the input changes the state.
 
 To make use of these states, we need to render something to show what state is currently active, e.g., by putting a sprite to the left of the active option.
 
     draw_sprite(sCoin, 0, room_width/2 + xoff - 19, room_height/2 + yoff + space*state - 4);
 
-This puts a coin sprite to the left of the menu options, at the height of the selected option, using the expression space*state (which is a good expression to use because when state goes up by one, space*state increases by space, thus moving the sprite down by one menu item height). 
+This puts a coin sprite to the left of the menu options, at the height of the selected option, using the expression `space*state` (which is a good expression to use because when state goes up by one, `space*state` increases by space, thus moving the sprite down by one menu item height). 
 
-Finally, we need to have the states correspond to behavior. This is as simple as making a set of if statements or switch statement.
+Finally, we need to have the states correspond to behavior. This is as simple as making a set of `if` statements or a `switch` statement.
 
     switch (state) {
     case 0:
         if (keyboard_check_pressed(vk_space)) room_fade_to(room_next(room));
         break;
-
     case 1:
         if (keyboard_check_pressed(vk_right)) cCounter.plives += 1;
         if (keyboard_check_pressed(vk_left)) cCounter.plives -= 1;
         break;
-
     case 2:
         if (keyboard_check_pressed(vk_space)) game_end();
         break;
     }
 
-A menu is the most explicit demonstration of states in a game, but it doesn't have to be like that. A coin and its collect animation can be put into one object if the coin keeps track of its state: whether it's collected or not. The player in a more complicated platformer might behave differently depending on whether or not he's in the air or on the ground, or if he has a powerup or not. 
+A menu is the most explicit demonstration of states in a game, but it doesn¿t have to be like that. A coin and its collect animation can be put into one object if the coin keeps track of its state: whether it¿s collected or not. The player in a more complicated platformer might behave differently depending on whether or not he¿s in the air or on the ground, or if he has a powerup or not. 
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/5_menu.gmz).
 
 <a id="pause-menu"></a>
-###4.4.1 Pause Menu
+###4.5 A Pause Screen
 
-One final demonstration of states, and how GM's built-in states--rooms--can implement this easily. On a high level, we want to have behavior in the game loop like this:
+Here¿s one final demonstration of states, and how GM¿s built-in states--rooms--can implement this easily. On a high level, we want to have behavior in the game loop like this:
 
-    state - game running:
-        simulate a step in the level
+    state - game running in a level:
+        simulate a step normally
         *check if the player wants to pause (e.g. pressed p)
-
     state - game paused:
         display a pause message
         *check if player wants to unpause
+    state - game in other screen (like a menu):
+        simulate a step normally
 
-    state - game in other screen:
-        simulate a step in the other screen
-
-The reason rooms work so well here is that one can control whether or not to simulate a step in the level using the current room. That is, a level and pause room correspond exactly with the game unpaused and paused states above.
+The reason rooms work so well here is that one can control whether or not to simulate a step in the level by controlling the current room. That is, a level and pause room correspond exactly with the game unpaused and paused states above, so we can pause and unpause by swapping rooms.
 
 To implement this, start by making a persistent object cPause and put it in the first room of the game. Also duplicate rInfo to create an empty rPause room with a black background.
 
-We want cPause to make the pause state correspond exactly with the rooms. To do this, cPause needs to render and perform logic according to the room. Rendering correctly would mean drawing “PAUSED” in the rPause room:
+We want cPause to make the pause state correspond exactly with the rooms. To do this, cPause needs to render and perform logic according to the room. Rendering correctly would mean drawing ¿PAUSED¿ in the pause state / rPause room:
 
     if (room == rPause)
     {
@@ -1244,13 +1278,11 @@ and performing correct logic means enabling pausing and unpausing depending on t
 
     switch (room) {
     case rIntro: case rInfo: case rGameOver: // for menu/info rooms,
-        // don't do anything    
+        // don¿t do anything    
         break;
-
     case rPause: // in the pause room,
         // if p is pressed, go back to the room you came from and unset the persistence
         break;
-
     default: // for all remaining rooms (levels),
         // if p is pressed, mark this room persistent and go to the pause room
         break;
@@ -1264,13 +1296,13 @@ which roughly translates to, in the Step event:
     case rPause:
         if (keyboard_check_pressed(ord('P'))) {
             room_goto(prevRoom);
-            room_persistent = prevPersistent;
+            room_persistent = prevPersistent; // reset the room¿s persistence
         }
         break;
     default:
         if (keyboard_check_pressed(ord('P'))) {
             prevRoom = room;
-            prevPersistent = room_persistent;
+            prevPersistent = room_persistent; // remember if the room was persistent earlier
             room_persistent = true;
             room_goto(rPause);
         }
@@ -1279,7 +1311,7 @@ which roughly translates to, in the Step event:
 
 Which remembers if the room was persistent before the pause room, and sets it back to the previous setting upon unpause.
 
-NOTE: The slight problem with this is that room_goto(...) changes the room only at the end of all the steps, so resetting the room persistence must be done a step later, when we're actually back in the room. To do this, we give cPause an extra flag, resetPersistent, and initialize it to false in the Create event, to keep track of whether or not the room's persistent flag needs to be reset or not.
+The slight problem with this is that room_goto(...) changes the room only at the end of all the steps, so resetting the room persistence must be done a step later, when we¿re actually back in the room. To do this, we give cPause an extra flag, resetPersistent, and initialize it to false in the Create event, to keep track of whether or not the room¿s persistent flag needs to be reset or not.
 
     switch (room) {
     case rIntro: case rInfo: case rGameOver:
@@ -1304,6 +1336,10 @@ NOTE: The slight problem with this is that room_goto(...) changes the room only 
         break;
     }
 
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/6_pause.gmz).
+
 <a href="#top" class="top" id="last-words-level4">Top</a>
 ##4.5 A Few Last Words for Level 4
 
@@ -1311,7 +1347,6 @@ The concept of states is simple to grasp and also simple to program. As we menti
 
 Deliberately thinking about software, and especially a game, in terms of states, however, is powerful and useful for simplifying the complex workings of such a program. Most of the time, bugs and exploits come from the game going into an invalid state, and so ensuring that nothing breaks within a state and no state goes to an invalid state is a good defense against errors. Hopefully this step in our tutorial gave some more concrete examples of states in game programming, along with a little more exposure to some functions GM provides.
 
-___________
 <a href="#top" class="top" id="level5">Top</a>
 ##Level 5: Design considerations: What will make your game stand out from the crowd?
 
@@ -1334,7 +1369,6 @@ Now that you know that everything in a room in GameMaker is an object, why not p
 
 The possibilities are endless when designing a game. This is a world you're creating, so don't be afraid to experiment when making it! 
 
-___________
 <a href="#top" class="top" id="additionalresources">Top</a>
 ## Additional Resources
 
