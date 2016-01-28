@@ -557,7 +557,7 @@ To define and initialize object member variables, we can simply assign values to
     accel = 0.2;
     maxspeed = 3.5;
 
-(Putting 3 slashes in the first line replaces the default “Execute Code” action description with the text of the first line)
+(Putting 3 slashes in the first line replaces the default \93Execute Code\94 action description with the text of the first line)
 
 > ##### Technical Sidenote
 
@@ -626,7 +626,7 @@ You can download the GM project with everything up to this step [here](../resour
 <a id="walking-animation"></a>
 ###3.4.4 Walking Animation
 
-If you loaded all 4 subimages of the player sprite, you might want to have the player animation correspond to your movement. The variables GM provides to control the displayed subimage of a sprite are `image_index`, the subimage index, and `image_speed`, the speed at which image_index changes. A speed of 1 means every frame, the index advances; ½ would mean updating the subimage once every two frames.
+If you loaded all 4 subimages of the player sprite, you might want to have the player animation correspond to your movement. The variables GM provides to control the displayed subimage of a sprite are `image_index`, the subimage index, and `image_speed`, the speed at which image_index changes. A speed of 1 means every frame, the index advances; \BD would mean updating the subimage once every two frames.
 
 If we wanted to have the animation play at a speed according to how fast we were moving, we might do something like `image_speed = 0.05*hspeed`.
 

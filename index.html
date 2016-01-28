@@ -742,7 +742,7 @@ lspeed = 0;
 accel = 0.2;
 maxspeed = 3.5;
 </code></pre>
-<p>(Putting 3 slashes in the first line replaces the default �Execute Code� action description with the text of the first line)</p>
+<p>(Putting 3 slashes in the first line replaces the default \93Execute Code\94 action description with the text of the first line)</p>
 <blockquote>
 <h5 id="technical-sidenote">Technical Sidenote</h5>
 <p>The object-oriented mind may notice that even though the last two variables are actually constants (at least, for our purposes) specific to all player objects, it's common practice to group these with other member variables. This may be a little unsettling, but it's the best solution given GM's restricted capabilities (as far as I know). Further, the idea and purpose of an object in games are slightly different than in traditional OOP cases; these represent packages of code that are simulated according to a ruleset, not so much possible interfaces or services for other users or other classes, and the people who do work with your object's code are much less likely to want to break it. Magic numbers are still bad for the same reasons as in other programs, so we define variables here.</p>
@@ -793,7 +793,7 @@ if (lspeed &lt; 0) lspeed = 0;
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/2_smooth.gmz">here</a>.</p>
 <p><a id="walking-animation"></a></p>
 <h3 id="344-walking-animation">3.4.4 Walking Animation</h3>
-<p>If you loaded all 4 subimages of the player sprite, you might want to have the player animation correspond to your movement. The variables GM provides to control the displayed subimage of a sprite are <code>image_index</code>, the subimage index, and <code>image_speed</code>, the speed at which image_index changes. A speed of 1 means every frame, the index advances; � would mean updating the subimage once every two frames.</p>
+<p>If you loaded all 4 subimages of the player sprite, you might want to have the player animation correspond to your movement. The variables GM provides to control the displayed subimage of a sprite are <code>image_index</code>, the subimage index, and <code>image_speed</code>, the speed at which image_index changes. A speed of 1 means every frame, the index advances; \BD would mean updating the subimage once every two frames.</p>
 <p>If we wanted to have the animation play at a speed according to how fast we were moving, we might do something like <code>image_speed = 0.05*hspeed</code>.</p>
 <p>To get the player to change the direction he's facing, a common solution is to create another sprite sPlayerL with the graphics mirrored and then set the player's sprite according to his velocity, using GM's built-in variable <code>sprite_index</code>. Something in the Step event like</p>
 <pre><code>if (hspeed &gt;= 0) sprite_index = sPlayer;
