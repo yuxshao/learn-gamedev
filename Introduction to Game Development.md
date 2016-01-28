@@ -877,50 +877,65 @@ You can download the GM project with everything up to this step [here](../resour
 <a href="#top" class="top" id="views">Top</a>
 ##3.6 Views
 
-Our screens are only so big, and for longer levels we can't possibly have the game window stretch to fit everything. For this reason we have views, which define a small rectangle in the room that our game window is able to see. Platformer levels are normally huge, with the window often only seeing a 320x240-pixel frame of it. This is usually zoomed up so that the actual program window size, or view port, is, say, 640x480 or 960x720. To avoid a blurry image from upscaling, go to “Global Game Settings” in the left menu -> Windows -> Graphics, and uncheck Interpolate Colors between PIxels.
+Our screens are only so big, and for longer levels we can¿t possibly have the game window stretch to fit everything. For this reason we have views, which define a small rectangle in the room that our game window is able to see. Platformer levels are normally huge, with the window often only seeing a 320x240-pixel frame of it. This is usually zoomed up so that the actual program window size, or view port, is, say, 640x480 or 960x720. To avoid a blurry image from upscaling, go to ¿Global Game Settings¿ in the left menu -> Windows -> Graphics, and uncheck Interpolate Colors between PIxels.
 
-[FIGURE: large level, small view window]
+![views](../images/platformer/view.png)
 
-To achieve this, go to the Room Properties and then the view tab. Enable the use of views, and make the zeroth view visible when the room starts. Finally, to match the figure above, set the width and height of the view in room to (320, 240), along with the view port to (640, 480), to match the figure above.
+To achieve this, go to the Room Properties and then the view tab. Enable the use of views, and make the zeroth view visible when the room starts. Finally, to match the figure above, set the width and height of the view in room to `(320, 240)`, along with the view port to `(640, 480)`, to match the figure above.
 
-[view settings interface]
+![view tab](../images/platformer/viewtab.png)
 
-If you test it right now, you'll notice you can only see the leftmost end of the room, and the player can easily move out the right side. We want this frame to follow the player, and GM provides an option for that right underneath the rest of the view settings. You can select to follow the player and adjust the Hbor and Vbor to set how close to the edges of the view the player's allowed to be. Hsp and Vsp define how fast the view is allowed to move to catch up to the player if the player moves too close to the edge (-1 is a special number to mean instantaneous).
+If you test it right now, you¿ll notice you can only see the leftmost end of the room, and the player can easily move out the right side. We want this frame to follow the player, and GM provides an option for that right underneath the rest of the view settings. You can select to follow the player and adjust the Hbor and Vbor to set how close to the edges of the view the player¿s allowed to be. Hsp and Vsp define how fast the view is allowed to move to catch up to the player if the player moves too close to the edge (-1 is a special number to mean instantaneous).
 
-If you don't prefer the instant update, maybe it'd be helpful to create a view controller object that smoothly follows the player, and then have the view center on the controller.
+![follow player](../images/platformer/viewfollow.png)
 
-(Gamasutra has a great survey of a lot of different view motions in platformers and other video games here)
+If you don¿t prefer the instant update, maybe it¿d be helpful to create a view controller object that smoothly follows the player, and then have the view center on the controller.
+
+> ##### Sidenote
+> Gamasutra has a great survey of a lot of different view motions in platformers and other video games. It's super interesting. Check it out [here](http://gamasutra.com/blogs/ItayKeren/20150511/243083/Scroll_Back_The_Theory_and_Practice_of_Cameras_in_SideScrollers.php)!
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/6_views.gmz).
 
 <a href="#top" class="top" id="tiles">Top</a>
 ##3.7 Tiles
 
 Common practice with GM and other 2D level editors is the use of a tileset, which has many parallels to a background: just an image without any complex behavior. Tile layers are images covering the room made up of unit images called tiles.
 
-If you loaded the tileset provided as a background and marked it to be used as a tileset, it should be available in the tiles tab in the Room Properties window. You can then select it, pick tiles, and place them in the room over the blocks. If nothing seems to happen, it's likely because the blocks are showing up in front of the tiles. You can change the rendering order by changing the layer the tiles are on (bottom of the left tile-selection menu); lower layers are rendered first. 
+If you loaded the tileset provided as a background and marked it to be used as a tileset, it should be available in the tiles tab in the Room Properties window. You can then select it, pick tiles, and place them in the room over the blocks. If nothing seems to happen, it¿s likely because the blocks are showing up in front of the tiles. You can change the rendering order by changing the layer the tiles are on (bottom of the left tile-selection menu); lower layers are rendered first. 
 
-For relatively static environments, tiles are a good way to separate function from appearance. One can make a level by laying out the blocks and important objects, and then adding the decorative tiles to serve as background or a face for the blocks. It may also be useful to, in the oBlock's object properties, uncheck the “visible” box.
+![tileset](../images/platformer/tile_editor.png)
+
+For relatively static environments, tiles are a good way to separate function from appearance. One can make a level by laying out the blocks and important objects, and then adding the decorative tiles to serve as background or a face for the blocks. It may also be useful to, in the oBlock¿s object properties, uncheck the ¿visible¿ box.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/7_tiles.gmz).
 
 <a href="#top" class="top" id="additions">Top</a>
 ##3.8 A Few Additions
 
-We'll finish with a quick look at adding a particular type of enemy and coins. These are short add-ons, and the nature of this section of the tutorial generally reflects the general experience with Game Maker: an idea/desire for a gimmick/feature, leading to looking up a short tutorial online, leading to a little more awareness of GM's features and how to use them, as well as some intuition for general game programming.
+We¿ll finish with a quick look at adding a particular type of enemy and coins. These are short add-ons, and the nature of this section of the tutorial generally reflects the general experience with Game Maker: an idea/desire for a gimmick/feature, leading to looking up a short tutorial online, leading to a little more awareness of GM¿s features and how to use them, as well as some intuition for general game programming.
 
 <a id="enemies"></a>
 ###3.8.1 Enemies
 
-We'll go over how to implement a Goomba-like enemy: a slow walking figure that turns around upon hitting a wall or edge and that the player can stomp on. Start by creating the object from the sprite.
+We¿ll go over how to implement a Goomba-like enemy: a slow walking figure that turns around upon hitting a wall or edge and that the player can stomp on. Start by creating the object from the sprite.
 
-**Movement**
+#### Movement
 
-If we aren't expecting to subject our enemy to complicated physics, we can have the enemy move horizontally, and reversing direction upon hitting a wall.
+If we aren¿t expecting to subject our enemy to complicated physics, we can have the enemy move horizontally, and reversing direction upon hitting a wall.
 
-What about cliffs? We could also have the enemies detect the edge of the platform themselves, but perhaps the simplest solution for simple enemies and platforms would be invisible blocks that interact only with enemies, signalling to them that it's time to turn around. They could then be placed strategically at the edge of platforms. 
+What about cliffs? We could also have the enemies detect the edge of the platform themselves, but perhaps the simplest solution for simple enemies and platforms would be invisible blocks that interact only with enemies, signalling to them that it¿s time to turn around. They could then be placed strategically at the edge of platforms. 
+
+![enemy blocks](../images/platformer/enemyblock.png)
 
 We might end up with something like `hspeed = -0.25` in the Create event and in the Step event:
 
     if (place_meeting(x+hspeed, y, oBlock) || place_meeting(x+hspeed, y, oEnemyBlock)) hspeed *= -1;
 
-**Collision**
+#### Collision
 
 How do we tell if a given collision between the enemy and player is a stomp or not? Two common ways: comparing the heights of the two objects, and looking at the velocity of the player.
 
@@ -935,25 +950,32 @@ The former might look like something in the player Step event, above the line th
         else instance_destroy();
     }
 
-NOTE: with <object> { … } runs a block of code as if that object were running it. For instance, accessing x in this block would get <object>'s x.
+> ##### Sidenote
+> `with <object> { ¿ }` runs a block of code as if that `<object>` were running it. For instance, putting `with oEnemy { instance_destroy(); }` in `oPlayer`¿s step event would get rid of all enemies.
 
-Super Mario Bros. actually just checks if the player's falling, with the condition `(vspeed > 0)` instance of `(z.y - 5 > y)`. You should test out what feels right.
+Super Mario Bros. actually just checks if the player¿s falling, with the condition `(vspeed > 0)` instead of `(z.y - 5 > y)`. You should test out what feels right.
 
-**Death Animation**
+#### Death Animation
 
-To make the interaction less rough, we might want to add a death animation for the enemy, perhaps by having the enemy fall off the screen. A common way to do this is to replace the enemy with a different, identically-looking object with the sole purpose of falling off the screen, rather than keeping track of whether or not the enemy's dead.
+To make the interaction less rough, we might want to add a death animation for the enemy, perhaps by having the enemy fall off the screen. A common way to do this is to replace the enemy with a different, identically-looking object with the sole purpose of falling off the screen, rather than keeping track of whether or not the enemy¿s dead.
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/8_enemies.gmz).
 
 <a id="coins"></a>
 ###3.8.2 Coins
 
 Another common element in platformers are mass collectibles, like coins in Mario, bananas in Donkey Kong, or rings in Sonic, and with a little extra code, can make a nice effect.
 
-One way to add coins: Load the sprite, and create oCoin and oCoinCollect, so that oCoin disappears and changes into oCoinCollect upon touching the player. oCoinCollect can then slowly move up and fade out, destroying itself upon disappearing.
+One way to add coins: Load the sprite, and create `oCoin` and `oCoinCollect`, so that `oCoin` disappears and changes into `oCoinCollect` upon touching the player. `oCoinCollect` can then slowly move up and fade out (`image_alpha` sets how opaque an object¿s sprite is, so we can put `image_alpha -= 0.08` or in the Step event of `oCoinCollect`), destroying itself upon disappearing.
 
-A way to keep track of coins may be to create an object just for coin counting and other game-global variables, like cCounter, and then increment the counter on that (e.g., cCounter.coins += 1, but first initialize coins to 0 in the Create event of cCounter) for every new coin collected. We haven't gone through manually displaying text or graphics, but it'll be covered in the menu section.
+A way to keep track of coins may be to create an object just for coin counting and other game-global variables, like cCounter, and then increment the counter on that (e.g., `cCounter.coins += 1`, but first initialize coins to 0 in the Create event of `cCounter`) for every new coin collected. We haven¿t gone through manually displaying text or graphics, but it¿ll be covered in the menu section.
 
+##### Checkpoint
 
-___________
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/9_coins.gmz).
+
 <a href="#top" class="top" id="level4">Top</a>
 ##Level 4: States and Menus
 
