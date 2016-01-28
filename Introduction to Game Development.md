@@ -3,7 +3,7 @@
 
 *Design Principles and Game Programming*
 
-Written and developed by [CU Game Dev](http://cugamedev.org/) and [ADI](adi).
+Written and developed by [CU Game Dev](http://cugamedev.org/), with support from [ADI](adi).
 
 <a href="#top" class="top" id="getting-started">Top</a>
 # About This Document
