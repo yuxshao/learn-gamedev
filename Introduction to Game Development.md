@@ -25,6 +25,7 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 * talk about finite state machines
 * Flesh out MVP section if possible?
 * Talk about sprite editor in MAC: removing a sprite means cutting it. Also, sprite strips?
+* additional resources
 
 separator
 
@@ -63,7 +64,7 @@ separator
 		-	[2.6.1 Enemy Fire](#backgrounds-rooms)
 		-	[2.6.2 Animations & Explosions](#animations-explosions)
 		-	[2.6.3 Other Suggestions](#other-suggestions)
-	-	[2.7 A few last words](#MVP-review)
+	-	[2.7 A Few Last Words](#MVP-review)
 -	[Level 3: Creating a Platformer](#level3)
 	-	[3.1 Resource Setup](#resource-setup)
 	-	[3.2 Scripts & the Step Event](#scripts-step-events)
@@ -101,7 +102,7 @@ separator
 		-	[4.3.3 A HUD](#hud)
 	-	[4.4 A Menu](#menus)
 	-	[4.5 A Pause Screen](#pause-menu)
-	-	[4.6 A few last words](#last-words-level4)
+	-	[4.6 A Few Last Words](#last-words-level4)
 -	[Level 5: Design Considerations](#level5)
 -	[Additional Resources](#additionalresources)
 
@@ -490,7 +491,7 @@ One other thing you may notice is that the game isn't very fun. Try to tweak the
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz).
 
 <a href="#top" class="top" id="MVP-review">Top</a>
-## 2.7 A few last words
+## 2.7 A Few Last Words
 
 Game Maker tries to make it simple to make simple games. Where there isn't a lot of complex logic, programming and gathering the assets is a matter of navigating the menus and specifying what to do at certain events. 
 
@@ -1359,7 +1360,7 @@ The slight problem with this is that room_goto(...) changes the room only at the
 You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/6_pause.gmz).
 
 <a href="#top" class="top" id="last-words-level4">Top</a>
-##4.5 A few last words
+##4.5 A Few Last Words
 
 The concept of states is simple to grasp and also simple to program. As we mentioned earlier, it can often be implicit in your code too: you might use an if-statement to give different behavior to the player depending on if he's in the air and or on the ground, thus giving him a state.
 
