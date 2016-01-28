@@ -23,6 +23,7 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 ### TODO
 talk about the hassles of the sprite editor in mac
 
+separator
 
 -	[Level 1: General Intro to Game Design and Programming](#level1)
 	-	[1.1 Game Design considerations](#game-design-considerations)
@@ -247,7 +248,6 @@ We'll be building a quick top-down shooter in GameMaker, and with the goal of se
 
 For Windows, when you first open GM Studio, you should see a window similar to the one in the screenshot below.
 ![GM Window](../images/shooter/start.png)
-The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is, we'll give a quick walkthrough of adding sprites, sounds, and backgrounds.
 
 Navigate to the "New" tab and select a location to put all the files related to the game we'll be making. GM studio projects are folders with extension .gmx, containing a main project file with an extension .project.gmx, and several subfolders for the game's resources. In addition it's possible to export and send the entire project as a single compressed .gmz file (File > Export Project in the next window).
 
@@ -255,7 +255,7 @@ Once you select a name and location for your project, a window like the one belo
 
 ![GM Interface](../images/shooter/interface.png)
 
-The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is (or tries to be), we'll give a quick walkthrough of adding sprites, sounds, and backgrounds to a project.
+The two types of assets&mdash;graphics and audio&mdash;are grouped into the first 3 folders on the left. As intuitive as the interface is (or tries to be), we'll give a quick walkthrough of adding sprites, sounds, and backgrounds to a project.
 
 <a href="#top" class="top" id="create-resource-sounds-sprites">Top</a>
 ##2.1 Creating Resources - Sounds and Sprites
@@ -273,7 +273,7 @@ Name the sprite something appropriate, like sPlayer, for a player sprite. To mod
 
 ![Sprite Editor](../images/shooter/sprite_editor.png)
 
-Save and close the editor and properties window--you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.
+Save and close the editor and properties window&mdash;you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.
 
 A background is similar. Create a background resource (right-click the folder or click ![New Background](../images/shooter/new_back.png)) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!
 
@@ -329,7 +329,7 @@ To see how GameMaker provides this, in the Object Properties window of your play
 
 > Underneath the hood, GM is adding a piece of logic to the game's programming that checks if the left button is down at a particular instant and moves the player left if it is. This check isn't truly continuous because of the sequential nature of programs, but it's as close to continuous as possible. Specifically, this piece of logic is added to the object's update method, which is run once every time step, or simulation of the game loop, so *every frame, the program checks if left is pressed, and moves the player 3 pixels to the left if it is.*
 
-> This abstraction--of associating a sequence of actions to an event for every object--is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.
+> This abstraction&mdash;of associating a sequence of actions to an event for every object&mdash;is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.
 
 
 
@@ -361,7 +361,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 
 > (Green x shows origin of both bullet and player, which we now set to the centre of the sprite. Creating a bullet at (0, 0) relative to the player thus aligns the two origins)
 
-> The remainder of this shooter will keep sprite origins at (0, 0), but expect to use sprite origins in the next step--the platformer.
+> The remainder of this shooter will keep sprite origins at (0, 0), but expect to use sprite origins in the next step&mdash;the platformer.
 
 ##### Checkpoint
 
@@ -394,7 +394,7 @@ GM provides a scripting language to allow for traditional control flow structure
 
 Every object is allowed to have any (reasonable) number of values associated with it, called variables, that store things like numbers, pieces of text, or other objects. Their use is what you'd expect: keeping track of, e.g., an individual's score in an arcade game, or status message in an MMO. We'll use variables to keep track of enemy health, so that 3 hits will destroy an enemy ship instead of just one.
 
-While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the ![var set](../images/shooter/act_var.png) action in the control tab. To start the enemy off with 3 health, use ![var set](../images/shooter/act_var.png) to set `hp` (not `health`--see below) to 3 in the Create event. Since this is the first mention of the variable `hp`, it also tells GameMaker that this object has a variable called `hp`.
+While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the ![var set](../images/shooter/act_var.png) action in the control tab. To start the enemy off with 3 health, use ![var set](../images/shooter/act_var.png) to set `hp` (not `health&mdash;see below) to 3 in the Create event. Since this is the first mention of the variable `hp`, it also tells GameMaker that this object has a variable called `hp`.
 
 ![enemy hp](../images/shooter/enemyhp.png)
 
@@ -572,7 +572,7 @@ You can download the GM project with everything up to this step [here](../resour
 
 Most platformers consider player acceleration and deceleration. In a smooth platforming engine, we'd expect pressing a horizontal to gently accelerate the player in that direction up to a maximum speed, releasing that direction to slowly decelerate the player, and pressing the opposite direction to shift towards that opposite direction. 
 
-We can model this using two speeds--a rightward speed and a leftward speed--each individually controlled by the corresponding key.
+We can model this using two speeds&mdash;a rightward speed and a leftward speed&mdash;each individually controlled by the corresponding key.
 
 To define and initialize object member variables, we can simply assign values to them in the Create event: 
 
@@ -689,7 +689,7 @@ In the figure above, `place_meeting(x+10, y, oBlue)` from `oRed`'s object code w
 <a id="landing-block"></a>
 ###3.5.1 Landing on a Block
 
-Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously--once every frame. We can't enforce the statement, "Don't let the player fall through a block when he lands on it" directly, but we can ask each frame if he's landed on the block, and if he has, change the player's motion and position accordingly. 
+Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously&mdash;once every frame. We can't enforce the statement, "Don't let the player fall through a block when he lands on it" directly, but we can ask each frame if he's landed on the block, and if he has, change the player's motion and position accordingly. 
 
 The way we can do this with GM is to check, in the update method, whether or not the player would fall into a block the next frame. This is a matter of moving the player to where it would be next frame, and seeing if the player's hitbox in that position overlaps with the block's. This can be captured with the condition `if (place_meeting(x+hspeed, y+vspeed, oBlock))` at the end of the other movement code, because the player's position next frame is (x+hspeed, y+vspeed). If the condition passes, we know that unless we do something, next frame, the player will be stuck in a block.
 
@@ -824,7 +824,7 @@ A summary of our code:
     if (hit block at (x, y+vspeed)) apply vertical correction;
     if (hit block at (x+hspeed, y+vspeed)) apply vertical correction;
 
-A simplification would be to remove the second line entirely, since the second line rarely fires without the third also firing--only when the player grazes the block from the top almost pixel-perfectly, which is unnoticeable to the player.
+A simplification would be to remove the second line entirely, since the second line rarely fires without the third also firing&mdash;only when the player grazes the block from the top almost pixel-perfectly, which is unnoticeable to the player.
 
 Our final code:
 
@@ -1134,7 +1134,7 @@ A brief digression from states: In games it's often useful to control what's ren
 
 The pass that draws all the objects is more complicated than the first pass that steps through objects, because drawing needs to be done in a specific order. Something in the background, for instance, should be drawn before something in the foreground, since drawing something necessarily covers up what was drawn there already. To define drawing order, objects in GM have a depth; objects with lower depth are drawn later, and thus above objects with higher depth (i.e., deeper objects are drawn first and covered up by objects that aren't as deep).
 
-In GM Studio for Windows, there's a whole family of draw events, like Start Draw and Draw GUI, meant to help organize the common types of drawing actions in games. Everything's doable with the vanilla Draw event, though--the only one available on Mac. 
+In GM Studio for Windows, there's a whole family of draw events, like Start Draw and Draw GUI, meant to help organize the common types of drawing actions in games. Everything's doable with the vanilla Draw event, though&mdash;the only one available on Mac. 
 
 If there's no Draw event specified for an object, GM by default just draws the object's sprite, with transformation (scaling, rotation) and coloring (alpha) applied. We can override this by specifying our own Draw event, which is useful if we want an object to draw things like text or shapes. GM provides an tab for drawing actions, as well as a slew of drawing functions starting with `draw_` and setting functions starting with `draw_set_`.
 
@@ -1246,7 +1246,7 @@ Then, during each Step, oIntro can update its state depending on the input. Some
 would make the state cycle between 0, 1, and 2. (`%` is the [modulus operator](https://en.wikipedia.org/wiki/Modulo_operation). `a % b` is the remainder when a is divided by b, if a is nonnegative)
 
 > ##### Sidenote
-> In CS Theory lingo, this roughly corresponds to the transition function in a finite state automaton, since it defines how our input changes the state--in this case, pressing a given arrow key either moves increases or decreases the state.
+> In CS Theory lingo, this roughly corresponds to the transition function in a finite state automaton, since it defines how our input changes the state&mdash;in this case, pressing a given arrow key either moves increases or decreases the state.
 
 To make use of these states, we need to render something to show what state is currently active, e.g., by putting a sprite to the left of the active option.
 
@@ -1278,7 +1278,7 @@ You can download the GM project with everything up to this step [here](../resour
 <a id="pause-menu"></a>
 ###4.5 A Pause Screen
 
-Here's one final demonstration of states, and how GM's built-in states--rooms--can implement this easily. On a high level, we want to have behavior in the game loop like this:
+Here's one final demonstration of states, and how GM's built-in states&mdash;rooms&mdash;can implement this easily. On a high level, we want to have behavior in the game loop like this:
 
     state - game running in a level:
         simulate a step normally

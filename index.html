@@ -343,6 +343,7 @@ pre .chunk {
 <h1 id="table-of-contents">Table of Contents</h1>
 <h3 id="todo">TODO</h3>
 <p>talk about the hassles of the sprite editor in mac</p>
+<p>separator</p>
 <ul>
 <li><a href="#level1">Level 1: General Intro to Game Design and Programming</a><ul>
 <li><a href="#game-design-considerations">1.1 Game Design considerations</a><ul>
@@ -560,12 +561,11 @@ pre .chunk {
 </blockquote>
 <p>We'll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player's level. You can move horizontally and shoot upwards.</p>
 <p>For Windows, when you first open GM Studio, you should see a window similar to the one in the screenshot below.
-<img alt="GM Window" src="./images/shooter/start.png" />
-The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is, we'll give a quick walkthrough of adding sprites, sounds, and backgrounds.</p>
+<img alt="GM Window" src="./images/shooter/start.png" /></p>
 <p>Navigate to the "New" tab and select a location to put all the files related to the game we'll be making. GM studio projects are folders with extension .gmx, containing a main project file with an extension .project.gmx, and several subfolders for the game's resources. In addition it's possible to export and send the entire project as a single compressed .gmz file (File &gt; Export Project in the next window).</p>
 <p>Once you select a name and location for your project, a window like the one below should pop up. Something similar to the window below should be the first window you see on Mac, after the little popup asking you to buy the full version. If GM asks if you want to enable advanced mode, answer yes.</p>
 <p><img alt="GM Interface" src="./images/shooter/interface.png" /></p>
-<p>The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is (or tries to be), we'll give a quick walkthrough of adding sprites, sounds, and backgrounds to a project.</p>
+<p>The two types of assets&mdash;graphics and audio&mdash;are grouped into the first 3 folders on the left. As intuitive as the interface is (or tries to be), we'll give a quick walkthrough of adding sprites, sounds, and backgrounds to a project.</p>
 <p><a href="#top" class="top" id="create-resource-sounds-sprites">Top</a></p>
 <h2 id="21-creating-resources-sounds-and-sprites">2.1 Creating Resources - Sounds and Sprites</h2>
 <p>In this section, we'll focus on creating and adding assets to our game.</p>
@@ -575,7 +575,7 @@ The two types of assets--graphics and audio--are grouped into the first 3 folder
 <p><img alt="Sprite Properties" src="./images/shooter/sprite_properties.png" /></p>
 <p>Name the sprite something appropriate, like sPlayer, for a player sprite. To modify the actual graphic of the sprite, you can choose to load a premade image or edit the sprite yourself and click the appropriate button. We've provided sample sprites with the tutorial that you can load. If you prefer to make your own, click "Edit Sprite" to open up the Sprite Editor and click "New Sprite". Specify the dimensions, and double-click the "image 0" that's appeared in the sprite editor to open up the Image Editor and start drawing. After you load the image or draw your own, your Sprite Editor should look something like what's shown below.</p>
 <p><img alt="Sprite Editor" src="./images/shooter/sprite_editor.png" /></p>
-<p>Save and close the editor and properties window--you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.</p>
+<p>Save and close the editor and properties window&mdash;you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.</p>
 <p>A background is similar. Create a background resource (right-click the folder or click <img alt="New Background" src="./images/shooter/new_back.png" />) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!</p>
 <blockquote>
 <h5 id="sidenote">Sidenote</h5>
@@ -610,7 +610,7 @@ The two types of assets--graphics and audio--are grouped into the first 3 folder
 <blockquote>
 <h5 id="sidenote-1">Sidenote 1</h5>
 <p>Underneath the hood, GM is adding a piece of logic to the game's programming that checks if the left button is down at a particular instant and moves the player left if it is. This check isn't truly continuous because of the sequential nature of programs, but it's as close to continuous as possible. Specifically, this piece of logic is added to the object's update method, which is run once every time step, or simulation of the game loop, so <em>every frame, the program checks if left is pressed, and moves the player 3 pixels to the left if it is.</em></p>
-<p>This abstraction--of associating a sequence of actions to an event for every object--is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.</p>
+<p>This abstraction&mdash;of associating a sequence of actions to an event for every object&mdash;is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.</p>
 <h5 id="sidenote-2">Sidenote 2</h5>
 <p>Every object has a pair of coordinates <code>(x, y)</code> representing its position, and GameMaker draws the sprite of the object at that position once every frame. The action we added moves the object <code>(-3, 0)</code> from where it was before, since we ticked relative. If we hadn't ticked relative, the object would teleport to the absolute location <code>(-3, 0)</code> (i.e., a bit to the left of the global origin, or top-left corner of the screen/room), and stay there, as soon as you pressed left.
 (In the representation below, pressing left would move the ship to <code>(45, 44)</code> the next frame)</p>
@@ -629,7 +629,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>If you're interested in avoiding these ugly numbers, take a look at sprite origins, which are special coordinates for each sprite, editable in the sprite properties window. When GM renders an object at a position (x, y), it draws the object's sprite so that the origin of that sprite is at (x, y). Sprites are created with origins at (0, 0). You can move the origin to the centre of the sprite by clicking "Center" on both the player and bullet sprites. Creating a bullet at (0, 0) relative to the player will then make the centre of the bullet align with the centre of the player, as desired.</p>
 <p><img alt="Origin centre" src="./images/shooter/origin_center.png" /></p>
 <p>(Green x shows origin of both bullet and player, which we now set to the centre of the sprite. Creating a bullet at (0, 0) relative to the player thus aligns the two origins)</p>
-<p>The remainder of this shooter will keep sprite origins at (0, 0), but expect to use sprite origins in the next step--the platformer.</p>
+<p>The remainder of this shooter will keep sprite origins at (0, 0), but expect to use sprite origins in the next step&mdash;the platformer.</p>
 </blockquote>
 <h5 id="checkpoint_1">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/2_moveshoot.gmz">here</a>.</p>
@@ -650,7 +650,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <h2 id="24-control-flow-and-variables-health">2.4 Control Flow and Variables - Health</h2>
 <p>GM provides a scripting language to allow for traditional control flow structures, like conditionals and loops, but GM's drag-and-drop action system also has a simplified version for people new to code. </p>
 <p>Every object is allowed to have any (reasonable) number of values associated with it, called variables, that store things like numbers, pieces of text, or other objects. Their use is what you'd expect: keeping track of, e.g., an individual's score in an arcade game, or status message in an MMO. We'll use variables to keep track of enemy health, so that 3 hits will destroy an enemy ship instead of just one.</p>
-<p>While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the <img alt="var set" src="./images/shooter/act_var.png" /> action in the control tab. To start the enemy off with 3 health, use <img alt="var set" src="./images/shooter/act_var.png" /> to set <code>hp</code> (not <code>health</code>--see below) to 3 in the Create event. Since this is the first mention of the variable <code>hp</code>, it also tells GameMaker that this object has a variable called <code>hp</code>.</p>
+<p>While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the <img alt="var set" src="./images/shooter/act_var.png" /> action in the control tab. To start the enemy off with 3 health, use <img alt="var set" src="./images/shooter/act_var.png" /> to set <code>hp</code> (not <code>health&amp;mdash;see below) to 3 in the Create event. Since this is the first mention of the variable</code>hp<code>, it also tells GameMaker that this object has a variable called</code>hp`.</p>
 <p><img alt="enemy hp" src="./images/shooter/enemyhp.png" /></p>
 <blockquote>
 <h5 id="sidenote_4">Sidenote</h5>
@@ -766,7 +766,7 @@ if (keyboard_check(vk_right))
 <p><a id="smooth-movement"></a></p>
 <h3 id="332-smooth-movement">3.3.2 Smooth Movement</h3>
 <p>Most platformers consider player acceleration and deceleration. In a smooth platforming engine, we'd expect pressing a horizontal to gently accelerate the player in that direction up to a maximum speed, releasing that direction to slowly decelerate the player, and pressing the opposite direction to shift towards that opposite direction. </p>
-<p>We can model this using two speeds--a rightward speed and a leftward speed--each individually controlled by the corresponding key.</p>
+<p>We can model this using two speeds&mdash;a rightward speed and a leftward speed&mdash;each individually controlled by the corresponding key.</p>
 <p>To define and initialize object member variables, we can simply assign values to them in the Create event: </p>
 <pre><code>/// initialize variables
 rspeed = 0;
@@ -849,7 +849,7 @@ else sprite_index = sPlayerL;
 <p>In the figure above, <code>place_meeting(x+10, y, oBlue)</code> from <code>oRed</code>'s object code would return <code>true</code> because moving oRed to the position <code>(x+10, y)</code> (10 pixels to the right) would make an intersection with <code>oBlue</code>. On the other hand, <code>place_meeting(x+5, y, oBlue)</code> would return <code>false</code>, since <code>oRed</code> would not be touching <code>oBlue</code> if <code>oRed</code> moved right 5 pixels.</p>
 <p><a id="landing-block"></a></p>
 <h3 id="351-landing-on-a-block">3.5.1 Landing on a Block</h3>
-<p>Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously--once every frame. We can't enforce the statement, "Don't let the player fall through a block when he lands on it" directly, but we can ask each frame if he's landed on the block, and if he has, change the player's motion and position accordingly. </p>
+<p>Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously&mdash;once every frame. We can't enforce the statement, "Don't let the player fall through a block when he lands on it" directly, but we can ask each frame if he's landed on the block, and if he has, change the player's motion and position accordingly. </p>
 <p>The way we can do this with GM is to check, in the update method, whether or not the player would fall into a block the next frame. This is a matter of moving the player to where it would be next frame, and seeing if the player's hitbox in that position overlaps with the block's. This can be captured with the condition <code>if (place_meeting(x+hspeed, y+vspeed, oBlock))</code> at the end of the other movement code, because the player's position next frame is (x+hspeed, y+vspeed). If the condition passes, we know that unless we do something, next frame, the player will be stuck in a block.</p>
 <blockquote>
 <h5 id="sidenote_13">Sidenote</h5>
@@ -948,7 +948,7 @@ But this is a hassle to compute as the player collides closer and closer to a co
 if (hit block at (x, y+vspeed)) apply vertical correction;
 if (hit block at (x+hspeed, y+vspeed)) apply vertical correction;
 </code></pre>
-<p>A simplification would be to remove the second line entirely, since the second line rarely fires without the third also firing--only when the player grazes the block from the top almost pixel-perfectly, which is unnoticeable to the player.</p>
+<p>A simplification would be to remove the second line entirely, since the second line rarely fires without the third also firing&mdash;only when the player grazes the block from the top almost pixel-perfectly, which is unnoticeable to the player.</p>
 <p>Our final code:</p>
 <pre><code>z = instance_place(x+hspeed, y, oBlock);
 if (z != noone) {
@@ -1171,7 +1171,7 @@ if (argument_count &gt; 1) z.fadeLength = argument[1];
 <h3 id="431-the-draw-event">4.3.1 The Draw Event</h3>
 <p>A brief digression from states: In games it's often useful to control what's rendered onto the screen, beyond just relying on sprites assigned to objects. Internally, what GM does is run through the update method of every object in a room once per frame, and <em>then</em> go through all the objects again to render the sprites on the screen in their new positions, with all the modifiers added (scaling, alpha, etc.). This second run through all the objects that <em>draws</em> them all is captured in another event: the Draw event. </p>
 <p>The pass that draws all the objects is more complicated than the first pass that steps through objects, because drawing needs to be done in a specific order. Something in the background, for instance, should be drawn before something in the foreground, since drawing something necessarily covers up what was drawn there already. To define drawing order, objects in GM have a depth; objects with lower depth are drawn later, and thus above objects with higher depth (i.e., deeper objects are drawn first and covered up by objects that aren't as deep).</p>
-<p>In GM Studio for Windows, there's a whole family of draw events, like Start Draw and Draw GUI, meant to help organize the common types of drawing actions in games. Everything's doable with the vanilla Draw event, though--the only one available on Mac. </p>
+<p>In GM Studio for Windows, there's a whole family of draw events, like Start Draw and Draw GUI, meant to help organize the common types of drawing actions in games. Everything's doable with the vanilla Draw event, though&mdash;the only one available on Mac. </p>
 <p>If there's no Draw event specified for an object, GM by default just draws the object's sprite, with transformation (scaling, rotation) and coloring (alpha) applied. We can override this by specifying our own Draw event, which is useful if we want an object to draw things like text or shapes. GM provides an tab for drawing actions, as well as a slew of drawing functions starting with <code>draw_</code> and setting functions starting with <code>draw_set_</code>.</p>
 <p><a id="info-text"></a></p>
 <h3 id="432-informational-text">4.3.2 Informational Text</h3>
@@ -1259,7 +1259,7 @@ state = (state + 3) % 3;
 <p>would make the state cycle between 0, 1, and 2. (<code>%</code> is the <a href="https://en.wikipedia.org/wiki/Modulo_operation">modulus operator</a>. <code>a % b</code> is the remainder when a is divided by b, if a is nonnegative)</p>
 <blockquote>
 <h5 id="sidenote_25">Sidenote</h5>
-<p>In CS Theory lingo, this roughly corresponds to the transition function in a finite state automaton, since it defines how our input changes the state--in this case, pressing a given arrow key either moves increases or decreases the state.</p>
+<p>In CS Theory lingo, this roughly corresponds to the transition function in a finite state automaton, since it defines how our input changes the state&mdash;in this case, pressing a given arrow key either moves increases or decreases the state.</p>
 </blockquote>
 <p>To make use of these states, we need to render something to show what state is currently active, e.g., by putting a sprite to the left of the active option.</p>
 <pre><code>draw_sprite(sCoin, 0, room_width/2 + xoff - 19, room_height/2 + yoff + space*state - 4);
@@ -1284,7 +1284,7 @@ case 2:
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/5_menu.gmz">here</a>.</p>
 <p><a id="pause-menu"></a></p>
 <h3 id="45-a-pause-screen">4.5 A Pause Screen</h3>
-<p>Here's one final demonstration of states, and how GM's built-in states--rooms--can implement this easily. On a high level, we want to have behavior in the game loop like this:</p>
+<p>Here's one final demonstration of states, and how GM's built-in states&mdash;rooms&mdash;can implement this easily. On a high level, we want to have behavior in the game loop like this:</p>
 <pre><code>state - game running in a level:
     simulate a step normally
     *check if the player wants to pause (e.g. pressed p)
