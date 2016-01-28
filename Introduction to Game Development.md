@@ -37,22 +37,29 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 		-	[1.2.2 Update Method] (#update-method)
 		-	[1.2.3 Other common themes] (#other-themes)
 	-	[1.3 Minimum Viable Product] (#MVP)
-		-	[1.3.1 What is it?](#bare-bones)
-		-	[1.3.2 Uses of the MVP](#uses-MVP)
 	-	[1.4 Tools Used in the Game Industry](#tools-used)
 		-	[1.4.1 List of various game engines] (#list-engines)
 		-	[1.4.2 List of other tools] (#list-tools)
 		
--	[Level 2: Your First Game! Making an MVP](#top-down-shooter)
-	-	[2.1 Parts of GameMaker](#GM-parts)
-	-	[2.2 A Basic Top-Down Shooter](#basic-top-down-shooter)
-		-	[2.2.1 Creating Resources - Sounds and Sprites](#create-resource-sounds-sprites)
-		-	[2.2.2 Basic Game Logic](#basic-game-logic)
-		-	[2.2.3 Object Interaction - Enemies](#object-interation-enemies)
-		-	[2.2.4 Control Flow & Variables - Health](#control-flow-variables-health)
-		-	[2.2.5 Alarms and Periodic Events](#alarms-periodic)
-		-	[2.2.6 Let's Polish our Game!](#polish)
-	-	[2.3 Let's Review Level 2!](#basic-top-down-shooter)
+-	[Level 2: Your First Game! Making an MVP](#level2)
+	-	[2.1 Creating Resources - Sounds and Sprites](#create-resource-sounds-sprites)
+		-	[2.1.1 Creating a Sprite](#create-sprite)
+		-	[2.1.2 Adding a Sound ](#add-sound)
+	-	[2.2 Basic Game Logic](#basic-game-logic)
+		-	[2.2.1 A Minimal Program](#minimal-program)
+		-	[2.2.2 Adding Motion](#adding-motion)
+		-	[2.2.3 Shooting](#shooting)
+	-	[2.3 Object Interactions: Enemies](#object-interaction-enemies)
+		
+	-	[2.4 Control Flow & Variables - Health](#control-flow-variables-health)
+	-	[2.5 Alarms and Periodic Events](#alarms-periodic)
+		-	[2.5.1 Enemy Fire](#enemy-fire)
+		-	[2.5.2 Enemy Spawning](#enemy-spawning)
+	-	[2.6 Let's Polish our Game!](#polish)
+		-	[2.6.1 Backgrounds in Rooms](#backgrounds-rooms)
+		-	[2.6.2 Animations and Explosions](#animations-explosions)
+		-	[2.6.3 Other](#other-2.5.3)
+	-	[2.7 A Few Last Words](#MVP-review)
 -	[Level 3: Creating a Platformer](#level3)
 	-	[3.1 Resource Setup](#resource-setup)
 	-	[3.2 Scripts & the Step Event](#scripts-step-events)
@@ -63,10 +70,9 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 		-	[3.3.1 A First Attempt](#first-attempt)
 		-	[3.3.2 Smooth Movement](#smooth-movement)
 	-	[3.4 Vertical Movement](#vertical-movement)
-		-	[3.4.1 Gravity](#gravity)
-		-	[3.4.2 Jumping](#jumping)
-		-	[3.4.3 Stopping Your Jump](#stopping-your-jump)
-		-	[3.4.4 Walking Animation](#walking-animation)
+		-	[3.4.1 Gravity and Jumping](#gravity-jumping)
+		-	[3.4.2 Stopping Your Jump](#stopping-your-jump)
+		-	[3.4.3 Walking Animation](#walking-animation)
 	-	[3.5 Platform Collision](#platform-collision)
 		-	[3.5.1 Landing on a Block](#landing-block)
 		-	[3.5.2 Hitting a Block from the Bottom](#hitting-block-bottom)
@@ -147,14 +153,7 @@ Depending on the game you want to make, the variety of programming, math, and ph
 <a href="#top" class="top" id="MVP">Top</a>
 ## 1.3 Minimum Viable Product
 
-<a id="bare-bones"></a>
-### 1.3.1 What is a Minimum Viable Product?
-
 A Minimum Viable Product (henceforth 'MVP') is a bare bones version of your game. This is a stage where there will be no art or music in your game and usually the game will consist of one level or room of your game.
-
-
-<a id="uses-MVP"></a>
-### 1.3.2 Uses of the MVP
 
 This is used mainly in testing purposes to see if your mechanic works as intended. By having an MVP, you can work out any bugs, allow others to test your game's mechanic, and start tweaking things to your liking.
 
@@ -215,6 +214,7 @@ In GameMaker, a game is made up of various parts. Here we'll describe each part 
 * Room - An environment where you can put objects. Think "level" or "screen", as in menu screen or credits screen.
 
 Some more specific resources that we won't be getting into include:
+
 * Path - Some objects you might want to follow a complicated movement pattern. You can define them with paths.
 * Timeline - Other objects might have a complicated sequence of actions they undergo. Timelines are for that.
 
@@ -229,8 +229,10 @@ After you've done that, try to boil down your game into its core mechanic. Make 
 
 Once you're done with these levels, you should be able to create your MVP in GameMaker.
 
-<a href="#top" class="top" id="top-down-shooter">Top</a>
+<a href="#top" class="top" id="level2">Top</a>
 # Level 2: A Top-Down Shooter
+
+Goal of Level 2: Create a basic game and get familiar with GameMaker
 
 We'll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player's level. You can move horizontally and shoot upwards.
 
@@ -246,11 +248,12 @@ Once you select a name and location for your project, a window like the one belo
 
 The two types of assets--graphics and audio--are grouped into the first 3 folders on the left. As intuitive as the interface is (or tries to be), we¿ll give a quick walkthrough of adding sprites, sounds, and backgrounds to a project.
 
-<a id="create-resource-sounds-sprites"></a>
+<a href="#top" class="top" id="create-resource-sounds-sprites">Top</a>
 ##2.1 Creating Resources - Sounds and Sprites
 
 In this section, we¿ll focus on creating and adding assets to our game.
 
+<a id="create-sprite"></a>
 ### 2.1.1 Creating a Sprite
 
 To create a sprite, either click the pac-man icon (![New Sprite](../images/shooter/new_sprite.png)) in the top menu, or right-click the Sprites folder and select new sprite. The Sprite Properties window shows up.
@@ -271,6 +274,7 @@ In my opinion, GM¿s Image Editor is reasonably powerful but some things are hard
 
 The remaining options (origin, collision, texture) in the sprite properties dialog box have to do with how the rest of the game renders and interacts with objects with this sprite. We¿ll get into some of them later.
 
+<a id="add-sound"></a>
 ### 2.1.2 Adding a Sound
 
 We¿ve provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Right-click the folder, or click ![New Sound](../images/shooter/new_sound.png)) For our purposes, just loading the sound and naming it properly (e.g., sShoot) is enough. The other settings don¿t need to be changed.
@@ -281,12 +285,12 @@ One thing you might notice is that Game Maker provides a lot of options and sett
 
 In addition, many settings shown in the screenshots might not be available in GM for Mac. In that case, don¿t worry. If we don¿t mention it in the text, the settings aren¿t changed, and the default functionality in GM for Mac is good enough.
 
-
-<a id="basic-game-logic"></a>
+<a href="#top" class="top" id="basic-game-logic">Top</a>
 ## 2.2 Basic Game Logic
 
 The main actors in GameMaker games are objects, which combine a sprite with game logic that is run on every step of the simulation. Objects are then placed in things called Rooms, which serve as an environment for objects to interact with each other and you in a game.
 
+<a id="minimal-program"></a>
 ### 2.2.1 A Minimal Program
 
 To see how this system works, let¿s create a player that can move around. First, create a new object resource (right-click the folder and select, or click ![New Object](../images/shooter/new_object.png)) and name it something appropriate, like `oPlayer`. Underneath the name, set the sprite to `sPlayer`.
@@ -303,6 +307,7 @@ Now that the room¿s been added, the game is minimally functional. In the main wi
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/1_minimal.gmz).
 
+<a id="adding-motion"></a>
 ### 2.2.2 Adding Motion
 
 To implement motion, we can use Game Maker¿s built-in event-action functionality. Game Maker lets us program game logic into these objects by adding statements of the form, `when [EVENT], do [ACTIONS]`, like `when <spacebar> is pressed, shoot a bullet and play a sound` or in this case, `when <left> is pressed, move left.`
@@ -311,13 +316,13 @@ To see how GameMaker provides this, in the Object Properties window of your play
 
 ![Move Left](../images/shooter/move_left.png)
 
-##### Sidenote
+##### Sidenote 1
 
 Underneath the hood, GM is adding a piece of logic to the game¿s programming that checks if the left button is down at a particular instant and moves the player left if it is. This check isn¿t truly continuous because of the sequential nature of programs, but it¿s as close to continuous as possible. Specifically, this piece of logic is added to the object¿s update method, which is run once every time step, or simulation of the game loop, so *every frame, the program checks if left is pressed, and moves the player 3 pixels to the left if it is.*
 
 This abstraction--of associating a sequence of actions to an event for every object--is relatively powerful because of the wide variety of actions and events to choose from, but also easy to work with for people inexperienced with code.
 
-##### Sidenote
+##### Sidenote 2
 
 Every object has a pair of coordinates `(x, y)` representing its position, and GameMaker draws the sprite of the object at that position once every frame. The action we added moves the object `(-3, 0)` from where it was before, since we ticked relative. If we hadn¿t ticked relative, the object would teleport to the absolute location `(-3, 0)` (i.e., a bit to the left of the global origin, or top-left corner of the screen/room), and stay there, as soon as you pressed left.
 (In the representation below, pressing left would move the ship to (45, 44) the next frame)
@@ -326,18 +331,21 @@ Every object has a pair of coordinates `(x, y)` representing its position, and G
 
 If you rerun the game, your player will slide to the left when you hold the left button down. Try to repeat with the other direction to give the player full horizontal mobility.
 
+<a id="shooting"></a>
 ### 2.2.3 Shooting
 
 We can continue using these event-action pairs to make the player shoot bullets, and demonstrate how objects can interact.
 First, create an oBullet object and assign the sBullet sprite to the object. In the oBullet object, we add a Create event and add a ![vspeed](../images/shooter/act_vsp.png) action to set the vertical speed to -8. This means ¿when I¿m spawned, set my speed to 8 pixels up every frame.¿ Add another event, ¿Outside Room¿, and insert a ![destroy](../images/shooter/act_destroy.png) action (accessible from the main1 tab on the right) to remove the bullet once it leaves the screen (so we don¿t simulate it any more than we need to).
 Back in the oPlayer object properties box, add a press <Space> event (click Add Event, then Key Press, then Space) and put in there a ![create](../images/shooter/act_create.png) action with object oBullet, position x = 12, y = 0, and with relative ticked. We can drag another action underneath,  from the main1 tab, and select to play the shoot sound we added earlier. Understandably, this spawns the bullet and plays a sound when space is pressed.
 
-##### Sidenote
+##### Sidenote 1
+
 ![create](../images/shooter/act_create.png) creates a bullet at (12, 0) relative to the player position. The way we¿ve set it up, this means that the bullet we create will be placed such that its top-left corner is 12 pixels to the right of the player¿s top-left corner (see the figure).
 
 ![Origin corner](../images/shooter/origin_corner.png)
 
-##### Sidenote
+##### Sidenote 2
+
 If you¿re interested in avoiding these ugly numbers, take a look at sprite origins, which are special coordinates for each sprite, editable in the sprite properties window. When GM renders an object at a position (x, y), it draws the object¿s sprite so that the origin of that sprite is at (x, y). Sprites are created with origins at (0, 0). You can move the origin to the centre of the sprite by clicking ¿Center¿ on both the player and bullet sprites. Creating a bullet at (0, 0) relative to the player will then make the centre of the bullet align with the centre of the player, as desired.
 
 ![Origin centre](../images/shooter/origin_center.png)
@@ -350,8 +358,7 @@ The remainder of this shooter will keep sprite origins at (0, 0), but expect to 
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/2_moveshoot.gmz).
 
-<a id="object-interaction-enemies"></a>
-
+<a href="#top" class="top" id="object-interaction-enemies">Top</a>
 ##2.3 Object Interaction - Enemies
 
 By this point adding resources should be familiar. Just as we did with the player and its bullets, we can do the same with the enemy: creating a sprite resource, loading/drawing the graphic, and creating an object resource that uses the sprite.
@@ -367,11 +374,12 @@ Another behavior we might want is to have them disappear upon hitting a player b
 ![destroy other](../images/shooter/destroy_other.png)
 
 If we go to the room editor and drop enemies into the room, they¿ll appear and slowly move down, as well as react to our bullets, as expected.
+
 ##### Checkpoint
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/3_enemy.gmz).
 
-<a id="control-flow-variables-health"></a>
+<a href="#top" class="top" id="control-flow-variables-health">Top</a>
 ##2.4 Control Flow and Variables - Health
 
 GM provides a scripting language to allow for traditional control flow structures, like conditionals and loops, but GM¿s drag-and-drop action system also has a simplified version for people new to code. 
@@ -382,20 +390,21 @@ While there¿s no explicit way to declare what variables you want an object to ha
 
 ![enemy hp](../images/shooter/enemyhp.png)
 
-##### Sidenote
+##### Sidenote 1 
 
 GameMaker provides a built-in global variable (i.e., not different for each object) called health for player health. I guess it¿s there for people new to GM since there¿s a tab dedicated to these variables (score, health, lives), but they¿re no different from regular variables. We won¿t be using these global variables and indeed it¿s an inconvenience to have these variable names reserved by GM like that.
 
 In the collision with the bullet, we want to decrement `hp` and now only want to disappear if the health hits 0. To do this, we can ![var set](../images/shooter/act_var.png) to set `hp` to -1, ticking relative. Then underneath, use a  ![var check](../images/shooter/act_var2.png) to check if `hp` is equal to 0, and put the self-![destroy](../images/shooter/act_destroy.png) action right underneath the condition. The ![var check](../images/shooter/act_var2.png) will skip the following action unless the condition is satisfied, so the enemy ship is only destroyed if the health reaches 0.
 
-##### Sidenote
+##### Sidenote 2 
 
 If you want a conditional item to apply to a block of events, you can use the ![blocks](../images/shooter/blocks.png) items to specify how far the block should reach. We¿ll see an example of bigger conditionals in the explosion section.
 
-<a id="alarms-periodic"></a>
-##2.4 Alarms and Periodic Events
+<a href="#top" class="top" id="alarms-periodic">Top</a>
+##2.5 Alarms and Periodic Events
 
-### 2.4.1 Enemy Fire
+<a id="enemy-fire"></a>
+###2.5.1 Enemy Fire
 
 We can do something analogous to the interaction between player bullet and enemy with an enemy bullet. Create a sprite resource for an enemy bullet, load the graphic, and associate it with a newly created object, naming it something like oEnemyBullet. We can program the player so that the game restarts (![restart](../images/shooter/act_restart.png), main2 tab) upon hitting an enemy bullet (or maybe after losing all its health), and then get the enemy to shoot every three seconds or so.
 
@@ -415,7 +424,8 @@ GameMaker has a bunch of scripting functions you can embed in the properties of 
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/5_enemyshoot.gmz).
 
-### 2.4.2 Enemy Spawning
+<a id="enemy-spawning"></a>
+### 2.5.2 Enemy Spawning
 
 To create a constant stream of enemies for our game, we make an object that doesn¿t interact with the game at all besides creating enemies every once in a while. This pattern is common in engines where game logic is almost entirely in objects, and normally we call these background objects controller objects and use the prefix c instead of o.
 
@@ -431,12 +441,13 @@ The reason we set y to -32 is so that the bottom of the enemy are at `y = 0`, or
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/6_spawner.gmz).
 
-<a id="polish"></a>
-##2.5 Polishing up our Game
+<a href="#top" class="top" id="polish">Top</a>
+##2.6 Polishing up our Game
 
 We have a half-complete prototype for our shooter. Let's polish some of the rough edges to make it a little more presentable.
 
-### 2.5.1 Backgrounds in Rooms
+<a id="backgrounds-rooms"></a>
+### 2.6.1 Backgrounds in Rooms
 
 Unlike sprites, backgrounds aren¿t associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. Tick ¿Draw background color¿, ¿Visible when room starts¿, and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. 
 
@@ -446,7 +457,8 @@ Unlike sprites, backgrounds aren¿t associated with objects, but rather with room
 
 Backgrounds are modifiable at any time by objects through a set of variables beginning with "background\_". Variables can be set using the [VARIABLE SET ICON] action, or through a script, which we¿ll get into for the platformer, which is a step up in programming complexity.
 
-### 2.5.2 Animations and Explosions
+<a id="animations-explosions"></a>
+### 2.6.2 Animations and Explosions
 
 Precisely, sprites aren¿t just a single picture, but are made up of a set of graphics called subimages (with the same dimensions) along with other properties like a hitbox or an origin. People usually achieve animated graphics using sprites by using multiple subimages and then playing through the subimages.
 
@@ -458,7 +470,8 @@ In the Sprite Editor, one can add an empty subimage at the end of the sequence w
 
 Using our animated sprite is a matter of making a new object and assigning the explosion sprite to it. When an object has a sprite with multiple subimages, the subimages automatically play (and loop) at whatever FPS the room is set to. Thus, the single behavior to add to the explosion object is a self-![destroy](../images/shooter/act_destroy.png) when the animation ends, accessible from Add Event -> Other. Other objects like the enemy can create explosion objects in the event of hitting a player bullet.
 
-### 2.5.3 Other
+<a id="other-2.5.3"></a>
+### 2.6.3 Other
 
 There are a lot more things that could be done to make the game more presentable, like generating more sounds (e.g., with bfxr) or restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player `x` is less than `room_width-32`, and only allowing leftward if the player x exceeds 0. 
 
@@ -466,7 +479,7 @@ One other thing you may notice is that the game isn¿t very fun. Try to tweak the
 
 
 <a href="#top" class="top" id="MVP-review">Top</a>
-## 2.6 A few last words
+## 2.7 A Few Last Words
 
 Game Maker tries to make it simple to make simple games. Where there isn't a lot of complex logic, programming and gathering the assets is a matter of navigating the menus and specifying what to do at certain events. 
 
@@ -478,6 +491,8 @@ In the next tutorial, we'll go through the scripting capabilities of Game Maker 
 
 <a href="#top" class="top" id="level3">Top</a>
 #Level 3: Making a Platformer
+
+Goal for Level 3: Making a basic platformer game and going more in-depth with game programming.
 
 In this platformer tutorial we'll take a different approach with GM, instead limiting ourselves to just a few of the built-in features related to resources and coding the rest ourselves, to get a feel for how GameMaker works underneath the event-driven model (and how game engines in general work), and look a bit at some of the problems games programmers face in implementing mechanics.
 
@@ -577,13 +592,10 @@ If you rerun the game, you'll notice that while we haven't done anything fancy t
 
 The vertical movement in a platformer is governed by gravity, which is usually a constant downwards acceleration. In addition to that, the player should be able to jump. For this section, we'll add gravity but no ground, and instead give the player the ability to jump in the air.
 
-<a id="gravity"></a>
-###3.4.1 Gravity
+<a id="gravity-jumping"></a>
+###3.4.1 Gravity and Jumping
 
 A constant downward acceleration translates to a continuous addition of downward speed. We can do this by defining `grav = 0.5` in the Create event and then `vspeed += grav` in the Step event.
-
-<a id="jumping"></a>
-###3.4.2 Jumping
 
 Jumping is usually an upward burst of motion. We can implement jumping with another constant in the step event, `jumpspeed = 6`, and a simple key check in the Step event:
 
@@ -592,7 +604,7 @@ Jumping is usually an upward burst of motion. We can implement jumping with anot
 SIDENOTE: Though we'll eventually make it so that the player can only jump if it's on the ground (i.e., vspeed is 0 initially), in games with multiple jumps, the player's second jump isn't affected by how the player's moving before the second jump, so we say `vspeed = -jumpspeed` instead of `vspeed -= jumpspeed` (of course, this is all up to how you want jumping to work in your game).
 
 <a id="stopping-your-jump"></a>
-### 3.4.3 Stopping Your Jump
+### 3.4.2 Stopping Your Jump
 
 Often in platformers, one can control the player's jump height by releasing the jump key early or late. There are many ways to implement this underneath. For instance, one could halve the player's upward velocity when the jump key is released:
 
@@ -605,7 +617,7 @@ Or, for a smoother motion, consider applying a stronger gravity while the player
 SIDENOTE: GM does not have the conditional operator (a ? b : c). Sorry.
 
 <a id="walking-animation"></a>
-###3.4.4 Walking Animation
+###3.4.3 Walking Animation
 
 If you loaded all 4 subimages of the player sprite, you might want to have the player animation correspond to your movement. The variables GM provides to control the displayed subimage of a sprite are `image_index`, the subimage index, and `image_speed`, the speed at which image_index changes. A speed of 1 means every frame, the index advances; ½ would mean updating the subimage once every two frames.
 
@@ -730,7 +742,7 @@ Following the figures above, we get the following block of code for the step eve
 Replace the vertical collision detection code with this to see the player react horizontally upon touching a block.
 
 <a id="horizontal-verticle"></a>
-###3.5.3 Horizontal or Vertical Collision?
+###3.5.4 Horizontal or Vertical Collision?
 
 If you put both chunks of code in after the regular motion portion of the step event, you'll notice that only the first chunk affects the player's movement. This is because both checks are the same, and the first check moves the player out of the way of the block. By the time we reach the second check, there's no block to react to, and thus no further adjustment is made.
 
@@ -783,7 +795,7 @@ Our final code:
     }
 
 <a id="jump-right=time"></a>
-###3.5.4 Jumping at the Right Time
+###3.5.5 Jumping at the Right Time
 
 At this point we can restrict the player so he can only jump if he's touching the ground. We can replace our current jump line with something like:
 
@@ -792,7 +804,7 @@ At this point we can restrict the player so he can only jump if he's touching th
 so that the player is only allowed to jump if he's on the ground (i.e., a block sits at most one pixel below him).
 
 <a id="optional-quirk"></a>
-###3.5.5 Optional: A Quirk with GM
+###3.5.6 Optional: A Quirk with GM
 
 (This happens in the latest version of GM studio on Windows. Not sure about earlier versions. Feel free to scroll to the bottom for the solution.)
 
@@ -912,6 +924,8 @@ A way to keep track of coins may be to create an object just for coin counting a
 ___________
 <a href="#top" class="top" id="level4">Top</a>
 ##Level 4: States and Menus
+
+Goal in Level 4: To create a menu screen, multiple rooms, room transitions, and game start and over screens by utilizing the concept of states in video games.
 
 <a href="#top" class="top" id="states">Top</a>
 ### 4.1 States in Games
@@ -1249,6 +1263,8 @@ ___________
 <a href="#top" class="top" id="level5">Top</a>
 ##Level 5: Design considerations: What will make your game stand out from the crowd?
 
+Goal for Level 5: Implimenting your own ideas on the basic platformer created.
+
 Congratulations! You made it to the end of this lesson! Now that you have made two games, and have gotten a feel for game design, why don't you start embellishing these games to make them truly stand out? We don't go step by step for these suggestions, but we'll give helpful hints to guide you.
 
 Now, here are some gimmicks you can try to add into your game! For now, pick one you want to work on and try implementing that in the platformer we made together.
@@ -1265,6 +1281,13 @@ Have you played Super Mario Bros.? If you have, you would probably know that col
 
 Now that you know that everything in a room in GameMaker is an object, why not play with that idea and try to make special platforms or spaces? How about a space that makes the player super fast for a few seconds? Or maybe a spring to let them jump higher? By making special space objects and adding events to either the player or the space itself to give these effects can help make your platformer more dynamic and open up new revenues for in-game puzzles and more creative level designs!
 
+**Shooting and running, at the same time**
+
+Have you ever played Mega Man? Well, even if you haven't, you probably know that our little blue hero can run and shoot out bullets at the same time to kill enemies in his way. Why not try to implement this mechanic in your game by using the techniques from the top-down shooter to help you? Just keep in mind where the bullets are being created, in what direction they should go depending on the inputs, and how frequently they can be shot.
+
+**Setting a time limit**
+
+A time limit is a pretty common aspect in platformers. We can't have the player just sit around while the game runs, now can we? Try creating a time limit for the platformer level you designed. You can have it so that after a certain amount of seconds have passed that a sound or visual effect can happen to alert the player. Think about how the game is running, and with that knowledge try to implement a limit to how long the player can take for your level!
 
 The possibilities are endless when designing a game. This is a world you're creating, so don't be afraid to experiment when making it! 
 
