@@ -21,13 +21,8 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 # Table of Contents
 
 ### TODO
-* talk about how in teh sample the platformer level is really small but you should make a bigger one
-* talk about finite state machines
-* Flesh out MVP section if possible?
-* Talk about sprite editor in MAC: removing a sprite means cutting it. Also, sprite strips?
-* additional resources
+talk about the hassles of the sprite editor in mac
 
-separator
 
 -	[Level 1: General Intro to Game Design and Programming](#level1)
 	-	[1.1 Game Design considerations](#game-design-considerations)
@@ -1012,6 +1007,9 @@ You can download the GM project with everything up to this step [here](../resour
 
 Games are very much governed by states, and at each level, too. On a high level, your game may have room states, being in a menu at one point, a level at another, and the credits at yet another time. On the finest scale, any instant in the game can be represented by the value of all the variables in all the objects and rest of the memory of the game, making up the save state of the game. In the platformer tutorial earlier, we tried to make sure the player would never reach an invalid state where he overlapped with an object, and it helped us reason through how to program his movement.
 
+> ##### Sidenote
+> A more theoretical way to put it is to think of games as *finite state machines*, which are mathematical objects that have a set of states, as well as a ruleset, or *transition function*, that defines how states change into other states given some input. For example, a player might have a jumping, standing, and walking state; to change, or transition, from standing to jumping, you could press the jump button, and to change from jumping to standing, you could touch the ground.
+
 In this tutorial we'll be looking a little more closely at how Game Maker manages complexity using rooms as states, and how we can use states at a smaller level. Start with either your platformer project, or use the completed platformer project (the last platformer checkpoint).
 
 <a href="#top" class="top" id="rooms-in-GM">Top</a>
@@ -1245,7 +1243,10 @@ Then, during each Step, oIntro can update its state depending on the input. Some
     if (keyboard_check_pressed(vk_down)) state += 1
     state = (state + 3) % 3;
 
-would make the state cycle between 0, 1, and 2. (`%` is the [modulus operator](https://en.wikipedia.org/wiki/Modulo_operation). `a % b` is the remainder when a is divided by b, if a is nonnegative) This roughly corresponds to the transition function in a finite state automaton, since it specifies how the input changes the state.
+would make the state cycle between 0, 1, and 2. (`%` is the [modulus operator](https://en.wikipedia.org/wiki/Modulo_operation). `a % b` is the remainder when a is divided by b, if a is nonnegative)
+
+> ##### Sidenote
+> In CS Theory lingo, this roughly corresponds to the transition function in a finite state automaton, since it defines how our input changes the state--in this case, pressing a given arrow key either moves increases or decreases the state.
 
 To make use of these states, we need to render something to show what state is currently active, e.g., by putting a sprite to the left of the active option.
 
@@ -1374,7 +1375,7 @@ The concept of states is simple to grasp and also simple to program. As we menti
 Deliberately thinking about software, and especially a game, in terms of states, however, is powerful and useful for simplifying the complex workings of such a program. Most of the time, bugs and exploits come from the game going into an invalid state, and so ensuring that nothing breaks within a state and no state goes to an invalid state is a good defense against errors. Hopefully this step in our tutorial gave some more concrete examples of states in game programming, along with a little more exposure to some functions GM provides.
 
 <a href="#top" class="top" id="level5">Top</a>
-##Level 5: Design considerations: What will make your game stand out from the crowd?
+##Level 5: Feature Suggestions
 
 > **Goal** Implement your own ideas into the basic platformer we made.
 

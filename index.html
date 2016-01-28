@@ -342,14 +342,7 @@ pre .chunk {
 <p><a href="#top" class="top" id="table-of-contents">Top</a></p>
 <h1 id="table-of-contents">Table of Contents</h1>
 <h3 id="todo">TODO</h3>
-<ul>
-<li>talk about how in teh sample the platformer level is really small but you should make a bigger one</li>
-<li>talk about finite state machines</li>
-<li>Flesh out MVP section if possible?</li>
-<li>Talk about sprite editor in MAC: removing a sprite means cutting it. Also, sprite strips?</li>
-<li>additional resources</li>
-</ul>
-<p>separator</p>
+<p>talk about the hassles of the sprite editor in mac</p>
 <ul>
 <li><a href="#level1">Level 1: General Intro to Game Design and Programming</a><ul>
 <li><a href="#game-design-considerations">1.1 Game Design considerations</a><ul>
@@ -1084,6 +1077,10 @@ if (z != noone) {
 <p><a href="#top" class="top" id="states">Top</a></p>
 <h3 id="41-states-in-games">4.1 States in Games</h3>
 <p>Games are very much governed by states, and at each level, too. On a high level, your game may have room states, being in a menu at one point, a level at another, and the credits at yet another time. On the finest scale, any instant in the game can be represented by the value of all the variables in all the objects and rest of the memory of the game, making up the save state of the game. In the platformer tutorial earlier, we tried to make sure the player would never reach an invalid state where he overlapped with an object, and it helped us reason through how to program his movement.</p>
+<blockquote>
+<h5 id="sidenote_20">Sidenote</h5>
+<p>A more theoretical way to put it is to think of games as <em>finite state machines</em>, which are mathematical objects that have a set of states, as well as a ruleset, or <em>transition function</em>, that defines how states change into other states given some input. For example, a player might have a jumping, standing, and walking state; to change, or transition, from standing to jumping, you could press the jump button, and to change from jumping to standing, you could touch the ground.</p>
+</blockquote>
 <p>In this tutorial we'll be looking a little more closely at how Game Maker manages complexity using rooms as states, and how we can use states at a smaller level. Start with either your platformer project, or use the completed platformer project (the last platformer checkpoint).</p>
 <p><a href="#top" class="top" id="rooms-in-GM">Top</a></p>
 <h3 id="42-rooms-in-gamemaker">4.2 Rooms in GameMaker</h3>
@@ -1104,12 +1101,12 @@ if (z != noone) {
 <p><a id="persistent-objects-room-transition"></a></p>
 <h3 id="422-persistent-objects-room-transition-effects">4.2.2 Persistent Objects - Room Transition Effects</h3>
 <blockquote>
-<h5 id="sidenote_20">Sidenote</h5>
+<h5 id="sidenote_21">Sidenote</h5>
 <p>Game Maker used to provide effects while the game changed from one room to another, but after they rewrote their graphics engine to extend better to other platforms, they had to get rid of their built-in room transitions. GM for Mac should still have the transitions available though.]</p>
 </blockquote>
 <p>A nice effect to smoothen the transition from one room to another is a fade-out and fade-in. One common way to implement this is through one of the few channels of communicating between room transitions: persistent objects. Objects can be marked persistent through a checkbox in the Object Properties window, and this sets the object so that the object isn't destroyed when the game moves to a different room, unlike regular objects. </p>
 <blockquote>
-<h5 id="sidenote_21">Sidenote</h5>
+<h5 id="sidenote_22">Sidenote</h5>
 <p>The other way to keep data across room transitions is to mark the room itself as persistent, so that upon exiting and re-entering the room, its state doesn't change or reset. Global variables are another way, but they can be thought of as just member variables of an object named "global" that's persistent across rooms. </p>
 </blockquote>
 <p><img alt="persistent" src="./images/menu/persistent.png" /></p>
@@ -1134,7 +1131,7 @@ z.newRoom = room_next(room);
 </code></pre>
 <p>so that the newRoom of oTransition is set like a parameter.</p>
 <blockquote>
-<h5 id="sidenote_22">Sidenote</h5>
+<h5 id="sidenote_23">Sidenote</h5>
 <p>In case the new room is significantly bigger than the old room, we should resize the transition sprite so it covers the entirety of the new room. This is easiest if we just have the following two lines in the Step event, since we can't immediately grab the dimensions of the new room after swapping rooms.</p>
 <pre><code>image_xscale = room_width*1000;
 image_yscale = room_height*1000;
@@ -1204,7 +1201,7 @@ draw_text(room_width/2+12, room_height/2-2, string(cCounter.plives));
 </code></pre>
 <p>positions the objects correctly. If you're not using the included font, offsets might differ slightly. (GM has tooltips to explain what all the arguments mean; the manual is also a reference)</p>
 <blockquote>
-<h5 id="sidenote_23">SIDENOTE</h5>
+<h5 id="sidenote_24">SIDENOTE</h5>
 <p>The hassle with fonts and GM projects is due to licensing: GM font resources are merely pointers to fonts installed on your computer. When the game is compiled into an executable, GM turns the font into an image to be shipped with the rest of the game, so the games are portable, but not their source. I don't blame you if you want to use a font already installed on your computer for this step.</p>
 </blockquote>
 <p>In addition, add behavior using an alarm that fades the room into the level room after a few seconds, and update the player-enemy collision behavior so it subtracts a life and moves to rInfo, or rGameOver if there are no more lives.</p>
@@ -1259,7 +1256,11 @@ draw_text(room_width/2 + xoff, room_height/2 + 2*space + yoff, "End");
 if (keyboard_check_pressed(vk_down)) state += 1
 state = (state + 3) % 3;
 </code></pre>
-<p>would make the state cycle between 0, 1, and 2. (<code>%</code> is the <a href="https://en.wikipedia.org/wiki/Modulo_operation">modulus operator</a>. <code>a % b</code> is the remainder when a is divided by b, if a is nonnegative) This roughly corresponds to the transition function in a finite state automaton, since it specifies how the input changes the state.</p>
+<p>would make the state cycle between 0, 1, and 2. (<code>%</code> is the <a href="https://en.wikipedia.org/wiki/Modulo_operation">modulus operator</a>. <code>a % b</code> is the remainder when a is divided by b, if a is nonnegative)</p>
+<blockquote>
+<h5 id="sidenote_25">Sidenote</h5>
+<p>In CS Theory lingo, this roughly corresponds to the transition function in a finite state automaton, since it defines how our input changes the state--in this case, pressing a given arrow key either moves increases or decreases the state.</p>
+</blockquote>
 <p>To make use of these states, we need to render something to show what state is currently active, e.g., by putting a sprite to the left of the active option.</p>
 <pre><code>draw_sprite(sCoin, 0, room_width/2 + xoff - 19, room_height/2 + yoff + space*state - 4);
 </code></pre>
@@ -1367,7 +1368,7 @@ default:
 <p>The concept of states is simple to grasp and also simple to program. As we mentioned earlier, it can often be implicit in your code too: you might use an if-statement to give different behavior to the player depending on if he's in the air and or on the ground, thus giving him a state.</p>
 <p>Deliberately thinking about software, and especially a game, in terms of states, however, is powerful and useful for simplifying the complex workings of such a program. Most of the time, bugs and exploits come from the game going into an invalid state, and so ensuring that nothing breaks within a state and no state goes to an invalid state is a good defense against errors. Hopefully this step in our tutorial gave some more concrete examples of states in game programming, along with a little more exposure to some functions GM provides.</p>
 <p><a href="#top" class="top" id="level5">Top</a></p>
-<h2 id="level-5-design-considerations-what-will-make-your-game-stand-out-from-the-crowd">Level 5: Design considerations: What will make your game stand out from the crowd?</h2>
+<h2 id="level-5-feature-suggestions">Level 5: Feature Suggestions</h2>
 <blockquote>
 <p><strong>Goal</strong> Implement your own ideas into the basic platformer we made.</p>
 </blockquote>
