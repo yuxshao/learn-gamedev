@@ -24,6 +24,7 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 * Replace bad characters with ' and "
 * Format code snippets
 * Expand level 5
+* Talk about sprite editor in MAC: removing a sprite means cutting it. Also, sprite strips?
 
 -	[Level 1: General Intro to Game Design and Programming](#level1)
 	-	[1.1 Game Design considerations](#game-design-considerations)
@@ -213,7 +214,7 @@ Some more specific resources that we won't be getting into include:
 * Timeline - Other objects might have a complicated sequence of actions they undergo. Timelines are for that.
 
 <a href="#top" class="top" id="review-level1">Top</a>
-## 1.5 Review
+### 1.5 Let's Review!
 
 Now that we know some basic concepts of game programming and what an MVP is, let's review by having you perform a little exercise.
 
@@ -226,7 +227,7 @@ Once you're done with these levels, you should be able to create your MVP in Gam
 <a href="#top" class="top" id="top-down-shooter">Top</a>
 ## Level 2: A Top-Down Shooter
 
-We¿ll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player¿s level. You can move horizontally and shoot upwards.
+We'll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player's level. You can move horizontally and shoot upwards.
 
 For Windows, when you first open GM Studio, you should see a window similar to the one in the screenshot below.
 ![GM Window](../images/shooter/start.png)
@@ -345,84 +346,122 @@ The remainder of this shooter will keep sprite origins at (0, 0), but expect to 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/2_moveshoot.gmz).
 
 <a id="object-interaction-enemies"></a>
-###2.2.3 Object Interaction: Enemies
+
+###2.3 Object Interaction - Enemies
 
 By this point adding resources should be familiar. Just as we did with the player and its bullets, we can do the same with the enemy: creating a sprite resource, loading/drawing the graphic, and creating an object resource that uses the sprite.
 
-We'll eventually make it so that the game periodically spawns enemies that slowly move down. One way to have the enemies move down is to program the enemies to have a downward speed upon creation: Add Event -> Create, and drag the [SET VERTICAL SPEED] action to the actions window, with a speed of 3 or so.
+We¿ll eventually make it so that the game periodically spawns enemies that slowly move down. One way to have the enemies move down is to program the enemies to have a downward speed upon creation: Add Event -> Create, and drag the ![vspeed](../images/shooter/act_vsp.png) action to the actions window, with a speed of 0.5 or so.
 
-SIDENOTE: This is another built-in feature of GM. Every object has a horizontal and vertical speed (hspeed, vspeed), and every frame, the object's position is shifted by the speed. Setting the vertical speed to 1 would make the object move down a pixel every frame. Ticking relative in the [SET VSPEED] action would add 1 to the current vertical speed of the object (it doesn't matter here since the object starts out stationary). 
+##### Sidenote
 
-Another behavior we might want is to have them disappear upon hitting a player bullet. This can be done with the collision event: In the oEnemy's Object Properties window, click Add Event -> Collision -> oBullet to include the event and drag the [INSTANCE DESTROY] action (tab main1) to the actions window. Additionally we might want the bullet to be destroyed too, which we can do by dragging another [INSTANCE DESTROY] and set the target to “Other” instead of “Self”.
+This is another built-in feature of GM. Just as every object has a position (x, y), every object has a horizontal and vertical speed (hspeed, vspeed), and every frame, the object¿s position is shifted by the speed. Setting the vertical speed to 1 would make the object move down a pixel every frame. As with position, ticking relative in the ![vspeed](../images/shooter/act_vsp.png) action would instead add 1 to the current vertical speed of the object (it doesn¿t matter here since the object starts out stationary).
 
-If we go to the room editor and drop enemies into the room, they'll appear and slowly move down, as well as react to our bullets, as expected.
+Another behavior we might want is to have them disappear upon hitting a player bullet. This can be done with the collision event: In the oEnemy¿s Object Properties window, click Add Event -> Collision -> oBullet to include the event and drag the ![destroy](../images/shooter/act_destroy.png) action (tab main1) to the actions window. Additionally we might want the bullet to be destroyed too, which we can do by dragging another ![destroy](../images/shooter/act_destroy.png) and set the target to ¿Other¿ instead of ¿Self¿.
+
+![destroy other](../images/shooter/destroy_other.png)
+
+If we go to the room editor and drop enemies into the room, they¿ll appear and slowly move down, as well as react to our bullets, as expected.
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/3_enemy.gmz).
 
 <a id="control-flow-variables-health"></a>
-###2.2.4 Control Flow and Variables: Health
+###2.4 Control Flow and Variables - Health
 
-GM provides a scripting language to allow for traditional control flow structures, like conditionals and loops, but GM's drag-and-drop action system also has a simplified version for people new to code. 
+GM provides a scripting language to allow for traditional control flow structures, like conditionals and loops, but GM¿s drag-and-drop action system also has a simplified version for people new to code. 
 
-Every object is allowed to have any (reasonable) number of values associated with it, called variables, that store things like numbers, pieces of text, or other objects. Their use is what you'd expect: keeping track of, e.g., an individual's score in an arcade game, or status message in an MMO. We'll use variables to keep track of enemy health, so that 3 hits will destroy an enemy ship instead of just one.
+Every object is allowed to have any (reasonable) number of values associated with it, called variables, that store things like numbers, pieces of text, or other objects. Their use is what you¿d expect: keeping track of, e.g., an individual¿s score in an arcade game, or status message in an MMO. We¿ll use variables to keep track of enemy health, so that 3 hits will destroy an enemy ship instead of just one.
 
-While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the [SET VAR] action in the control tab. To start the enemy off with 3 health, use [SET VAR] to set hp to 3 in the Create event. Since this is the first mention of the variable `hp`, it tells GameMaker that this object has a variable called `hp`.
+While there¿s no explicit way to declare what variables you want an object to have up front, it¿s often a good idea to set, or initialize all of them in the Create event with the ![var set](../images/shooter/act_var.png) action in the control tab. To start the enemy off with 3 health, use ![var set](../images/shooter/act_var.png) to set `hp` (not `health`--see below) to 3 in the Create event. Since this is the first mention of the variable `hp`, it also tells GameMaker that this object has a variable called `hp`.
 
-NOTE: GameMaker provides a built-in global variable (i.e., not different for each object) called health for player health. I guess it's there for people new to GM since there's a tab dedicated to these variables (score, health, lives), but they're no different from regular variables. We won't be using these global variables.
+![enemy hp](../images/shooter/enemyhp.png)
 
-In the collision with the bullet, we want to decrement `hp` and now only want to disappear if the health hits 0. To do this, we can [SET VAR] to set `hp` to -1, ticking relative. Then underneath, use a [IF VAR] to check if `hp` is equal to 0, and put the self-destruct [DESTROY] action right underneath the condition. The [IF VAR] will skip the following action unless the condition is satisfied, so the enemy ship is only destroyed if the health reaches 0. If you want a conditional item to apply to a block of events, you can use the [BLOCK START] and [BLOCK END] items to specify how far the block should reach.
+##### Sidenote
 
-[FIG: example sequence of control flow] 
+GameMaker provides a built-in global variable (i.e., not different for each object) called health for player health. I guess it¿s there for people new to GM since there¿s a tab dedicated to these variables (score, health, lives), but they¿re no different from regular variables. We won¿t be using these global variables and indeed it¿s an inconvenience to have these variable names reserved by GM like that.
+
+In the collision with the bullet, we want to decrement `hp` and now only want to disappear if the health hits 0. To do this, we can ![var set](../images/shooter/act_var.png) to set `hp` to -1, ticking relative. Then underneath, use a  ![var check](../images/shooter/act_var2.png) to check if `hp` is equal to 0, and put the self-![destroy](../images/shooter/act_destroy.png) action right underneath the condition. The ![var check](../images/shooter/act_var2.png) will skip the following action unless the condition is satisfied, so the enemy ship is only destroyed if the health reaches 0.
+
+##### Sidenote
+
+If you want a conditional item to apply to a block of events, you can use the ![blocks](../images/shooter/blocks.png) items to specify how far the block should reach. We¿ll see an example of bigger conditionals in the explosion section.
 
 <a id="alarms-periodic"></a>
-###2.2.5 Alarms and Periodic Events
+###2.4 Alarms and Periodic Events
 
-**Enemy Fire**
+#### 2.4.1 Enemy Fire
 
-We can do something analogous to the interaction between player bullet and enemy with an enemy bullet. Create a sprite resource for an enemy bullet, load the graphic, and associate it with a newly created object, naming it something like oEnemyBullet. We can program the player so that the game restarts ([GAME RESTART ICON]) upon hitting an enemy bullet (or maybe after losing all its health), and then get the enemy to shoot every three seconds or so.
+We can do something analogous to the interaction between player bullet and enemy with an enemy bullet. Create a sprite resource for an enemy bullet, load the graphic, and associate it with a newly created object, naming it something like oEnemyBullet. We can program the player so that the game restarts (![restart](../images/shooter/act_restart.png), main2 tab) upon hitting an enemy bullet (or maybe after losing all its health), and then get the enemy to shoot every three seconds or so.
 
 Perhaps the only vaguely new concept is the idea of an event happening periodically, for which Game Maker also has built-in functionality in the form of alarm events.
 
-Alarms have two parts: an action that sets the alarm ([ALARM ICON]) and the event that's triggered when the alarm goes off. Internally, every object has a set of built-in alarm counters. the [ALARM ICON] action sets one of the counters for an alarm. The alarm decrements every step, and when the counter reaches 0, the actions in the alarm event are triggered. For instance, to make an enemy shoot exactly one second after it's spawned, we can use [ALARM ICON] to set the enemy's Alarm 0 to 60 (assuming 60 FPS), and in the event Alarm 0, create an enemy bullet.
-To have the enemy fire once every 3 seconds, we can have a [ALARM ICON] action setting alarm0 to 180 in both the create event and the Alarm 0 event, so that when the alarm fires, it also resets itself. In addition, in the Alarm 0 event, we create a bullet, and set the bullet to aim downwards in the bullet's create event.
+Alarms have two parts: an action that sets the alarm (![alarm](../images/shooter/act_alarm.png)) and the event that¿s triggered when the alarm goes off. Internally, every object has a set of built-in alarm counters. the  action sets one of the counters for an alarm. The alarm counter then decrements every step, and when the counter reaches 0, the actions in the alarm event are triggered. For instance, to make an enemy shoot exactly one second after it¿s spawned, we can use ![alarm](../images/shooter/act_alarm.png) in the Create event to set the enemy¿s Alarm 0 to 60 (assuming 60 FPS), and in the event Alarm 0, create an enemy bullet.
 
-SIDENOTE: GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn't completely restricted. For instance, we could set alarm0 to `150+random(30)` to set alarm0 to a random number from 150 to 180 every frame. The manual included with GM has a reference on all of these functions, but it's more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example. 
+In our case, to have the enemy fire once every 3 seconds, we can have a ![alarm](../images/shooter/act_alarm.png) action setting Alarm 0 to 180 in both the Create event and the Alarm 0 event, so that when the alarm fires, it also resets itself. In addition, in the Alarm 0 event, we create a bullet, and set the bullet to aim downwards in the bullet¿s create event.
 
-**Enemy Spawning**
+![shoot](../images/shooter/enemyshoot.png)
 
-To create a constant stream of enemies for our game, we make an object that doesn't interact with the game at all besides creating enemies every once in a while. This pattern is common in engines where game logic is almost entirely in objects, and normally we call these background objects controller objects and use the prefix c instead of o.
+##### Sidenote
 
-Create a cEnemies (or cEnemySpawner) object without attaching a sprite, with an [ALARM ACTION] action in the Create and Alarm 0 event, along with an enemy create action in the Alarm 0 event, to produce enemies periodically.
+GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn¿t completely restricted. For instance, we could set Alarm 0 to `150+random(30)` to set Alarm 0 to a random number from 150 to 180, instead of 180 every time. The manual included with GM has a reference on all of these functions, but it¿s more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example.
 
-To put the enemies at random positions, we can set the y to be -32 and x to be random(room_width-32), which generates a random number from 0 to the coordinate of the rightmost side of the room every time it's called. This approximately evenly distributes the enemies.
+##### Checkpoint
 
-SIDENOTE: The reason we set y to -32 is so that the bottom of the enemy are at y = 0, or the top of the screen, when they're spawned. Similarly, room_width-32 is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is x = 0, where the left end of the enemy touches the left edge of the room). 
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/5_enemyshoot.gmz).
+
+#### 2.4.2 Enemy Spawning
+
+To create a constant stream of enemies for our game, we make an object that doesn¿t interact with the game at all besides creating enemies every once in a while. This pattern is common in engines where game logic is almost entirely in objects, and normally we call these background objects controller objects and use the prefix c instead of o.
+
+Create a cEnemies (or cEnemySpawner) object without attaching a sprite, with an ![alarm](../images/shooter/act_alarm.png) action in the Create and Alarm 0 event, along with an enemy create action in the Alarm 0 event, to produce enemies periodically.
+
+To put the enemies at random positions, we can set the `y` to be `-32` and `x` to be `irandom(room_width-32)`, which generates a random integer from 0 to the coordinate of the rightmost side of the room every time it¿s called. This approximately evenly distributes the enemies.
+
+Finally, put the controller object somewhere in the room. People normally put controllers in the top left, but we programmed this controller so its location doesn¿t matter. It pops up as a blue question mark, but that¿s only visible in the room editor.
+##### Sidenote
+The reason we set y to -32 is so that the bottom of the enemy are at `y = 0`, or the top of the screen, when they¿re spawned. Similarly, `room_width-32` is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is `x = 0`, where the left end of the enemy touches the left edge of the room). 
+
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/6_spawner.gmz).
 
 <a id="polish"></a>
-###2.2.6 Polishing up our Game
+###2.5 Polishing up our Game
 
 We have a half-complete prototype for our shooter. Let's polish some of the rough edges to make it a little more presentable.
 
-**Backgrounds in Rooms**
+#### 2.5.1 Backgrounds in Rooms
 
-Unlike sprites, backgrounds aren't associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. Tick “Draw background color”, “Visible when room starts”, and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. 
+Unlike sprites, backgrounds aren¿t associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. Tick ¿Draw background color¿, ¿Visible when room starts¿, and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. 
 
-SIDENOTE: Backgrounds are modifiable at any time by objects through a set of variables beginning with “background_”. Variables can be set using the [VARIABLE SET ICON] action, or through a script, which we'll get into for the platformer, which is a step up in programming complexity.
+![backgrounds](../images/shooter/backgrounds.png)
 
-**Animations - Explosion**
+##### Sidenote
 
-Precisely, sprites are made up of a set of graphics called subimages (with the same dimensions) along with other properties like a hitbox or an origin. People usually achieve animated graphics using sprites with multiple subimages and playing through the subimages.
+Backgrounds are modifiable at any time by objects through a set of variables beginning with "background\_". Variables can be set using the [VARIABLE SET ICON] action, or through a script, which we¿ll get into for the platformer, which is a step up in programming complexity.
 
-In the Sprite Editor (to reach it, click Edit Sprite in the Sprite Properties window), one can add an empty subimage at the end of the sequence with the [SUBIMAGE ADD BTN] button and then double-click the subimage to edit it. Alternatively, one can load from a strip of subimages, like the one we provided. In the Sprite Editor, File -> Create From Strip opens a dialog box that extracts subimages from a sheet of images. Our sprite sheet has 7 images and 7 images per row, with all other settings unchanged. To see how the animation plays out, you can tick the “show preview” checkbox in the Sprite Editor. 
+#### 2.5.2 Animations and Explosions
 
-Using our animated sprite is a matter of making a new object and assigning the explosion sprite to it. The single behavior to add to the explosion object is a [DESTROY] to itself when the animation ends, accessible from Add Event -> Other. Other objects like the enemy can create explosion objects in the event of hitting a player bullet.
+Precisely, sprites aren¿t just a single picture, but are made up of a set of graphics called subimages (with the same dimensions) along with other properties like a hitbox or an origin. People usually achieve animated graphics using sprites by using multiple subimages and then playing through the subimages.
 
-**Other**
+![parts of a sprite](../images/shooter/parts_sprite.png)
 
-There are a lot more things that could be done to make the game more presentable, like restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player `x` is less than `room_width-32`, and only allowing leftward if the player x exceeds 0. 
-One other thing you may notice is that the game isn't fun. Try to tweak the game to make it challenging! Make the game restart when an enemy reaches the bottom of the screen. Change the enemy bullet pattern, perhaps aiming at the player instead of downwards (use [MOVE FREE] in the bullet create event, with direction `point_direction(x, y, oPlayer.x, oPlayer.y)`). Get the enemies to move horizontally too, bouncing against the sides of the room, or add your own gimmick after exploring the actions GameMaker has.  
+In the Sprite Editor, one can add an empty subimage at the end of the sequence with the  button and then double-click the subimage to edit it. Alternatively, one can load from a strip of subimages, like the one of the explosion we provided. In the Sprite Editor, File -> Create From Strip opens a dialog box that extracts subimages from a sheet of images. Our sprite sheet has 7 images and 7 images per row, with all other settings unchanged. To see how the animation plays out, you can tick the ¿show preview¿ checkbox in the Sprite Editor. 
+
+![load strip](../images/shooter/load_strip.png)
+
+Using our animated sprite is a matter of making a new object and assigning the explosion sprite to it. When an object has a sprite with multiple subimages, the subimages automatically play (and loop) at whatever FPS the room is set to. Thus, the single behavior to add to the explosion object is a self-![destroy](../images/shooter/act_destroy.png) when the animation ends, accessible from Add Event -> Other. Other objects like the enemy can create explosion objects in the event of hitting a player bullet.
+
+#### 2.5.3 Other
+
+There are a lot more things that could be done to make the game more presentable, like generating more sounds (e.g., with bfxr) or restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player `x` is less than `room_width-32`, and only allowing leftward if the player x exceeds 0. 
+
+One other thing you may notice is that the game isn¿t very fun. Try to tweak the game to make it challenging! Make the game restart when an enemy reaches the bottom of the screen, or touches you. Change the enemy bullet pattern, perhaps aiming at the player instead of downwards (use ![move in direction](../images/shooter/act_dir.png) in the bullet Create event, with direction `point_direction(x, y, oPlayer.x, oPlayer.y)`). Maybe also limit how many bullets there can be on the screen by preventing the player from shooting if there are too many (using ![count number](../images/shooter/act_count.png) in the control tab). Get the enemies to move horizontally too, bouncing against the sides of the room, or add your own gimmick after exploring the actions GameMaker has. 
 
 
 <a href="#top" class="top" id="MVP-review">Top</a>
-##2.4 Let's Review Level 2!
+### 2.6 A few last words
 
 Game Maker tries to make it simple to make simple games. Where there isn't a lot of complex logic, programming and gathering the assets is a matter of navigating the menus and specifying what to do at certain events. 
 
@@ -432,7 +471,6 @@ While it would be a chore to go through the enormous list of functions and actio
 
 In the next tutorial, we'll go through the scripting capabilities of Game Maker and look at some more general considerations in game programming.
 
-___________
 <a href="#top" class="top" id="level3">Top</a>
 ##Level 3: Making a Platformer
 
