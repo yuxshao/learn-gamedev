@@ -21,11 +21,12 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 # Table of Contents
 
 ### TODO
-* Update the table of contents
 * Expand level 5
 * talk about finite state machines
 * Flesh out MVP section if possible?
 * Talk about sprite editor in MAC: removing a sprite means cutting it. Also, sprite strips?
+
+separator
 
 -	[Level 1: General Intro to Game Design and Programming](#level1)
 	-	[1.1 Game Design considerations](#game-design-considerations)
@@ -35,23 +36,34 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 	-	[1.2 Game Programming](#game-programming)
 		-	[1.2.1 Game Loop](#game-loop)
 		-	[1.2.2 Update Method](#update-method)
-		-	[1.2.3 Other common themes](#other-themes)
 	-	[1.3 Minimum Viable Product](#MVP)
 		-	[1.3.1 What is it?](#bare-bones)
 		-	[1.3.2 Uses of the MVP](#uses-MVP)
-	-	[1.4 Tools Used in the Game Industry](#tools-used)
-		-	[1.4.1 List of various game engines](#list-engines)
-		-	[1.4.2 List of other tools](#list-tools)
--	[Level 2: Your First Game! Making an MVP](#top-down-shooter)
-	-	[2.1 Parts of GameMaker](#GM-parts)
-	-	[2.2 A Basic Top-Down Shooter](#basic-top-down-shooter)
-		-	[2.2.1 Creating Resources - Sounds and Sprites](#create-resource-sounds-sprites)
-		-	[2.2.2 Basic Game Logic](#basic-game-logic)
-		-	[2.2.3 Object Interaction - Enemies](#object-interation-enemies)
-		-	[2.2.4 Control Flow & Variables - Health](#control-flow-variables-health)
-		-	[2.2.5 Alarms and Periodic Events](#alarms-periodic)
-		-	[2.2.6 Let's Polish our Game!](#polish)
-	-	[2.3 Let's Review Level 2!](#basic-top-down-shooter)
+	-	[1.4 Game Development Tools](#tools-used)
+		-	[1.4.1 Game Engines](#list-engines)
+		-	[1.4.2 Other Tools](#list-tools)
+	-	[1.5 GameMaker](#GM-main)
+		-	[1.5.1 Why GameMaker?](#GM-why)
+		-	[1.5.2 Parts of GameMaker](#GM-parts)
+	-	[1.6 Review](#review-level1)
+-	[Level 2: A Basic Top-Down Shooter](#top-down-shooter)
+	-	[2.1 Creating Resources - Sounds and Sprites](#create-resource-sounds-sprites)
+		-	[2.1.1 Creating a Sprite](#creating-a-sprite)
+		-	[2.1.2 Adding a Sound](#adding-a-sound)
+	-	[2.2 Basic Game Logic](#basic-game-logic)
+		-	[2.2.1 A Minimal Program](#minimal-program)
+		-	[2.2.2 Adding Motion](#adding-motion)
+		-	[2.2.3 Shooting](#shooting)
+	-	[2.3 Object Interaction - Enemies](#object-interaction-enemies)
+	-	[2.4 Control Flow & Variables - Health](#control-flow-variables-health)
+	-	[2.5 Alarms and Periodic Events](#alarms-periodic)
+		-	[2.5.1 Enemy Fire](#enemy-fire)
+		-	[2.5.2 Enemy Spawning](#enemy-spawning)
+	-	[2.6 Polishing up our Game](#polish)
+		-	[2.6.1 Enemy Fire](#backgrounds-rooms)
+		-	[2.6.2 Animations & Explosions](#animations-explosions)
+		-	[2.6.3 Other Suggestions](#other-suggestions)
+	-	[2.7 A few last words](#MVP-review)
 -	[Level 3: Creating a Platformer](#level3)
 	-	[3.1 Resource Setup](#resource-setup)
 	-	[3.2 Scripts & the Step Event](#scripts-step-events)
@@ -83,21 +95,20 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 	-	[4.2 Rooms in GameMaker](#rooms-in-GM)
 		-	[4.2.1 Basic Rooms - Game Start and Game Over](#basic-rooms-game-start-over)
 		-	[4.2.2 Persistent Objects - Room Transition Effects](#persistent-objects-room-transition)
-		-	[4.2.3 Fitting it into a Script](#fitting-it-into-script)
 	-	[4.3 Manual Drawing](#manual-drawing)
 		-	[4.3.1 The Draw Event](#draw-event)
 		-	[4.3.2 Informational Text](#info-text)
 		-	[4.3.3 A HUD](#hud)
 	-	[4.4 A Menu](#menus)
 	-	[4.5 A Pause Screen](#pause-menu)
-	-	[4.6 Last Words](#last-words-level4)
+	-	[4.6 A few last words](#last-words-level4)
 -	[Level 5: Design Considerations](#level5)
 -	[Additional Resources](#additionalresources)
 
 
 ------------------------------
 <a href="#top" class="top" id="level1">Top</a>
-# Level 1: Intro to Game Design and Programming
+# Level 1: Game Design & Programming Intro
 
 Goal of Level 1: Learn the basics concepts of game programming, as well as learning what a Minimum Viable Product is.
 
@@ -170,14 +181,14 @@ Here's a list of some of the game engines that are frequently used:
 
 * Unity - Unity is powerful and one of the most popular engine for production-level games.
 * Unreal Engine - Comparable to Unity but with its beginnings much earlier, Unreal Engine is known for many console releases like BioShock Infinite.
-* GameMaker - One of the oldest game development software, GM retains its status as a good tool for *prototyping* and learning development, but also with a set of features that give it power comparable to the big players in 2-dimensional games.
+* GameMaker - One of the oldest game development programs, GM retains its status as a good tool for *prototyping* and learning development, but also with a set of features that give it power comparable to the big players in 2-dimensional games.
 * RPG Maker - A popular choice for RPGs.
 * Twine - A popular choice for point-and-click and story games.
 
 The list goes on. Construct 2 is similar to GameMaker for web-based 2D games, while other more minimal frameworks like L&Ouml;VE and Phaser are also popular.
 
 <a id="list-tools"></a>
-### 1.4.2 List of various other tools
+### 1.4.2 Other tools
 
 Triple-A studios often have professional software for making visual and audio assets, like Autodesk Maya, Cubase, and Adobe Illustrator. For the more humble developers like us, a set of free software is available:
 
@@ -190,11 +201,12 @@ Triple-A studios often have professional software for making visual and audio as
 
 A more complete list can be found [here](http://ludumdare.com/compo/tools/).
 
-<a href="#top" class="top" id="GM-parts">Top</a>
+<a href="#top" class="top" id="GM-main">Top</a>
 ## 1.5 GameMaker
 
 We'll be using GameMaker for the games we make in this guide.
 
+<a href="#top" class="top" id="GM-why">Top</a>
 ### 1.5.1 Why GameMaker?
 
 GM Studio on Windows is a great tool for development, with its frequent updates and cross-platform support. The built-in features it provides is good for getting rid of all the configuration and preprocessing needed to work in many other game engines, so it's fast to get a working prototype up. The model GM uses tries to be as simple as possible for non-programmers, too, and the learning curve is smooth, making it ideal for beginners.
@@ -203,6 +215,7 @@ It's a powerful program too, with a sizeable list of notable indie games built w
 
 GM for Mac, however, is based off an older version of GameMaker, so its functionality is limited. The game model and interface is nearly identical, though, so it's still a good way to learn the workings of game development and testing prototypes. It's worth using a different game engine or working on Windows for developing final products, though.
 
+<a href="#top" class="top" id="GM-parts">Top</a>
 ### 1.5.2 Parts of GameMaker
 
 In GameMaker, a game is made up of various parts. Here we'll describe each part and their function on a very basic level before we move on to using them when making our basic game.
@@ -250,6 +263,7 @@ The two types of assets--graphics and audio--are grouped into the first 3 folder
 
 In this section, we'll focus on creating and adding assets to our game.
 
+<a id="creating-a-sprite"></a>
 ### 2.1.1 Creating a Sprite
 
 To create a sprite, either click the pac-man icon (![New Sprite](../images/shooter/new_sprite.png)) in the top menu, or right-click the Sprites folder and select new sprite. The Sprite Properties window shows up.
@@ -270,6 +284,7 @@ A background is similar. Create a background resource (right-click the folder or
 
 The remaining options (origin, collision, texture) in the sprite properties dialog box have to do with how the rest of the game renders and interacts with objects with this sprite. We'll get into some of them later.
 
+<a id="adding a sound"></a>
 ### 2.1.2 Adding a Sound
 
 We've provided a sample shooting sound effect made in bfxr, and loading that as a resource is as simple as for the sprite. Creating a sound resource is a matter of navigating the interface. (Right-click the folder, or click ![New Sound](../images/shooter/new_sound.png)) For our purposes, just loading the sound and naming it properly (e.g., sShoot) is enough. The other settings don't need to be changed.
@@ -286,6 +301,7 @@ We've provided a sample shooting sound effect made in bfxr, and loading that as 
 
 The main actors in GameMaker games are objects, which combine a sprite with game logic that is run on every step of the simulation. Objects are then placed in things called Rooms, which serve as an environment for objects to interact with each other and you in a game.
 
+<a id="minimal-program"></a>
 ### 2.2.1 A Minimal Program
 
 To see how this system works, let's create a player that can move around. First, create a new object resource (right-click the folder and select, or click ![New Object](../images/shooter/new_object.png)) and name it something appropriate, like `oPlayer`. Underneath the name, set the sprite to `sPlayer`.
@@ -302,6 +318,7 @@ Now that the room's been added, the game is minimally functional. In the main wi
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/1_minimal.gmz).
 
+<a id="adding-motion"></a>
 ### 2.2.2 Adding Motion
 
 To implement motion, we can use Game Maker's built-in event-action functionality. Game Maker lets us program game logic into these objects by adding statements of the form, `when [EVENT], do [ACTIONS]`, like `when <spacebar> is pressed, shoot a bullet and play a sound` or in this case, `when <left> is pressed, move left.`
@@ -350,8 +367,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/2_moveshoot.gmz).
 
-<a id="object-interaction-enemies"></a>
-
+<a id="object-interaction-enemies" href="top" id="#top"></a>
 ##2.3 Object Interaction - Enemies
 
 By this point adding resources should be familiar. Just as we did with the player and its bullets, we can do the same with the enemy: creating a sprite resource, loading/drawing the graphic, and creating an object resource that uses the sprite.
@@ -393,9 +409,10 @@ In the collision with the bullet, we want to decrement `hp` and now only want to
 > If you want a conditional item to apply to a block of events, you can use the ![blocks](../images/shooter/blocks.png) items to specify how far the block should reach. We'll see an example of bigger conditionals in the explosion section.
 
 <a id="alarms-periodic"></a>
-##2.4 Alarms and Periodic Events
+##2.5 Alarms and Periodic Events
 
-### 2.4.1 Enemy Fire
+<a id="enemy-fire"></a>
+### 2.5.1 Enemy Fire
 
 We can do something analogous to the interaction between player bullet and enemy with an enemy bullet. Create a sprite resource for an enemy bullet, load the graphic, and associate it with a newly created object, naming it something like oEnemyBullet. We can program the player so that the game restarts (![restart](../images/shooter/act_restart.png), main2 tab) upon hitting an enemy bullet (or maybe after losing all its health), and then get the enemy to shoot every three seconds or so.
 
@@ -415,7 +432,8 @@ In our case, to have the enemy fire once every 3 seconds, we can have a ![alarm]
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/5_enemyshoot.gmz).
 
-### 2.4.2 Enemy Spawning
+<a id="enemy-spawning"></a>
+### 2.5.2 Enemy Spawning
 
 To create a constant stream of enemies for our game, we make an object that doesn't interact with the game at all besides creating enemies every once in a while. This pattern is common in engines where game logic is almost entirely in objects, and normally we call these background objects controller objects and use the prefix c instead of o.
 
@@ -432,11 +450,12 @@ Finally, put the controller object somewhere in the room. People normally put co
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/6_spawner.gmz).
 
 <a id="polish"></a>
-##2.5 Polishing up our Game
+##2.6 Polishing up our Game
 
 We have a half-complete prototype for our shooter. Let's polish some of the rough edges to make it a little more presentable.
 
-### 2.5.1 Backgrounds in Rooms
+<a id="backgrounds-rooms"></a>
+### 2.6.1 Backgrounds in Rooms
 
 Unlike sprites, backgrounds aren't associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. Tick "Draw background color", "Visible when room starts", and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. 
 
@@ -446,7 +465,8 @@ Unlike sprites, backgrounds aren't associated with objects, but rather with room
 
 > Backgrounds are modifiable at any time by objects through a set of variables beginning with "background\_". Variables can be set using the ![variable set](../images/shooter/act_var.png) action, or through a script, which we'll get into for the platformer, which is a step up in programming complexity.
 
-### 2.5.2 Animations and Explosions
+<a id="animations-explosions"></a>
+### 2.6.2 Animations & Explosions
 
 Precisely, sprites aren't just a single picture, but are made up of a set of graphics called subimages (with the same dimensions) along with other properties like a hitbox or an origin. People usually achieve animated graphics using sprites by using multiple subimages and then playing through the subimages.
 
@@ -458,7 +478,8 @@ In the Sprite Editor, one can add an empty subimage at the end of the sequence w
 
 Using our animated sprite is a matter of making a new object and assigning the explosion sprite to it. When an object has a sprite with multiple subimages, the subimages automatically play (and loop) at whatever FPS the room is set to. Thus, the single behavior to add to the explosion object is a self-![destroy](../images/shooter/act_destroy.png) when the animation ends, accessible from Add Event -> Other. Other objects like the enemy can create explosion objects in the event of hitting a player bullet.
 
-### 2.5.3 Other
+<a id="other-suggestions"></a>
+### 2.6.3 Other Suggestions
 
 There are a lot more things that could be done to make the game more presentable, like generating more sounds (e.g., with bfxr) or restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player `x` is less than `room_width-32`, and only allowing leftward if the player x exceeds 0. 
 
@@ -469,7 +490,7 @@ One other thing you may notice is that the game isn't very fun. Try to tweak the
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz).
 
 <a href="#top" class="top" id="MVP-review">Top</a>
-## 2.6 A few last words
+## 2.7 A few last words
 
 Game Maker tries to make it simple to make simple games. Where there isn't a lot of complex logic, programming and gathering the assets is a matter of navigating the menus and specifying what to do at certain events. 
 
@@ -822,7 +843,7 @@ Our final code:
     else y = z.y + abs(z.sprite_height) + abs(sprite_yoffset) - abs(z.sprite_yoffset);
     }
 
-<a id="jump-right=time"></a>
+<a id="jump-right-time"></a>
 ###3.5.4 Jumping at the Right Time
 
 At this point we can restrict the player so he can only jump if he's touching the ground. We can replace our current jump line with something like:
@@ -1060,7 +1081,6 @@ In case the new room is significantly bigger than the old room, we should resize
     image_xscale = room_width*1000;
     image_yscale = room_height*1000;
 
-<a id="fitting-it-into-script"></a>
 #### Fitting it into a Script
 
 If you don't want to use a "transitioned" variable, or if you want to configure how long the fade should be, you can instead use a variable like fadeLength to tackle both problems. It's a little makeshift-y. To summarize, in Create:
@@ -1339,7 +1359,7 @@ The slight problem with this is that room_goto(...) changes the room only at the
 You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/6_pause.gmz).
 
 <a href="#top" class="top" id="last-words-level4">Top</a>
-##4.5 A Few Last Words for Level 4
+##4.5 A few last words
 
 The concept of states is simple to grasp and also simple to program. As we mentioned earlier, it can often be implicit in your code too: you might use an if-statement to give different behavior to the player depending on if he's in the air and or on the ground, thus giving him a state.
 
