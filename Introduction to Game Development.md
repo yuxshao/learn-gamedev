@@ -40,7 +40,10 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 	-	[1.4 Tools Used in the Game Industry](#tools-used)
 		-	[1.4.1 List of various game engines] (#list-engines)
 		-	[1.4.2 List of other tools] (#list-tools)
-		
+	-	[1.5 GameMaker](#GM)
+		-	[1.5.1 Why GameMaker?](#why-GM)
+		-	[1.5.2 Parts of GameMaker](#parts-GM)	
+	-	[1.6 Let's Review!](#review-level1)
 -	[Level 2: Your First Game! Making an MVP](#level2)
 	-	[2.1 Creating Resources - Sounds and Sprites](#create-resource-sounds-sprites)
 		-	[2.1.1 Creating a Sprite](#create-sprite)
@@ -49,8 +52,7 @@ The top-down shooter will assume no coding knowledge at all to try to introduce 
 		-	[2.2.1 A Minimal Program](#minimal-program)
 		-	[2.2.2 Adding Motion](#adding-motion)
 		-	[2.2.3 Shooting](#shooting)
-	-	[2.3 Object Interactions: Enemies](#object-interaction-enemies)
-		
+	-	[2.3 Object Interactions: Enemies](#object-interaction-enemies)		
 	-	[2.4 Control Flow & Variables - Health](#control-flow-variables-health)
 	-	[2.5 Alarms and Periodic Events](#alarms-periodic)
 		-	[2.5.1 Enemy Fire](#enemy-fire)
@@ -190,11 +192,12 @@ Triple-A studios often have professional software for making visual and audio as
 
 A more complete list can be found [here](http://ludumdare.com/compo/tools/).
 
-<a href="#top" class="top" id="GM-parts">Top</a>
+<a href="#top" class="top" id="GM>Top</a>
 ## 1.5 GameMaker
 
 We'll be using GameMaker for the games we make in this guide.
 
+<a id="why-GM"></a>
 ### 1.5.1 Why GameMaker?
 
 GM Studio on Windows is a great tool for development, with its frequent updates and cross-platform support. The built-in features it provides is good for getting rid of all the configuration and preprocessing needed to work in many other game engines, so it's fast to get a working prototype up. The model GM uses tries to be as simple as possible for non-programmers, too, and the learning curve is smooth, making it ideal for beginners.
@@ -203,6 +206,7 @@ It's a powerful program too, with a sizeable list of notable indie games built w
 
 GM for Mac, however, is based off an older version of GameMaker, so its functionality is limited. The game model and interface is nearly identical, though, so it's still a good way to learn the workings of game development and testing prototypes. It's worth using a different game engine or working on Windows for developing final products, though.
 
+<a id="parts-GM"></a>
 ### 1.5.2 Parts of GameMaker
 
 In GameMaker, a game is made up of various parts. Here we'll describe each part and their function on a very basic level before we move on to using them when making our basic game.
