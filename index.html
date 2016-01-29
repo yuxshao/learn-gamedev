@@ -686,7 +686,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn't completely restricted. For instance, we could set Alarm 0 to <code>150+random(30)</code> to set Alarm 0 to a random number from 150 to 180, instead of 180 every time. The manual included with GM has a reference on all of these functions, but it's more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example.</p>
 </blockquote>
 <h5 id="checkpoint_4">Checkpoint</h5>
-<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/5_enemyshoot.gmz">here</a> for Windows or <a href="./resources/checkpoints_mac/shooter/5_enemyshoot.gmz">here</a>.</p>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/5_enemyshoot.gmz">here</a> for Windows or <a href="./resources/checkpoints_mac/shooter/5_enemyshoot.gmz">here</a> for Mac.</p>
 <p><a id="enemy-spawning"></a></p>
 <h3 id="252-enemy-spawning">2.5.2 Enemy Spawning</h3>
 <p>To create a constant stream of enemies for our game, we make an object that doesn't interact with the game at all besides creating enemies every once in a while. This pattern is common in engines where game logic is almost entirely in objects, and normally we call these background objects controller objects and use the prefix c instead of o.</p>
@@ -702,7 +702,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>The reason we set y to -32 is so that the bottom of the enemy are at <code>y = 0</code>, or the top of the screen, when they're spawned. Similarly, <code>room_width-32</code> is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is <code>x = 0</code>, where the left end of the enemy touches the left edge of the room). </p>
 </blockquote>
 <h5 id="checkpoint_5">Checkpoint</h5>
-<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/6_spawner.gmz">here</a> for Windows or <a href="./resources/checkpoints_mac/shooter/6_spawner.gmz">here</a>.</p>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/6_spawner.gmz">here</a> for Windows or <a href="./resources/checkpoints_mac/shooter/6_spawner.gmz">here</a> for Mac.</p>
 <p><a href="#top" class="top" id="polish">Top</a></p>
 <h2 id="26-polishing-up-our-game">2.6 Polishing up our Game</h2>
 <p>We have a half-complete prototype for our shooter. Let's polish some of the rough edges to make it a little more presentable.</p>
@@ -727,7 +727,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>There are a lot more things that could be done to make the game more presentable, like generating more sounds (e.g., with bfxr) or restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player <code>x</code> is less than <code>room_width-32</code>, and only allowing leftward if the player x exceeds 0. </p>
 <p>One other thing you may notice is that the game isn't very fun. Try to tweak the game to make it challenging! Make the game restart when an enemy reaches the bottom of the screen, or touches you. Change the enemy bullet pattern, perhaps aiming at the player instead of downwards (use <img alt="move in direction" src="./images/shooter/act_dir.png" /> in the bullet Create event, with direction <code>point_direction(x, y, oPlayer.x, oPlayer.y)</code>). Maybe also limit how many bullets there can be on the screen by preventing the player from shooting if there are too many (using <img alt="count number" src="./images/shooter/act_count.png" /> in the control tab). Get the enemies to move horizontally too, bouncing against the sides of the room, or add your own gimmick after exploring the actions GameMaker has. </p>
 <h5 id="checkpoint_6">Checkpoint</h5>
-<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/7_extras.gmz">here</a> or <a href="./resources/checkpoints_mac/shooter/7_extras.gmz">here</a>.</p>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/7_extras.gmz">here</a> or <a href="./resources/checkpoints_mac/shooter/7_extras.gmz">here</a> for Mac.</p>
 <p><a href="#top" class="top" id="MVP-review">Top</a></p>
 <h2 id="27-a-few-last-words">2.7 A Few Last Words</h2>
 <p>Game Maker tries to make it simple to make simple games. Where there isn't a lot of complex logic, programming and gathering the assets is a matter of navigating the menus and specifying what to do at certain events. </p>
@@ -1263,7 +1263,7 @@ draw_sprite(sCoin, 0, 30+vx, 3+vy);
 draw_text(46+vx, 5+vy, string(cCounter.coins));
 </code></pre>
 <h5 id="checkpoint_19">Checkpoint</h5>
-<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/4_hud.gmz">here</a> for Windows, or <a href="./resources/checkpoints_mac/menu/4_hud.gmz">here</a>.</p>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/4_hud.gmz">here</a> for Windows, or <a href="./resources/checkpoints_mac/menu/4_hud.gmz">here</a> for Mac.</p>
 <p><a href="#top" class="top" id="menus">Top</a></p>
 <h2 id="44-a-menu">4.4 A Menu</h2>
 <p>To demonstrate a basic deliberate use of states, we'll turn the introduction screen into a start menu, with three options: starting the game, setting the number of initial lives, and exiting the game. </p>

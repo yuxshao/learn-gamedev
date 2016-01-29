@@ -442,7 +442,7 @@ In our case, to have the enemy fire once every 3 seconds, we can have a ![alarm]
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/5_enemyshoot.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/5_enemyshoot.gmz).
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/5_enemyshoot.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/5_enemyshoot.gmz) for Mac.
 
 <a id="enemy-spawning"></a>
 ### 2.5.2 Enemy Spawning
@@ -462,7 +462,7 @@ Finally, put the controller object somewhere in the room. People normally put co
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/6_spawner.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/6_spawner.gmz).
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/6_spawner.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/6_spawner.gmz) for Mac.
 
 <a href="#top" class="top" id="polish">Top</a>
 ##2.6 Polishing up our Game
@@ -503,7 +503,7 @@ One other thing you may notice is that the game isn't very fun. Try to tweak the
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz) or [here](../resources/checkpoints_mac/shooter/7_extras.gmz).
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz) or [here](../resources/checkpoints_mac/shooter/7_extras.gmz) for Mac.
 
 <a href="#top" class="top" id="MVP-review">Top</a>
 ## 2.7 A Few Last Words
@@ -1240,7 +1240,7 @@ If you test the game, you'll notice that the HUD doesn't scroll with the view (w
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/4_hud.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/4_hud.gmz).
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/4_hud.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/4_hud.gmz) for Mac.
 
 
 <a href="#top" class="top" id="menus">Top</a>
