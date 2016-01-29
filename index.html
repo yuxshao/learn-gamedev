@@ -341,9 +341,6 @@ pre .chunk {
 <p>Also, download the <a href="./resources.zip">resource pack</a>, which has sounds and graphical assets to use in your game, as well as project checkpoints to compare against as you go through this tutorial.</p>
 <p><a href="#top" class="top" id="table-of-contents">Top</a></p>
 <h1 id="table-of-contents">Table of Contents</h1>
-<h3 id="todo">TODO</h3>
-<p>talk about the hassles of the sprite editor in mac</p>
-<p>separator</p>
 <ul>
 <li><a href="#level1">Level 1: General Intro to Game Design and Programming</a><ul>
 <li><a href="#game-design-considerations">1.1 Game Design considerations</a><ul>
@@ -575,10 +572,15 @@ pre .chunk {
 <p><img alt="Sprite Properties" src="./images/shooter/sprite_properties.png" /></p>
 <p>Name the sprite something appropriate, like sPlayer, for a player sprite. To modify the actual graphic of the sprite, you can choose to load a premade image or edit the sprite yourself and click the appropriate button. We've provided sample sprites with the tutorial that you can load. If you prefer to make your own, click "Edit Sprite" to open up the Sprite Editor and click "New Sprite". Specify the dimensions, and double-click the "image 0" that's appeared in the sprite editor to open up the Image Editor and start drawing. After you load the image or draw your own, your Sprite Editor should look something like what's shown below.</p>
 <p><img alt="Sprite Editor" src="./images/shooter/sprite_editor.png" /></p>
+<blockquote>
+<h5 id="mac-users">Mac Users</h5>
+<p><img alt="Sprite Editor Mac" src="./images/shooter/m003.png" /></p>
+<p>The sprite editor is slightly different, with the menu at the top of the screen instead of attached to the window. Furthermore, "New..." doesn't actually reset the sprite and create a new one, but instead adds a <em>subimage</em> which we'll get into later. If you click New... and specify a size you might end up with something like <a href="./images/shooter/m004.png">this</a>, with an Image 0 <em>and Image 1</em>. We don't want that at this point. The top menu allows you to delete subimages as well as resize your sprite. </p>
+</blockquote>
 <p>Save and close the editor and properties window&mdash;you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.</p>
 <p>A background is similar. Create a background resource (right-click the folder or click <img alt="New Background" src="./images/shooter/new_back.png" />) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!</p>
 <blockquote>
-<h5 id="mac-users">Mac Users</h5>
+<h5 id="mac-users_1">Mac Users</h5>
 <p>Sprites and backgrounds in Mac have limited transparency capabilities. If you want sprites that aren't opaque over the entire rectangle of the sprite, make sure you tick "Transparent". The way GM for Mac determines which pixels are transparent is by looking at the bottom-left pixel. The transparent color will be set to whatever color's in the bottom-left.</p>
 <h5 id="sidenote">Sidenote</h5>
 <p>In my opinion, GM's Image Editor is reasonably powerful but some things are hard to find, like resizing the canvas. (Resizing is particularly annoying because sprites can actually contain multiple subimages of the same size, to be used in e.g., animation, or different states of an object, like a stoplight with different images corresponding to different lights on.) For professional pixel art, consider drawing in GraphicsGale or Aseprite and then loading.</p>
@@ -646,6 +648,10 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>Another behavior we might want is to have them disappear upon hitting a player bullet. This can be done with the collision event: In the oEnemy's Object Properties window, click Add Event -&gt; Collision -&gt; oBullet to include the event and drag the <img alt="destroy" src="./images/shooter/act_destroy.png" /> action (tab main1) to the actions window. Additionally we might want the bullet to be destroyed too, which we can do by dragging another <img alt="destroy" src="./images/shooter/act_destroy.png" /> and set the target to "Other" instead of "Self".</p>
 <p><img alt="destroy other" src="./images/shooter/destroy_other.png" /></p>
 <p>If we go to the room editor and drop enemies into the room, they'll appear and slowly move down, as well as react to our bullets, as expected.</p>
+<blockquote>
+<h5 id="sidenote_4">Sidenote</h5>
+<p>One setting to pay attention to is the Delete Underlying checkbox. If it's checked, whenever you try to place an object on top of another object already placed in the room, the other object will be automatically deleted&mdash;which may be inconvenient at times. It's checked by default on Mac.</p>
+</blockquote>
 <h5 id="checkpoint_2">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/3_enemy.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="control-flow-variables-health">Top</a></p>
@@ -655,12 +661,12 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>While there's no explicit way to declare what variables you want an object to have up front, it's often a good idea to set, or initialize all of them in the Create event with the <img alt="var set" src="./images/shooter/act_var.png" /> action in the control tab. To start the enemy off with 3 health, use <img alt="var set" src="./images/shooter/act_var.png" /> to set <code>hp</code> (not <code>health</code>&mdash;see below) to 3 in the Create event. Since this is the first mention of the variable <code>hp</code>, it also tells GameMaker that this object has a variable called <code>hp</code>.</p>
 <p><img alt="enemy hp" src="./images/shooter/enemyhp.png" /></p>
 <blockquote>
-<h5 id="sidenote_4">Sidenote</h5>
+<h5 id="sidenote_5">Sidenote</h5>
 <p>GameMaker provides a built-in global variable (i.e., not different for each object) called health for player health. I guess it's there for people new to GM since there's a tab dedicated to these variables (score, health, lives), but they're no different from regular variables. We won't be using these global variables and indeed it's an inconvenience to have these variable names reserved by GM like that.</p>
 </blockquote>
 <p>In the collision with the bullet, we want to decrement <code>hp</code> and now only want to disappear if the health hits 0. To do this, we can <img alt="var set" src="./images/shooter/act_var.png" /> to set <code>hp</code> to -1, ticking relative. Then underneath, use a  <img alt="var check" src="./images/shooter/act_var2.png" /> to check if <code>hp</code> is equal to 0, and put the self-<img alt="destroy" src="./images/shooter/act_destroy.png" /> action right underneath the condition. The <img alt="var check" src="./images/shooter/act_var2.png" /> will skip the following action unless the condition is satisfied, so the enemy ship is only destroyed if the health reaches 0.</p>
 <blockquote>
-<h5 id="sidenote_5">Sidenote</h5>
+<h5 id="sidenote_6">Sidenote</h5>
 <p>If you want a conditional item to apply to a block of events, you can use the <img alt="blocks" src="./images/shooter/blocks.png" /> items to specify how far the block should reach. We'll see an example of bigger conditionals in the explosion section.</p>
 </blockquote>
 <h5 id="checkpoint_3">Checkpoint</h5>
@@ -675,7 +681,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>In our case, to have the enemy fire once every 3 seconds, we can have a <img alt="alarm" src="./images/shooter/act_alarm.png" /> action setting Alarm 0 to 180 in both the Create event and the Alarm 0 event, so that when the alarm fires, it also resets itself. In addition, in the Alarm 0 event, we create a bullet, and set the bullet to aim downwards in the bullet's create event.</p>
 <p><img alt="shoot" src="./images/shooter/enemyshoot.png" /></p>
 <blockquote>
-<h5 id="sidenote_6">Sidenote</h5>
+<h5 id="sidenote_7">Sidenote</h5>
 <p>GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn't completely restricted. For instance, we could set Alarm 0 to <code>150+random(30)</code> to set Alarm 0 to a random number from 150 to 180, instead of 180 every time. The manual included with GM has a reference on all of these functions, but it's more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example.</p>
 </blockquote>
 <h5 id="checkpoint_4">Checkpoint</h5>
@@ -686,12 +692,12 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>Create a cEnemies (or cEnemySpawner) object without attaching a sprite, with an <img alt="alarm" src="./images/shooter/act_alarm.png" /> action in the Create and Alarm 0 event, along with an enemy create action in the Alarm 0 event, to produce enemies periodically.</p>
 <p>To put the enemies at random positions, we can set the <code>y</code> to be <code>-32</code> and <code>x</code> to be <code>irandom(room_width-32)</code>, which generates a random integer from 0 to the coordinate of the rightmost side of the room every time it's called. This approximately evenly distributes the enemies.</p>
 <blockquote>
-<h5 id="mac-users_1">Mac Users</h5>
+<h5 id="mac-users_2">Mac Users</h5>
 <p>GM for Mac has no <code>irandom(...)</code>. Instead, use <code>floor(random(...))</code>.</p>
 </blockquote>
 <p>Finally, put the controller object somewhere in the room. People normally put controllers in the top left, but we programmed this controller so its location doesn't matter. It pops up as a blue question mark, but that's only visible in the room editor.</p>
 <blockquote>
-<h5 id="sidenote_7">Sidenote</h5>
+<h5 id="sidenote_8">Sidenote</h5>
 <p>The reason we set y to -32 is so that the bottom of the enemy are at <code>y = 0</code>, or the top of the screen, when they're spawned. Similarly, <code>room_width-32</code> is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is <code>x = 0</code>, where the left end of the enemy touches the left edge of the room). </p>
 </blockquote>
 <h5 id="checkpoint_5">Checkpoint</h5>
@@ -701,17 +707,18 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>We have a half-complete prototype for our shooter. Let's polish some of the rough edges to make it a little more presentable.</p>
 <p><a id="backgrounds-rooms"></a></p>
 <h3 id="261-backgrounds-in-rooms">2.6.1 Backgrounds in Rooms</h3>
-<p>Unlike sprites, backgrounds aren't associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. Tick "Draw background color", "Visible when room starts", and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. </p>
+<p>Unlike sprites, backgrounds aren't associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. For Mac, you might have to <a href="./images/shooter/m001.png">click an extra button</a> to see it. Tick "Draw background color", "Visible when room starts", and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. </p>
 <p><img alt="backgrounds" src="./images/shooter/backgrounds.png" /></p>
 <blockquote>
-<h5 id="sidenote_8">Sidenote</h5>
+<h5 id="sidenote_9">Sidenote</h5>
 <p>Backgrounds are modifiable at any time by objects through a set of variables beginning with <code>background_</code>. Variables can be set using the <img alt="variable set" src="./images/shooter/act_var.png" /> action, or through a script, which we'll get into for the platformer, which is a step up in programming complexity.</p>
 </blockquote>
 <p><a id="animations-explosions"></a></p>
 <h3 id="262-animations-explosions">2.6.2 Animations &amp; Explosions</h3>
 <p>Precisely, sprites aren't just a single picture, but are made up of a set of graphics called subimages (with the same dimensions) along with other properties like a hitbox or an origin. People usually achieve animated graphics using sprites by using multiple subimages and then playing through the subimages.</p>
-<p><img alt="parts of a sprite" src="./images/shooter/parts_sprite.png" /></p>
-<p>In the Sprite Editor, one can add an empty subimage at the end of the sequence with the  button and then double-click the subimage to edit it. Alternatively, one can load from a strip of subimages, like the one of the explosion we provided. In the Sprite Editor, File -&gt; Create From Strip opens a dialog box that extracts subimages from a sheet of images. Our sprite sheet has 7 images and 7 images per row, with all other settings unchanged. To see how the animation plays out, you can tick the "show preview" checkbox in the Sprite Editor. </p>
+<p><img alt="parts of a sprite" src="./images/shooter/parts_sprite.png" />
+<img alt="parts of a sprite mac" src="./images/shooter/m000.png" /></p>
+<p>In the Sprite Editor, one can add an empty subimage at the end of the sequence with the  button and then double-click the subimage to edit it. Alternatively, one can load from a strip of subimages, like the one of the explosion we provided. In the Sprite Editor, File -&gt; Create From Strip opens a dialog box that extracts subimages from a sheet of images. Our sprite sheet has 7 images and 7 images per row, with all other settings unchanged. To see how the animation plays out, you can tick the "show preview" checkbox in the Sprite Editor. (Recall for Mac that <a href="./images/shooter/m002.png">the menu is at the top of the window</a>)</p>
 <p><img alt="load strip" src="./images/shooter/load_strip.png" /></p>
 <p>Using our animated sprite is a matter of making a new object and assigning the explosion sprite to it. When an object has a sprite with multiple subimages, the subimages automatically play (and loop) at whatever FPS the room is set to. Thus, the single behavior to add to the explosion object is a self-<img alt="destroy" src="./images/shooter/act_destroy.png" /> when the animation ends, accessible from Add Event -&gt; Other. Other objects like the enemy can create explosion objects in the event of hitting a player bullet.</p>
 <p><a id="other-suggestions"></a></p>
@@ -737,7 +744,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <h2 id="31-resource-setup">3.1 Resource Setup</h2>
 <p>Create and load the player and enemy sprite, as well as the background. Also load the background tileset, checking "Use as tileset" in the background properties. Alternatively, draw your own if you feel brave, but try to keep the poses similar and the image dimensions 16x16. In addition, create a 16x16 black square to represent the blocks our player is going to interact with, and create the corresponding <code>oBlock</code> object. The black sprite box is just for the level editor and won't be what the player sees, though; we'll cover the blocks up later with a tileset to make it visually pleasing. </p>
 <blockquote>
-<h5 id="mac-users_2">Mac Users</h5>
+<h5 id="mac-users_3">Mac Users</h5>
 <p>Remember to untick "Transparent" on the player and enemy sprite, since their bottom-left corners are grey, the same color as the rest of their sprite.</p>
 </blockquote>
 <p><a href="#top" class="top" id="scripts-step-events">Top</a></p>
@@ -769,7 +776,7 @@ if (keyboard_check(vk_right))
 <p>That is, in each frame, the program checks if the left key is pressed or not. If it is, the player jumps to the left 4 pixels. Analogously for the right key. To be precise, <code>keyboard_check(...)</code> is a function provided by GM taking in a key code and returning whether it's down or not. </p>
 <p>If you put the player in a room (appropriately set up: 320x240, 60fps, background) and run the game, you'll see that pressing left moves the player left and right right, as expected.</p>
 <blockquote>
-<h5 id="sidenote_9">Sidenote</h5>
+<h5 id="sidenote_10">Sidenote</h5>
 <p>If you want the window to be bigger and everything zoomed in, check out the Views section near the bottom of the tutorial.</p>
 </blockquote>
 <h5 id="checkpoint_7">Checkpoint</h5>
@@ -815,7 +822,7 @@ if (lspeed &lt; 0) lspeed = 0;
 <pre><code>if (keyboard_check_pressed(vk_up)) vspeed = -jumpspeed;
 </code></pre>
 <blockquote>
-<h5 id="sidenote_10">Sidenote</h5>
+<h5 id="sidenote_11">Sidenote</h5>
 <p>Though we'll eventually make it so that the player can only jump if it's on the ground (i.e., <code>vspeed</code> is 0 initially), in games with multiple jumps, the player's second jump isn't affected by how the player's moving before the second jump, so we say <code>vspeed = -jumpspeed</code> instead of <code>vspeed -= jumpspeed</code> (of course, this is all up to how you want jumping to work in your game).</p>
 </blockquote>
 <p><a id="stopping-your-jump"></a></p>
@@ -827,7 +834,7 @@ if (lspeed &lt; 0) lspeed = 0;
 <pre><code>if (vspeed &lt; 0 &amp;&amp; !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav;
 </code></pre>
 <blockquote>
-<h5 id="sidenote_11">Sidenote</h5>
+<h5 id="sidenote_12">Sidenote</h5>
 <p>GM does not have the <a href="https://en.wikipedia.org/wiki/%3F:">conditional operator</a> (<code>a ? b : c</code>). Sorry.</p>
 </blockquote>
 <h5 id="checkpoint_8">Checkpoint</h5>
@@ -841,13 +848,13 @@ if (lspeed &lt; 0) lspeed = 0;
 else sprite_index = sPlayerL;
 </code></pre>
 <blockquote>
-<h5 id="sidenote_12">Sidenote</h5>
+<h5 id="sidenote_13">Sidenote</h5>
 <p>Alternatively, GM provides variables <code>image_xscale</code> and <code>image_yscale</code>, which, as the names suggest, define how the sprite should be scaled when it's rendered. Normally, they're set to 1, but having <code>image_xscale = 0.5</code> would squish the sprite so its width were half what it is usually. Setting it to a negative value flips the sprite, so when moving left, we can set <code>image_xscale = -1</code> to face the player left. The complication with this is that this is literally scaling with respect to the origin of the player sprite, so if we flipped the sprite, the box would teleport to the left 16 pixels (see figure). We want to put the origin somewhere so that if we flip the sprite, the image doesn't shift any amount (see figure). This happens when the origin's x is centred (i.e., origin is at <code>(8, 0)</code>).</p>
 <p><img alt="origin flipping" src="./images/platformer/origin_scale.png" /></p>
 <p>A slick (and/or disgusting) way to do it is this line in the Step:</p>
 <pre><code>if (hspeed != 0) image_xscale = sign(hspeed);
 </code></pre>
-<h5 id="mac-users_3">Mac Users</h5>
+<h5 id="mac-users_4">Mac Users</h5>
 <p>Duplicate and mirror the player sprite with an sPlayerL, instead of using <code>image_xscale</code>, otherwise the hitbox will be off by one no matter how you align it, and the player will shake upon hitting a wall.</p>
 </blockquote>
 <h5 id="checkpoint_9">Checkpoint</h5>
@@ -865,7 +872,7 @@ else sprite_index = sPlayerL;
 <p>Recall that update methods and the game loop try to simulate a ruleset for the universe of our game by running a block of code almost continuously&mdash;once every frame. We can't enforce the statement, "Don't let the player fall through a block when he lands on it" directly, but we can ask each frame if he's landed on the block, and if he has, change the player's motion and position accordingly. </p>
 <p>The way we can do this with GM is to check, in the update method, whether or not the player would fall into a block the next frame. This is a matter of moving the player to where it would be next frame, and seeing if the player's hitbox in that position overlaps with the block's. This can be captured with the condition <code>if (place_meeting(x+hspeed, y+vspeed, oBlock))</code> at the end of the other movement code, because the player's position next frame is (x+hspeed, y+vspeed). If the condition passes, we know that unless we do something, next frame, the player will be stuck in a block.</p>
 <blockquote>
-<h5 id="sidenote_13">Sidenote</h5>
+<h5 id="sidenote_14">Sidenote</h5>
 <p>Why wouldn't this condition work if it were placed at the beginning of the step event? </p>
 </blockquote>
 <p>What we need to do is twofold:
@@ -878,14 +885,14 @@ else sprite_index = sPlayerL;
 <pre><code>y = (y position of the block i'm touching) - (sprite height)
 </code></pre>
 <blockquote>
-<h5 id="sidenote_14">Sidenote</h5>
+<h5 id="sidenote_15">Sidenote</h5>
 <p>If you moved the origins of the player and block around, it's a little more complicated, but doable with the instance variables <code>sprite_xoffset</code> and <code>sprite_yoffset</code>. We want the bottom of the player to line up with the top of the block, i.e.,</p>
 <pre><code>y - sprite_yoffset + sprite_height = block's y - block's sprite_yoffset
 </code></pre>
 <p>Rearranging into an equation that sets the player's y, we get</p>
 <pre><code>y = (y of block i'm touching) - (sprite_height) + (sprite_yoffset) - (y of block i'm touching's sprite_yoffset)
 </code></pre>
-<h5 id="sidenote_15">Sidenote</h5>
+<h5 id="sidenote_16">Sidenote</h5>
 <p>If in addition, you resized the sprite hitboxes (which you probably didn't), you may need to avoid hard-coding the hitbox offsets or use a different approach, as GM doesn't provide hitbox dimensions and offsets (it doesn't work if the sprite hitbox setting were elliptical, or pixel-perfect). One way may be to use a loop to nudge the player upwards until he doesn't overlap with the block anymore, but it would have to be carefully written so that the player doesn't get nudged over the edge of the block.</p>
 </blockquote>
 <p>To summarize, we have the following block of code to make the player behave appropriately when he's about to fall onto a block:</p>
@@ -897,7 +904,7 @@ if (z != noone) {
 }
 </code></pre>
 <blockquote>
-<h5 id="sidenote_16">Sidenote</h5>
+<h5 id="sidenote_17">Sidenote</h5>
 <p><code>sprite_width</code>, <code>sprite_height</code>, <code>sprite_xoffset</code>, and <code>sprite_yoffset</code> are multiplied by <code>image_xscale</code> and <code>image_yscale</code>, so e.g. if the sprite had size 16x16 and the origin were at <code>(8, 0)</code>, and <code>image_xscale</code> were -1, <code>sprite_width</code> would be -16, and <code>sprite_xoffset</code> would be -8. This is why we put an absolute value.</p>
 </blockquote>
 <p>To keep it so that the player stays on the block, we can just put this block of code just under the line that applies gravity. If the player is already on the block, with the way we order our code, each frame will try to apply gravity but then instantly negate it.</p>
@@ -995,8 +1002,8 @@ if (z != noone) {
 var yrounded; if (vspeed &gt; 0) yrounded = ceil(y+vspeed); else yrounded = floor(y+vspeed);
 </code></pre>
 <blockquote>
-<h5 id="sidenote_17">Sidenote</h5>
-<p>For variables local to the event, you can prepend the variable initialization with <code>var</code>.</p>
+<h5 id="sidenote_18">Sidenote</h5>
+<p>For variables local to the event, you can prepend the variable initialization with <code>var</code>. However, things like <code>var someVariable = 5</code> is only allowed in Windows. In Mac, you must do <code>var someVariable; someVariable = 5;</code></p>
 </blockquote>
 <p>Then use them in the collision code:</p>
 <pre><code>z = instance_place(xrounded, y, oBlock);
@@ -1028,7 +1035,7 @@ if (z != noone) {
 <p><img alt="follow player" src="./images/platformer/viewfollow.png" /></p>
 <p>If you don't prefer the instant update, maybe it'd be helpful to create a view controller object that smoothly follows the player, and then have the view center on the controller.</p>
 <blockquote>
-<h5 id="sidenote_18">Sidenote</h5>
+<h5 id="sidenote_19">Sidenote</h5>
 <p>Gamasutra has a great survey of a lot of different view motions in platformers and other video games. It's super interesting. Check it out <a href="http://gamasutra.com/blogs/ItayKeren/20150511/243083/Scroll_Back_The_Theory_and_Practice_of_Cameras_in_SideScrollers.php">here</a>!</p>
 </blockquote>
 <h5 id="checkpoint_12">Checkpoint</h5>
@@ -1067,7 +1074,7 @@ if (z != noone) {
 }
 </code></pre>
 <blockquote>
-<h5 id="sidenote_19">Sidenote</h5>
+<h5 id="sidenote_20">Sidenote</h5>
 <p><code>with &lt;object&gt; { ... }</code> runs a block of code as if that <code>&lt;object&gt;</code> were running it. For instance, putting <code>with oEnemy { instance_destroy(); }</code> in <code>oPlayer</code>'s step event would get rid of all enemies.</p>
 </blockquote>
 <p>Super Mario Bros. actually just checks if the player's falling, with the condition <code>(vspeed &gt; 0)</code> instead of <code>(z.y - 5 &gt; y)</code>. You should test out what feels right.</p>
@@ -1091,7 +1098,7 @@ if (z != noone) {
 <h3 id="41-states-in-games">4.1 States in Games</h3>
 <p>Games are very much governed by states, and at each level, too. On a high level, your game may have room states, being in a menu at one point, a level at another, and the credits at yet another time. On the finest scale, any instant in the game can be represented by the value of all the variables in all the objects and rest of the memory of the game, making up the save state of the game. In the platformer tutorial earlier, we tried to make sure the player would never reach an invalid state where he overlapped with an object, and it helped us reason through how to program his movement.</p>
 <blockquote>
-<h5 id="sidenote_20">Sidenote</h5>
+<h5 id="sidenote_21">Sidenote</h5>
 <p>A more theoretical way to put it is to think of games as <em>finite state machines</em>, which are mathematical objects that have a set of states, as well as a ruleset, or <em>transition function</em>, that defines how states change into other states given some input. For example, a player might have a jumping, standing, and walking state; to change, or transition, from standing to jumping, you could press the jump button, and to change from jumping to standing, you could touch the ground.</p>
 </blockquote>
 <p>In this tutorial we'll be looking a little more closely at how Game Maker manages complexity using rooms as states, and how we can use states at a smaller level. Start with either your platformer project, or use the completed platformer project (the last platformer checkpoint).</p>
@@ -1114,12 +1121,12 @@ if (z != noone) {
 <p><a id="persistent-objects-room-transition"></a></p>
 <h3 id="422-persistent-objects-room-transition-effects">4.2.2 Persistent Objects - Room Transition Effects</h3>
 <blockquote>
-<h5 id="sidenote_21">Sidenote</h5>
+<h5 id="sidenote_22">Sidenote</h5>
 <p>Game Maker used to provide effects while the game changed from one room to another, but after they rewrote their graphics engine to extend better to other platforms, they had to get rid of their built-in room transitions. GM for Mac should still have the transitions available though.]</p>
 </blockquote>
 <p>A nice effect to smoothen the transition from one room to another is a fade-out and fade-in. One common way to implement this is through one of the few channels of communicating between room transitions: persistent objects. Objects can be marked persistent through a checkbox in the Object Properties window, and this sets the object so that the object isn't destroyed when the game moves to a different room, unlike regular objects. </p>
 <blockquote>
-<h5 id="sidenote_22">Sidenote</h5>
+<h5 id="sidenote_23">Sidenote</h5>
 <p>The other way to keep data across room transitions is to mark the room itself as persistent, so that upon exiting and re-entering the room, its state doesn't change or reset. Global variables are another way, but they can be thought of as just member variables of an object named "global" that's persistent across rooms. </p>
 </blockquote>
 <p><img alt="persistent" src="./images/menu/persistent.png" /></p>
@@ -1139,12 +1146,12 @@ if (image_alpha &gt; 1 &amp;&amp; !transitioned) { room_goto(newRoom); transitio
 <pre><code>if (image_alpha &lt; 0) instance_destroy();
 </code></pre>
 <p>For an object like oIntro to use a fading room transition to enter the level, the <code>room_goto_next();</code> code can be replaced with</p>
-<pre><code>var z = instance_create(0, 0, oTransition);
+<pre><code>var z; z = instance_create(0, 0, oTransition);
 z.newRoom = room_next(room);
 </code></pre>
 <p>so that the newRoom of oTransition is set like a parameter.</p>
 <blockquote>
-<h5 id="sidenote_23">Sidenote</h5>
+<h5 id="sidenote_24">Sidenote</h5>
 <p>In case the new room is significantly bigger than the old room, we should resize the transition sprite so it covers the entirety of the new room. This is easiest if we just have the following two lines in the Step event, since we can't immediately grab the dimensions of the new room after swapping rooms.</p>
 <pre><code>image_xscale = room_width*1000;
 image_yscale = room_height*1000;
@@ -1166,15 +1173,23 @@ image_yscale = room_height*1000;
 if (image_alpha &lt; 0) instance_destroy();
 </code></pre>
 <p>Usage might then be:</p>
-<pre><code>var z = instance_create(0, 0, oTransition);
+<pre><code>var z; z = instance_create(0, 0, oTransition);
 z.newRoom = room_next(room); z.fadeLength = 20;
 </code></pre>
 <p>We can also package this into our own global utility function, or what GM calls a script. To do this, create a new script resource, giving it the name you'd like to use to call the function, e.g., <code>room_fade_to</code>. We want to take two arguments: the new room, and (optionally) the length of the fade. </p>
 <p>The script body will be similar to the example usage above, except to refer to arguments, we use the identifiers <code>argument[0...15]</code> and <code>argument_count</code> for the number of arguments passed into the script. The body would look like:</p>
-<pre><code>var z = instance_create(0, 0, oTransition);
+<pre><code>var z; z = instance_create(0, 0, oTransition);
 z.newRoom = argument[0];
 if (argument_count &gt; 1) z.fadeLength = argument[1];
 </code></pre>
+<blockquote>
+<h5 id="mac-users_5">Mac Users</h5>
+<p>GM for Mac uses <code>argument0, ..., argument15</code>. To test if an argument is used, you should use <code>variable_local_exists(...)</code>. For example¸</p>
+<pre><code>z = instance_create(0, 0, oTransition);
+z.newRoom = argument0;
+if (variable_local_exists("argument1")) z.fadeLength = argument1;
+</code></pre>
+</blockquote>
 <p>Usage would then be reduced to <code>room_fade_to(room_next(room), 20);</code></p>
 <h5 id="checkpoint_17">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/2_transition.gmz">here</a>.</p>
@@ -1190,13 +1205,15 @@ if (argument_count &gt; 1) z.fadeLength = argument[1];
 <h3 id="432-informational-text">4.3.2 Informational Text</h3>
 <p>To demonstrate custom drawing, we'll add a basic lives system to the game and have a screen to display how many lives the player has between deaths, like in Super Mario Bros.
 To start, create a new room between rIntro and rLevel by duplicating rIntro and emptying the object in the room. We'll make and put in that room a new object, cLifeInfo, to display the number of remaining lives and, after a few seconds, move back to the level room.
-In addition, install and load the Press Start font as a resource, naming it something like fDefault. To fit with the pixel aesthetic, it's a good idea to disable anti-aliasing and high quality, as well as to set the font size to 6. 
+In addition, install and load the Press Start 2P font as a resource, naming it something like fDefault. To fit with the pixel aesthetic, it's a good idea to disable anti-aliasing and high quality, as well as to set the font size to 6 in Windows, or 8 in Mac (whatever size that makes it look sharp). 
 Finally, we'll make cCounter persistent and move it to rIntro, out of rLevel (i.e., delete from rLevel, create in rIntro), so that things like lives, coins, and score are set from the very beginning. In cCounter's create event, initialize plives to 3. We want something approximately like</p>
 <p><img alt="life info screen" src="./images/menu/lifeinfo.png" /></p>
-<p>Which has the following components:
-<em> A white rectangle on a black background
-</em> A player sprite
-* 2 pieces of grey text in the middle.</p>
+<p>Which has the following components:</p>
+<ul>
+<li>A white rectangle on a black background</li>
+<li>A player sprite</li>
+<li>2 pieces of grey text in the middle.</li>
+</ul>
 <p>We can do this with the functions <code>draw_text</code>, <code>draw_rectangle</code>, and <code>draw_sprite</code>, which take in position coordinates for where to draw, along with some other arguments, like the text to draw, or the sprite index. We also need to specify color and font, which can be done with <code>draw_set_color</code> and <code>draw_set_font</code>, which take in a color and font, respectively. These two <code>draw_set</code> functions are similar to selecting a font or color in a drawing program, while <code>draw_text</code>, etc., actually put the graphics on the screen.</p>
 <p>For me,</p>
 <pre><code>// draw a white rectangle
@@ -1214,7 +1231,7 @@ draw_text(room_width/2+12, room_height/2-2, string(cCounter.plives));
 </code></pre>
 <p>positions the objects correctly. If you're not using the included font, offsets might differ slightly. (GM has tooltips to explain what all the arguments mean; the manual is also a reference)</p>
 <blockquote>
-<h5 id="sidenote_24">SIDENOTE</h5>
+<h5 id="sidenote_25">SIDENOTE</h5>
 <p>The hassle with fonts and GM projects is due to licensing: GM font resources are merely pointers to fonts installed on your computer. When the game is compiled into an executable, GM turns the font into an image to be shipped with the rest of the game, so the games are portable, but not their source. I don't blame you if you want to use a font already installed on your computer for this step.</p>
 </blockquote>
 <p>In addition, add behavior using an alarm that fades the room into the level room after a few seconds, and update the player-enemy collision behavior so it subtracts a life and moves to rInfo, or rGameOver if there are no more lives.</p>
@@ -1234,7 +1251,8 @@ draw_sprite(sCoin, 0, 30, 3);
 draw_text(46, 5, string(cCounter.coins));
 </code></pre>
 <p>If you test the game, you'll notice that the HUD doesn't scroll with the view (why? Think about it before you read the next sentence). To fix this, we need to render at positions offset by the view position, accessible by <code>view_xview[0...7]</code> and <code>view_yview[0...7]</code>. Moreover, the view that's currently active is accessed by <code>view_current</code>. We have a final Draw event with code:</p>
-<pre><code>var vx = view_xview[view_current], vy = view_yview[view_current];
+<pre><code>var vx; vx = view_xview[view_current];
+var vy; vy = view_yview[view_current];
 draw_set_font(fDefault);
 
 draw_sprite(sPlayer, 0, 11+vx, 3+vy);
@@ -1250,9 +1268,8 @@ draw_text(46+vx, 5+vy, string(cCounter.coins));
 <p>To demonstrate a basic deliberate use of states, we'll turn the introduction screen into a start menu, with three options: starting the game, setting the number of initial lives, and exiting the game. </p>
 <p><img alt="screen" src="./images/menu/screen.png" /></p>
 <p>Load sIntro2 from the animation provided. We want to have oIntro draw the title sprite, along with 3 menu options. A basic Draw event for oIntro might be:</p>
-<pre><code>var xoff = -7;
-var yoff = 7;
-var space = 13;
+<pre><code>var xoff; var yoff; var space;
+xoff = -7; yoff = 7; space = 13;
 
 // draw title sprite
 draw_sprite(sIntro2, image_index, 0, 0);
@@ -1267,11 +1284,11 @@ draw_text(room_width/2 + xoff, room_height/2 + 2*space + yoff, "End");
 <p>Then, during each Step, oIntro can update its state depending on the input. Something like:</p>
 <pre><code>if (keyboard_check_pressed(vk_up)) state -= 1;
 if (keyboard_check_pressed(vk_down)) state += 1
-state = (state + 3) % 3;
+state = (state + 3) % 3; // in Mac: state = (state + 3) mod 3;
 </code></pre>
 <p>would make the state cycle between 0, 1, and 2. (<code>%</code> is the <a href="https://en.wikipedia.org/wiki/Modulo_operation">modulus operator</a>. <code>a % b</code> is the remainder when a is divided by b, if a is nonnegative)</p>
 <blockquote>
-<h5 id="sidenote_25">Sidenote</h5>
+<h5 id="sidenote_26">Sidenote</h5>
 <p>In CS Theory lingo, this roughly corresponds to the transition function in a finite state automaton, since it defines how our input changes the state&mdash;in this case, pressing a given arrow key either moves increases or decreases the state.</p>
 </blockquote>
 <p>To make use of these states, we need to render something to show what state is currently active, e.g., by putting a sprite to the left of the active option.</p>

@@ -20,11 +20,6 @@ Also, download the [resource pack](../resources.zip), which has sounds and graph
 <a href="#top" class="top" id="table-of-contents">Top</a>
 # Table of Contents
 
-### TODO
-talk about the hassles of the sprite editor in mac
-
-separator
-
 -	[Level 1: General Intro to Game Design and Programming](#level1)
 	-	[1.1 Game Design considerations](#game-design-considerations)
 		-	[1.1.1 What makes a good game?](#What-makes-a-good-game)
@@ -273,6 +268,11 @@ Name the sprite something appropriate, like sPlayer, for a player sprite. To mod
 
 ![Sprite Editor](../images/shooter/sprite_editor.png)
 
+> ##### Mac Users
+> ![Sprite Editor Mac](../images/shooter/m003.png)
+
+> The sprite editor is slightly different, with the menu at the top of the screen instead of attached to the window. Furthermore, "New..." doesn't actually reset the sprite and create a new one, but instead adds a *subimage* which we'll get into later. If you click New... and specify a size you might end up with something like [this](../images/shooter/m004.png), with an Image 0 *and Image 1*. We don't want that at this point. The top menu allows you to delete subimages as well as resize your sprite. 
+
 Save and close the editor and properties window&mdash;you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.
 
 A background is similar. Create a background resource (right-click the folder or click ![New Background](../images/shooter/new_back.png)) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!
@@ -386,6 +386,10 @@ Another behavior we might want is to have them disappear upon hitting a player b
 ![destroy other](../images/shooter/destroy_other.png)
 
 If we go to the room editor and drop enemies into the room, they'll appear and slowly move down, as well as react to our bullets, as expected.
+
+> ##### Sidenote
+> One setting to pay attention to is the Delete Underlying checkbox. If it's checked, whenever you try to place an object on top of another object already placed in the room, the other object will be automatically deleted&mdash;which may be inconvenient at times. It's checked by default on Mac.
+
 ##### Checkpoint
 
 You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/3_enemy.gmz).
@@ -467,7 +471,7 @@ We have a half-complete prototype for our shooter. Let's polish some of the roug
 <a id="backgrounds-rooms"></a>
 ### 2.6.1 Backgrounds in Rooms
 
-Unlike sprites, backgrounds aren't associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. Tick "Draw background color", "Visible when room starts", and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. 
+Unlike sprites, backgrounds aren't associated with objects, but rather with rooms. To add the starry night background to the game room, double-click the game room in the left-menu to open the Room Properties window, and navigate to the backgrounds tab. For Mac, you might have to [click an extra button](../images/shooter/m001.png) to see it. Tick "Draw background color", "Visible when room starts", and the tiling checkboxes, and choose a color at the top and your background in the dialog box near the bottom. You can scroll down and set the vertical speed to 3 or so to make the background move down. 
 
 ![backgrounds](../images/shooter/backgrounds.png)
 
@@ -481,8 +485,9 @@ Unlike sprites, backgrounds aren't associated with objects, but rather with room
 Precisely, sprites aren't just a single picture, but are made up of a set of graphics called subimages (with the same dimensions) along with other properties like a hitbox or an origin. People usually achieve animated graphics using sprites by using multiple subimages and then playing through the subimages.
 
 ![parts of a sprite](../images/shooter/parts_sprite.png)
+![parts of a sprite mac](../images/shooter/m000.png)
 
-In the Sprite Editor, one can add an empty subimage at the end of the sequence with the  button and then double-click the subimage to edit it. Alternatively, one can load from a strip of subimages, like the one of the explosion we provided. In the Sprite Editor, File -> Create From Strip opens a dialog box that extracts subimages from a sheet of images. Our sprite sheet has 7 images and 7 images per row, with all other settings unchanged. To see how the animation plays out, you can tick the "show preview" checkbox in the Sprite Editor. 
+In the Sprite Editor, one can add an empty subimage at the end of the sequence with the  button and then double-click the subimage to edit it. Alternatively, one can load from a strip of subimages, like the one of the explosion we provided. In the Sprite Editor, File -> Create From Strip opens a dialog box that extracts subimages from a sheet of images. Our sprite sheet has 7 images and 7 images per row, with all other settings unchanged. To see how the animation plays out, you can tick the "show preview" checkbox in the Sprite Editor. (Recall for Mac that [the menu is at the top of the window](../images/shooter/m002.png))
 
 ![load strip](../images/shooter/load_strip.png)
 
@@ -882,7 +887,7 @@ We have no avenue to get GM to test fractional positions, but we don't need to i
     var yrounded; if (vspeed > 0) yrounded = ceil(y+vspeed); else yrounded = floor(y+vspeed);
 
 > ##### Sidenote
-> For variables local to the event, you can prepend the variable initialization with `var`.
+> For variables local to the event, you can prepend the variable initialization with `var`. However, things like `var someVariable = 5` is only allowed in Windows. In Mac, you must do `var someVariable; someVariable = 5;`
 
 Then use them in the collision code:
 
@@ -1091,7 +1096,7 @@ Finally, the object should be destroyed once it's done: In the Step event,
 
 For an object like oIntro to use a fading room transition to enter the level, the `room_goto_next();` code can be replaced with
 
-    var z = instance_create(0, 0, oTransition);
+    var z; z = instance_create(0, 0, oTransition);
     z.newRoom = room_next(room);
 
 so that the newRoom of oTransition is set like a parameter.
@@ -1121,16 +1126,23 @@ In Step:
 
 Usage might then be:
 
-    var z = instance_create(0, 0, oTransition);
+    var z; z = instance_create(0, 0, oTransition);
     z.newRoom = room_next(room); z.fadeLength = 20;
 
 We can also package this into our own global utility function, or what GM calls a script. To do this, create a new script resource, giving it the name you'd like to use to call the function, e.g., `room_fade_to`. We want to take two arguments: the new room, and (optionally) the length of the fade. 
 
 The script body will be similar to the example usage above, except to refer to arguments, we use the identifiers `argument[0...15]` and `argument_count` for the number of arguments passed into the script. The body would look like:
 
-    var z = instance_create(0, 0, oTransition);
+    var z; z = instance_create(0, 0, oTransition);
     z.newRoom = argument[0];
     if (argument_count > 1) z.fadeLength = argument[1];
+
+> ##### Mac Users
+> GM for Mac uses `argument0, ..., argument15`. To test if an argument is used, you should use `variable_local_exists(...)`. For example¸
+
+>     z = instance_create(0, 0, oTransition);
+>     z.newRoom = argument0;
+>     if (variable_local_exists("argument1")) z.fadeLength = argument1;
 
 Usage would then be reduced to `room_fade_to(room_next(room), 20);`
 
@@ -1158,15 +1170,16 @@ If there's no Draw event specified for an object, GM by default just draws the o
 
 To demonstrate custom drawing, we'll add a basic lives system to the game and have a screen to display how many lives the player has between deaths, like in Super Mario Bros.
 To start, create a new room between rIntro and rLevel by duplicating rIntro and emptying the object in the room. We'll make and put in that room a new object, cLifeInfo, to display the number of remaining lives and, after a few seconds, move back to the level room.
-In addition, install and load the Press Start font as a resource, naming it something like fDefault. To fit with the pixel aesthetic, it's a good idea to disable anti-aliasing and high quality, as well as to set the font size to 6. 
+In addition, install and load the Press Start 2P font as a resource, naming it something like fDefault. To fit with the pixel aesthetic, it's a good idea to disable anti-aliasing and high quality, as well as to set the font size to 6 in Windows, or 8 in Mac (whatever size that makes it look sharp). 
 Finally, we'll make cCounter persistent and move it to rIntro, out of rLevel (i.e., delete from rLevel, create in rIntro), so that things like lives, coins, and score are set from the very beginning. In cCounter's create event, initialize plives to 3. We want something approximately like
 
 ![life info screen](../images/menu/lifeinfo.png)
 
 Which has the following components:
-* A white rectangle on a black background
-* A player sprite
-* 2 pieces of grey text in the middle.
+
+ * A white rectangle on a black background
+ * A player sprite
+ * 2 pieces of grey text in the middle.
 
 We can do this with the functions `draw_text`, `draw_rectangle`, and `draw_sprite`, which take in position coordinates for where to draw, along with some other arguments, like the text to draw, or the sprite index. We also need to specify color and font, which can be done with `draw_set_color` and `draw_set_font`, which take in a color and font, respectively. These two `draw_set` functions are similar to selecting a font or color in a drawing program, while `draw_text`, etc., actually put the graphics on the screen.
 
@@ -1214,7 +1227,8 @@ We need to draw 2 sprites and two strings of text. In the Draw event, after fidd
 
 If you test the game, you'll notice that the HUD doesn't scroll with the view (why? Think about it before you read the next sentence). To fix this, we need to render at positions offset by the view position, accessible by `view_xview[0...7]` and `view_yview[0...7]`. Moreover, the view that's currently active is accessed by `view_current`. We have a final Draw event with code:
 
-    var vx = view_xview[view_current], vy = view_yview[view_current];
+    var vx; vx = view_xview[view_current];
+    var vy; vy = view_yview[view_current];
     draw_set_font(fDefault);
 
     draw_sprite(sPlayer, 0, 11+vx, 3+vy);
@@ -1236,9 +1250,8 @@ To demonstrate a basic deliberate use of states, we'll turn the introduction scr
 
 Load sIntro2 from the animation provided. We want to have oIntro draw the title sprite, along with 3 menu options. A basic Draw event for oIntro might be:
 
-    var xoff = -7;
-    var yoff = 7;
-    var space = 13;
+    var xoff; var yoff; var space;
+    xoff = -7; yoff = 7; space = 13;
 
     // draw title sprite
     draw_sprite(sIntro2, image_index, 0, 0);
@@ -1255,7 +1268,7 @@ Then, during each Step, oIntro can update its state depending on the input. Some
 
     if (keyboard_check_pressed(vk_up)) state -= 1;
     if (keyboard_check_pressed(vk_down)) state += 1
-    state = (state + 3) % 3;
+    state = (state + 3) % 3; // in Mac: state = (state + 3) mod 3;
 
 would make the state cycle between 0, 1, and 2. (`%` is the [modulus operator](https://en.wikipedia.org/wiki/Modulo_operation). `a % b` is the remainder when a is divided by b, if a is nonnegative)
 
