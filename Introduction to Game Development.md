@@ -317,7 +317,7 @@ Now that the room's been added, the game is minimally functional. In the main wi
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/1_minimal.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/1_minimal.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/1_minimal.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/1_minimal.gmk) for Mac.
 
 <a id="adding-motion"></a>
 ### 2.2.2 Adding Motion
@@ -368,7 +368,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/2_moveshoot.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/2_moveshoot.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/2_moveshoot.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/2_moveshoot.gmk) for Mac.
 .
 
 <a id="object-interaction-enemies" href="top" id="#top">Top</a>
@@ -393,7 +393,7 @@ If we go to the room editor and drop enemies into the room, they'll appear and s
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/3_enemy.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/3_enemy.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/3_enemy.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/3_enemy.gmk) for Mac.
 
 <a href="#top" class="top" id="control-flow-variables-health">Top</a>
 ##2.4 Control Flow and Variables - Health
@@ -418,7 +418,7 @@ In the collision with the bullet, we want to decrement `hp` and now only want to
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/4_enemyhp.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/4_enemyhp.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/4_enemyhp.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/4_enemyhp.gmk) for Mac.
 
 <a id="alarms-periodic"></a>
 ##2.5 Alarms and Periodic Events
@@ -442,7 +442,7 @@ In our case, to have the enemy fire once every 3 seconds, we can have a ![alarm]
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/5_enemyshoot.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/5_enemyshoot.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/5_enemyshoot.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/5_enemyshoot.gmk) for Mac.
 
 <a id="enemy-spawning"></a>
 ### 2.5.2 Enemy Spawning
@@ -462,7 +462,7 @@ Finally, put the controller object somewhere in the room. People normally put co
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/6_spawner.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/6_spawner.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/6_spawner.gmz) for Windows or [here](../resources/checkpoints_mac/shooter/6_spawner.gmk) for Mac.
 
 <a href="#top" class="top" id="polish">Top</a>
 ##2.6 Polishing up our Game
@@ -503,7 +503,7 @@ One other thing you may notice is that the game isn't very fun. Try to tweak the
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz) or [here](../resources/checkpoints_mac/shooter/7_extras.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz) or [here](../resources/checkpoints_mac/shooter/7_extras.gmk) for Mac.
 
 <a href="#top" class="top" id="MVP-review">Top</a>
 ## 2.7 A Few Last Words
@@ -582,7 +582,7 @@ If you put the player in a room (appropriately set up: 320x240, 60fps, backgroun
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/1_minimal.gmz) for Windows or [here](../resources/checkpoints_mac/platformer/1_minimal.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/1_minimal.gmz) for Windows or [here](../resources/checkpoints_mac/platformer/1_minimal.gmk) for Mac.
 
 <a id="smooth-movement"></a>
 ###3.3.2 Smooth Movement
@@ -660,7 +660,7 @@ Or, for a smoother motion, consider applying a stronger gravity (something like 
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/2_smooth.gmz) for Windows or [here](../resources/checkpoints_mac/platformer/2_smooth.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/2_smooth.gmz) for Windows or [here](../resources/checkpoints_mac/platformer/2_smooth.gmk) for Mac.
 
 <a id="walking-animation"></a>
 ###3.4.3 Walking Animation
@@ -689,7 +689,7 @@ To get the player to change the direction he's facing, a common solution is to c
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/3_animation.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/3_animation.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/3_animation.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/3_animation.gmk) for Mac.
 
 <a href="#top" class="top" id="platform-collision">Top</a>
 ##3.5 Platform Collision
@@ -761,7 +761,7 @@ To keep it so that the player stays on the block, we can just put this block of 
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/4_landing.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/4_landing.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/4_landing.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/4_landing.gmk) for Mac.
 
 <a id="hitting-block-bottom"></a>
 ###3.5.2 Hitting a Block from the Bottom
@@ -913,7 +913,7 @@ Now, we'll head back to a few more common concepts in game programming.
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/5_blocks.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/5_blocks.gmz) for Mac. The level in the zip here is minimal; try to make your own!
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/5_blocks.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/5_blocks.gmk) for Mac. The level in the zip here is minimal; try to make your own!
 
 <a href="#top" class="top" id="views">Top</a>
 ##3.6 Views
@@ -937,7 +937,7 @@ If you don't prefer the instant update, maybe it'd be helpful to create a view c
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/6_views.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/6_views.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/6_views.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/6_views.gmk) for Mac.
 
 <a href="#top" class="top" id="tiles">Top</a>
 ##3.7 Tiles
@@ -952,7 +952,7 @@ For relatively static environments, tiles are a good way to separate function fr
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/7_tiles.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/7_tiles.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/7_tiles.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/7_tiles.gmk) for Mac.
 
 <a href="#top" class="top" id="additions">Top</a>
 ##3.8 A Few Additions
@@ -1015,7 +1015,7 @@ A way to keep track of coins may be to create an object just for coin counting a
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/9_coins.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/9_coins.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/9_coins.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/9_coins.gmk) for Mac.
 
 <a href="#top" class="top" id="level4">Top</a>
 ##Level 4: States and Menus
@@ -1058,7 +1058,7 @@ We can similarly have an object with a sprite saying "Game Over" in its own rGam
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/1_rooms.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/1_rooms.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/1_rooms.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/1_rooms.gmk) for Mac.
 
 <a id="persistent-objects-room-transition"></a>
 ###4.2.2 Persistent Objects - Room Transition Effects
@@ -1207,7 +1207,7 @@ In addition, add behavior using an alarm that fades the room into the level room
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/3_lifeinfo.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/3_lifeinfo.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/3_lifeinfo.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/3_lifeinfo.gmk) for Mac.
 
 <a id="hud"></a>
 ###4.3.3 A HUD (Head-Up Display)
@@ -1240,7 +1240,7 @@ If you test the game, you'll notice that the HUD doesn't scroll with the view (w
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/4_hud.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/4_hud.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/4_hud.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/4_hud.gmk) for Mac.
 
 
 <a href="#top" class="top" id="menus">Top</a>
@@ -1302,7 +1302,7 @@ A menu is the most explicit demonstration of states in a game, but it doesn't ha
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/5_menu.gmz) for Windows, for [here](../resources/checkpoints_mac/menu/5_menu.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/5_menu.gmz) for Windows, for [here](../resources/checkpoints_mac/menu/5_menu.gmk) for Mac.
 
 <a id="pause-menu"></a>
 ###4.5 A Pause Screen
@@ -1394,7 +1394,7 @@ The slight problem with this is that `room_goto(...)` changes the room only at t
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/6_pause.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/6_pause.gmz) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/6_pause.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/6_pause.gmk) for Mac.
 
 <a href="#top" class="top" id="last-words-level4">Top</a>
 ##4.5 A Few Last Words
