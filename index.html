@@ -557,7 +557,7 @@ pre .chunk {
 <p><a href="#top" class="top" id="top-down-shooter">Top</a></p>
 <h1 id="level-2-a-top-down-shooter">Level 2: A Top-Down Shooter</h1>
 <blockquote>
-<p><strong>Goal</strong> - Create a basic game and get familiar with GameMaker</p>
+<p><strong>Goal</strong> - Create a basic game and get familiar with GameMaker.</p>
 </blockquote>
 <p>We'll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player's level. You can move horizontally and shoot upwards.</p>
 <p>For Windows, when you first open GM Studio, you should see a window similar to the one in the screenshot below.
@@ -578,6 +578,8 @@ pre .chunk {
 <p>Save and close the editor and properties window&mdash;you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.</p>
 <p>A background is similar. Create a background resource (right-click the folder or click <img alt="New Background" src="./images/shooter/new_back.png" />) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!</p>
 <blockquote>
+<h5 id="mac-users">Mac Users</h5>
+<p>Sprites and backgrounds in Mac have limited transparency capabilities. If you want sprites that aren't opaque over the entire rectangle of the sprite, make sure you tick "Transparent". The way GM for Mac determines which pixels are transparent is by looking at the bottom-left pixel. The transparent color will be set to whatever color's in the bottom-left.</p>
 <h5 id="sidenote">Sidenote</h5>
 <p>In my opinion, GM's Image Editor is reasonably powerful but some things are hard to find, like resizing the canvas. (Resizing is particularly annoying because sprites can actually contain multiple subimages of the same size, to be used in e.g., animation, or different states of an object, like a stoplight with different images corresponding to different lights on.) For professional pixel art, consider drawing in GraphicsGale or Aseprite and then loading.</p>
 </blockquote>
@@ -661,6 +663,8 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <h5 id="sidenote_5">Sidenote</h5>
 <p>If you want a conditional item to apply to a block of events, you can use the <img alt="blocks" src="./images/shooter/blocks.png" /> items to specify how far the block should reach. We'll see an example of bigger conditionals in the explosion section.</p>
 </blockquote>
+<h5 id="checkpoint_3">Checkpoint</h5>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/4_enemyhp.gmz">here</a>.</p>
 <p><a id="alarms-periodic"></a></p>
 <h2 id="25-alarms-and-periodic-events">2.5 Alarms and Periodic Events</h2>
 <p><a id="enemy-fire"></a></p>
@@ -674,19 +678,23 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <h5 id="sidenote_6">Sidenote</h5>
 <p>GameMaker has a bunch of scripting functions you can embed in the properties of your actions so that the engine isn't completely restricted. For instance, we could set Alarm 0 to <code>150+random(30)</code> to set Alarm 0 to a random number from 150 to 180, instead of 180 every time. The manual included with GM has a reference on all of these functions, but it's more common to ask about or look up a certain desired behavior and learn about how GM accommodates it in an example.</p>
 </blockquote>
-<h5 id="checkpoint_3">Checkpoint</h5>
+<h5 id="checkpoint_4">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/5_enemyshoot.gmz">here</a>.</p>
 <p><a id="enemy-spawning"></a></p>
 <h3 id="252-enemy-spawning">2.5.2 Enemy Spawning</h3>
 <p>To create a constant stream of enemies for our game, we make an object that doesn't interact with the game at all besides creating enemies every once in a while. This pattern is common in engines where game logic is almost entirely in objects, and normally we call these background objects controller objects and use the prefix c instead of o.</p>
 <p>Create a cEnemies (or cEnemySpawner) object without attaching a sprite, with an <img alt="alarm" src="./images/shooter/act_alarm.png" /> action in the Create and Alarm 0 event, along with an enemy create action in the Alarm 0 event, to produce enemies periodically.</p>
 <p>To put the enemies at random positions, we can set the <code>y</code> to be <code>-32</code> and <code>x</code> to be <code>irandom(room_width-32)</code>, which generates a random integer from 0 to the coordinate of the rightmost side of the room every time it's called. This approximately evenly distributes the enemies.</p>
+<blockquote>
+<h5 id="mac-users_1">Mac Users</h5>
+<p>GM for Mac has no <code>irandom(...)</code>. Instead, use <code>floor(random(...))</code>.</p>
+</blockquote>
 <p>Finally, put the controller object somewhere in the room. People normally put controllers in the top left, but we programmed this controller so its location doesn't matter. It pops up as a blue question mark, but that's only visible in the room editor.</p>
 <blockquote>
 <h5 id="sidenote_7">Sidenote</h5>
 <p>The reason we set y to -32 is so that the bottom of the enemy are at <code>y = 0</code>, or the top of the screen, when they're spawned. Similarly, <code>room_width-32</code> is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is <code>x = 0</code>, where the left end of the enemy touches the left edge of the room). </p>
 </blockquote>
-<h5 id="checkpoint_4">Checkpoint</h5>
+<h5 id="checkpoint_5">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/6_spawner.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="polish">Top</a></p>
 <h2 id="26-polishing-up-our-game">2.6 Polishing up our Game</h2>
@@ -697,7 +705,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p><img alt="backgrounds" src="./images/shooter/backgrounds.png" /></p>
 <blockquote>
 <h5 id="sidenote_8">Sidenote</h5>
-<p>Backgrounds are modifiable at any time by objects through a set of variables beginning with "background_". Variables can be set using the <img alt="variable set" src="./images/shooter/act_var.png" /> action, or through a script, which we'll get into for the platformer, which is a step up in programming complexity.</p>
+<p>Backgrounds are modifiable at any time by objects through a set of variables beginning with <code>background_</code>. Variables can be set using the <img alt="variable set" src="./images/shooter/act_var.png" /> action, or through a script, which we'll get into for the platformer, which is a step up in programming complexity.</p>
 </blockquote>
 <p><a id="animations-explosions"></a></p>
 <h3 id="262-animations-explosions">2.6.2 Animations &amp; Explosions</h3>
@@ -710,7 +718,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <h3 id="263-other-suggestions">2.6.3 Other Suggestions</h3>
 <p>There are a lot more things that could be done to make the game more presentable, like generating more sounds (e.g., with bfxr) or restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player <code>x</code> is less than <code>room_width-32</code>, and only allowing leftward if the player x exceeds 0. </p>
 <p>One other thing you may notice is that the game isn't very fun. Try to tweak the game to make it challenging! Make the game restart when an enemy reaches the bottom of the screen, or touches you. Change the enemy bullet pattern, perhaps aiming at the player instead of downwards (use <img alt="move in direction" src="./images/shooter/act_dir.png" /> in the bullet Create event, with direction <code>point_direction(x, y, oPlayer.x, oPlayer.y)</code>). Maybe also limit how many bullets there can be on the screen by preventing the player from shooting if there are too many (using <img alt="count number" src="./images/shooter/act_count.png" /> in the control tab). Get the enemies to move horizontally too, bouncing against the sides of the room, or add your own gimmick after exploring the actions GameMaker has. </p>
-<h5 id="checkpoint_5">Checkpoint</h5>
+<h5 id="checkpoint_6">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/7_extras.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="MVP-review">Top</a></p>
 <h2 id="27-a-few-last-words">2.7 A Few Last Words</h2>
@@ -721,13 +729,17 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p><a href="#top" class="top" id="level3">Top</a></p>
 <h1 id="level-3-making-a-platformer">Level 3: Making a Platformer</h1>
 <blockquote>
-<p><strong>Goal</strong> - Gearn more about the features of GM, familiarize with the game programming mindset, and make a basic platformer.</p>
+<p><strong>Goal</strong> - Learn more about the features of GM, familiarize with the game programming mindset, and make a basic platformer.</p>
 </blockquote>
 <p>In this platformer tutorial we'll take a different approach with GM, instead limiting ourselves to just a few of the built-in features related to resources and coding the rest ourselves, to get a feel for how GameMaker works underneath the event-driven model (and how game engines in general work), and look a bit at some of the problems games programmers face in implementing mechanics.</p>
 <p>This section in particular will be a little more math-oriented as we figure out how to get our player to behave and move exactly how we want. </p>
 <p><a href="#top" class="top" id="resource-setup">Top</a></p>
 <h2 id="31-resource-setup">3.1 Resource Setup</h2>
 <p>Create and load the player and enemy sprite, as well as the background. Also load the background tileset, checking "Use as tileset" in the background properties. Alternatively, draw your own if you feel brave, but try to keep the poses similar and the image dimensions 16x16. In addition, create a 16x16 black square to represent the blocks our player is going to interact with, and create the corresponding <code>oBlock</code> object. The black sprite box is just for the level editor and won't be what the player sees, though; we'll cover the blocks up later with a tileset to make it visually pleasing. </p>
+<blockquote>
+<h5 id="mac-users_2">Mac Users</h5>
+<p>Remember to untick "Transparent" on the player and enemy sprite, since their bottom-left corners are grey, the same color as the rest of their sprite.</p>
+</blockquote>
 <p><a href="#top" class="top" id="scripts-step-events">Top</a></p>
 <h2 id="32-scripts-the-step-event">3.2 Scripts &amp; the Step Event</h2>
 <p><a id="step-event"></a></p>
@@ -740,7 +752,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>With these two tools, we can reduce any object behavior to a single <img alt="code" src="./images/platformer/act_code.png" /> in the step event, and possibly another in the Create event (for setup) and Destroy event (for cleanup). However, it's still useful to divide logic into different events and actions if possible, if only just to better organize and clarify the object's behavior.</p>
 <p><a id="GM-defaults"></a></p>
 <h3 id="323-the-gamemaker-defaults">3.2.3 The GameMaker Defaults</h3>
-<p>Game Maker has a bunch of options that might look relevant for our platformer, like "Uses Physics" (windows only) or "Solid" in the Object Properties window. One of them uses a powerful 2D physics engine, but it's overkill for our purposes. The other is a very naive collision system that would result in an annoying, broken platforming engine. It would make you sad.</p>
+<p>Game Maker has a bunch of options that might look relevant for our platformer, like "Uses Physics" (Windows only) or "Solid" in the Object Properties window. One of them uses a powerful 2D physics engine, but it's overkill for our purposes. The other is a very naive collision system that would result in an annoying, broken platforming engine. It would make you sad.</p>
 <p><img alt="settings" src="./images/platformer/settings.png" /></p>
 <p><a href="#top" class="top" id="horizontal-movement">Top</a></p>
 <h2 id="33-horizontal-movement">3.3 Horizontal Movement</h2>
@@ -760,7 +772,7 @@ if (keyboard_check(vk_right))
 <h5 id="sidenote_9">Sidenote</h5>
 <p>If you want the window to be bigger and everything zoomed in, check out the Views section near the bottom of the tutorial.</p>
 </blockquote>
-<h5 id="checkpoint_6">Checkpoint</h5>
+<h5 id="checkpoint_7">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/1_minimal.gmz">here</a>.</p>
 <p><a id="smooth-movement"></a></p>
 <h3 id="332-smooth-movement">3.3.2 Smooth Movement</h3>
@@ -800,7 +812,7 @@ if (lspeed &lt; 0) lspeed = 0;
 <h3 id="341-gravity-jumping">3.4.1 Gravity &amp; Jumping</h3>
 <p>A constant downward acceleration translates to a continuous addition of downward speed. We can do this by defining <code>grav = 0.23</code> in the Create event and then <code>vspeed += grav</code> in the Step event.</p>
 <p>Jumping is usually an upward burst of motion. We can implement jumping with another constant in the step event, <code>jumpspeed = 6</code>, and a simple key check in the Step event:</p>
-<pre><code>if (keyboard_check(vk_up)) vspeed = -jumpspeed;
+<pre><code>if (keyboard_check_pressed(vk_up)) vspeed = -jumpspeed;
 </code></pre>
 <blockquote>
 <h5 id="sidenote_10">Sidenote</h5>
@@ -811,21 +823,21 @@ if (lspeed &lt; 0) lspeed = 0;
 <p>Often in platformers, one can control the player's jump height by releasing the jump key early or late. There are many ways to implement this underneath. For instance, one could halve the player's upward velocity when the jump key is released:</p>
 <pre><code>if (vspeed &lt; 0 &amp;&amp; keyboard_check_released(vk_up)) vspeed /= 2;
 </code></pre>
-<p>Or, for a smoother motion, consider applying a stronger gravity while the player's moving upwards if the jump button isn't pressed:</p>
-<pre><code>if (vspeed &lt; 0 &amp;&amp; !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav
+<p>Or, for a smoother motion, consider applying a stronger gravity (something like <code>grav2 = 0.35</code> in the Create event) while the player's moving upwards if the jump button isn't pressed:</p>
+<pre><code>if (vspeed &lt; 0 &amp;&amp; !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav;
 </code></pre>
 <blockquote>
 <h5 id="sidenote_11">Sidenote</h5>
 <p>GM does not have the <a href="https://en.wikipedia.org/wiki/%3F:">conditional operator</a> (<code>a ? b : c</code>). Sorry.</p>
 </blockquote>
-<h5 id="checkpoint_7">Checkpoint</h5>
+<h5 id="checkpoint_8">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/2_smooth.gmz">here</a>.</p>
 <p><a id="walking-animation"></a></p>
 <h3 id="343-walking-animation">3.4.3 Walking Animation</h3>
 <p>If you loaded all 4 subimages of the player sprite, you might want to have the player animation correspond to your movement. The variables GM provides to control the displayed subimage of a sprite are <code>image_index</code>, the subimage index, and <code>image_speed</code>, the speed at which image_index changes. A speed of 1 means every frame, the index advances; 0.5 would mean updating the subimage once every two frames.</p>
 <p>If we wanted to have the animation play at a speed according to how fast we were moving, we might do something like <code>image_speed = 0.05*hspeed</code>.</p>
 <p>To get the player to change the direction he's facing, a common solution is to create another sprite sPlayerL with the graphics mirrored and then set the player's sprite according to his velocity, using GM's built-in variable <code>sprite_index</code>. Something in the Step event like</p>
-<pre><code>if (hspeed &gt;= 0) sprite_index = sPlayer;
+<pre><code>if (hspeed &gt; 0) sprite_index = sPlayer;
 else sprite_index = sPlayerL;
 </code></pre>
 <blockquote>
@@ -835,8 +847,10 @@ else sprite_index = sPlayerL;
 <p>A slick (and/or disgusting) way to do it is this line in the Step:</p>
 <pre><code>if (hspeed != 0) image_xscale = sign(hspeed);
 </code></pre>
+<h5 id="mac-users_3">Mac Users</h5>
+<p>Duplicate and mirror the player sprite with an sPlayerL, instead of using <code>image_xscale</code>, otherwise the hitbox will be off by one no matter how you align it, and the player will shake upon hitting a wall.</p>
 </blockquote>
-<h5 id="checkpoint_8">Checkpoint</h5>
+<h5 id="checkpoint_9">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/3_animation.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="platform-collision">Top</a></p>
 <h2 id="35-platform-collision">3.5 Platform Collision</h2>
@@ -887,7 +901,7 @@ if (z != noone) {
 <p><code>sprite_width</code>, <code>sprite_height</code>, <code>sprite_xoffset</code>, and <code>sprite_yoffset</code> are multiplied by <code>image_xscale</code> and <code>image_yscale</code>, so e.g. if the sprite had size 16x16 and the origin were at <code>(8, 0)</code>, and <code>image_xscale</code> were -1, <code>sprite_width</code> would be -16, and <code>sprite_xoffset</code> would be -8. This is why we put an absolute value.</p>
 </blockquote>
 <p>To keep it so that the player stays on the block, we can just put this block of code just under the line that applies gravity. If the player is already on the block, with the way we order our code, each frame will try to apply gravity but then instantly negate it.</p>
-<h5 id="checkpoint_9">Checkpoint</h5>
+<h5 id="checkpoint_10">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/4_landing.gmz">here</a>.</p>
 <p><a id="hitting-block-bottom"></a></p>
 <h3 id="352-hitting-a-block-from-the-bottom">3.5.2 Hitting a Block from the Bottom</h3>
@@ -1002,7 +1016,7 @@ if (z != noone) {
 </code></pre>
 <p>This concludes our main platforming engine section. Hopefully it didn't seem like just a list of magical steps, but instead a case study in breaking a problem in simulation down to simpler components. Of course, we omitted a big part of the process: testing and experimentation, figuring out what's wrong at each step. A platforming engine is hard to make on your first try, and even on your n-th try, because there are so many cases to consider and bang your head over.</p>
 <p>Now, we'll head back to a few more common concepts in game programming.</p>
-<h5 id="checkpoint_10">Checkpoint</h5>
+<h5 id="checkpoint_11">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/5_blocks.gmz">here</a>. The level in the zip here is minimal; try to make your own!</p>
 <p><a href="#top" class="top" id="views">Top</a></p>
 <h2 id="36-views">3.6 Views</h2>
@@ -1017,7 +1031,7 @@ if (z != noone) {
 <h5 id="sidenote_18">Sidenote</h5>
 <p>Gamasutra has a great survey of a lot of different view motions in platformers and other video games. It's super interesting. Check it out <a href="http://gamasutra.com/blogs/ItayKeren/20150511/243083/Scroll_Back_The_Theory_and_Practice_of_Cameras_in_SideScrollers.php">here</a>!</p>
 </blockquote>
-<h5 id="checkpoint_11">Checkpoint</h5>
+<h5 id="checkpoint_12">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/6_views.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="tiles">Top</a></p>
 <h2 id="37-tiles">3.7 Tiles</h2>
@@ -1025,7 +1039,7 @@ if (z != noone) {
 <p>If you loaded the tileset provided as a background and marked it to be used as a tileset, it should be available in the tiles tab in the Room Properties window. You can then select it, pick tiles, and place them in the room over the blocks. If nothing seems to happen, it's likely because the blocks are showing up in front of the tiles. You can change the rendering order by changing the layer the tiles are on (bottom of the left tile-selection menu); lower layers are rendered first. </p>
 <p><img alt="tileset" src="./images/platformer/tile_editor.png" /></p>
 <p>For relatively static environments, tiles are a good way to separate function from appearance. One can make a level by laying out the blocks and important objects, and then adding the decorative tiles to serve as background or a face for the blocks. It may also be useful to, in the oBlock's object properties, uncheck the "visible" box.</p>
-<h5 id="checkpoint_12">Checkpoint</h5>
+<h5 id="checkpoint_13">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/7_tiles.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="additions">Top</a></p>
 <h2 id="38-a-few-additions">3.8 A Few Additions</h2>
@@ -1059,19 +1073,19 @@ if (z != noone) {
 <p>Super Mario Bros. actually just checks if the player's falling, with the condition <code>(vspeed &gt; 0)</code> instead of <code>(z.y - 5 &gt; y)</code>. You should test out what feels right.</p>
 <h4 id="death-animation">Death Animation</h4>
 <p>To make the interaction less rough, we might want to add a death animation for the enemy, perhaps by having the enemy fall off the screen. A common way to do this is to replace the enemy with a different, identically-looking object with the sole purpose of falling off the screen, rather than keeping track of whether or not the enemy's dead.</p>
-<h5 id="checkpoint_13">Checkpoint</h5>
+<h5 id="checkpoint_14">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/8_enemies.gmz">here</a>.</p>
 <p><a id="coins"></a></p>
 <h3 id="382-coins">3.8.2 Coins</h3>
 <p>Another common element in platformers are mass collectibles, like coins in Mario, bananas in Donkey Kong, or rings in Sonic, and with a little extra code, can make a nice effect.</p>
 <p>One way to add coins: Load the sprite, and create <code>oCoin</code> and <code>oCoinCollect</code>, so that <code>oCoin</code> disappears and changes into <code>oCoinCollect</code> upon touching the player. <code>oCoinCollect</code> can then slowly move up and fade out (<code>image_alpha</code> sets how opaque an object's sprite is, so we can put <code>image_alpha -= 0.08</code> or in the Step event of <code>oCoinCollect</code>), destroying itself upon disappearing.</p>
 <p>A way to keep track of coins may be to create an object just for coin counting and other game-global variables, like cCounter, and then increment the counter on that (e.g., <code>cCounter.coins += 1</code>, but first initialize coins to 0 in the Create event of <code>cCounter</code>) for every new coin collected. We haven't gone through manually displaying text or graphics, but it'll be covered in the menu section.</p>
-<h5 id="checkpoint_14">Checkpoint</h5>
+<h5 id="checkpoint_15">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/9_coins.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="level4">Top</a></p>
 <h2 id="level-4-states-and-menus">Level 4: States and Menus</h2>
 <blockquote>
-<p><strong>Goal</strong> Use the concept of states in games by creating a multiple game screens with rooms, and learn about manual drawing</p>
+<p><strong>Goal</strong> Use the concept of states in games by creating a multiple game screens with rooms, and learn about manual drawing.</p>
 </blockquote>
 <p><a href="#top" class="top" id="states">Top</a></p>
 <h3 id="41-states-in-games">4.1 States in Games</h3>
@@ -1095,7 +1109,7 @@ if (z != noone) {
 <pre><code>if (keyboard_check(vk_space)) room_goto_next();
 </code></pre>
 <p>We can similarly have an object with a sprite saying "Game Over" in its own rGameOver room, and have the player go to this room upon hitting an enemy, instead of destroying himself. To avoid setting up the room properties all over again, it may be more useful to duplicate the intro room (right-click, select from menu), and then just replace the object with the game over object.</p>
-<h5 id="checkpoint_15">Checkpoint</h5>
+<h5 id="checkpoint_16">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/1_rooms.gmz">here</a>.</p>
 <p><a id="persistent-objects-room-transition"></a></p>
 <h3 id="422-persistent-objects-room-transition-effects">4.2.2 Persistent Objects - Room Transition Effects</h3>
@@ -1162,7 +1176,7 @@ z.newRoom = argument[0];
 if (argument_count &gt; 1) z.fadeLength = argument[1];
 </code></pre>
 <p>Usage would then be reduced to <code>room_fade_to(room_next(room), 20);</code></p>
-<h5 id="checkpoint_16">Checkpoint</h5>
+<h5 id="checkpoint_17">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/2_transition.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="manual-drawing">Top</a></p>
 <h2 id="43-manual-drawing">4.3 Manual Drawing</h2>
@@ -1204,7 +1218,7 @@ draw_text(room_width/2+12, room_height/2-2, string(cCounter.plives));
 <p>The hassle with fonts and GM projects is due to licensing: GM font resources are merely pointers to fonts installed on your computer. When the game is compiled into an executable, GM turns the font into an image to be shipped with the rest of the game, so the games are portable, but not their source. I don't blame you if you want to use a font already installed on your computer for this step.</p>
 </blockquote>
 <p>In addition, add behavior using an alarm that fades the room into the level room after a few seconds, and update the player-enemy collision behavior so it subtracts a life and moves to rInfo, or rGameOver if there are no more lives.</p>
-<h5 id="checkpoint_17">Checkpoint</h5>
+<h5 id="checkpoint_18">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/3_lifeinfo.gmz">here</a>.</p>
 <p><a id="hud"></a></p>
 <h3 id="433-a-hud-head-up-display">4.3.3 A HUD (Head-Up Display)</h3>
@@ -1229,7 +1243,7 @@ draw_text(21+vx, 5+vy, string(cCounter.plives));
 draw_sprite(sCoin, 0, 30+vx, 3+vy);
 draw_text(46+vx, 5+vy, string(cCounter.coins));
 </code></pre>
-<h5 id="checkpoint_18">Checkpoint</h5>
+<h5 id="checkpoint_19">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/4_hud.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="menus">Top</a></p>
 <h2 id="44-a-menu">4.4 A Menu</h2>
@@ -1279,7 +1293,7 @@ case 2:
 }
 </code></pre>
 <p>A menu is the most explicit demonstration of states in a game, but it doesn't have to be like that. A coin and its collect animation can be put into one object if the coin keeps track of its state: whether it's collected or not. The player in a more complicated platformer might behave differently depending on whether or not he's in the air or on the ground, or if he has a powerup or not. </p>
-<h5 id="checkpoint_19">Checkpoint</h5>
+<h5 id="checkpoint_20">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/5_menu.gmz">here</a>.</p>
 <p><a id="pause-menu"></a></p>
 <h3 id="45-a-pause-screen">4.5 A Pause Screen</h3>
@@ -1360,7 +1374,7 @@ default:
     break;
 }
 </code></pre>
-<h5 id="checkpoint_20">Checkpoint</h5>
+<h5 id="checkpoint_21">Checkpoint</h5>
 <p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/6_pause.gmz">here</a>.</p>
 <p><a href="#top" class="top" id="last-words-level4">Top</a></p>
 <h2 id="45-a-few-last-words">4.5 A Few Last Words</h2>

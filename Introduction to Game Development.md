@@ -242,7 +242,7 @@ Once you're done with these levels, you should be able to create your MVP in Gam
 <a href="#top" class="top" id="top-down-shooter">Top</a>
 # Level 2: A Top-Down Shooter
 
-> **Goal** - Create a basic game and get familiar with GameMaker
+> **Goal** - Create a basic game and get familiar with GameMaker.
 
 We'll be building a quick top-down shooter in GameMaker, and with the goal of seeing the features of GameMaker that combine game assets with logic to create a game. What features and commands does GameMaker have, and how are they organized in a GameMaker game? The shooter we make will be extremely basic, with enemies slowly coming down to the player's level. You can move horizontally and shoot upwards.
 
@@ -276,6 +276,9 @@ Name the sprite something appropriate, like sPlayer, for a player sprite. To mod
 Save and close the editor and properties window&mdash;you're done with this sprite. Try to add another sprite to represent the player's bullets! A graphic is provided.
 
 A background is similar. Create a background resource (right-click the folder or click ![New Background](../images/shooter/new_back.png)) and try to navigate the program to load our provided background or draw your own backdrop for our ultimate space battle. Bonus points if it tiles!
+
+> ##### Mac Users
+> Sprites and backgrounds in Mac have limited transparency capabilities. If you want sprites that aren't opaque over the entire rectangle of the sprite, make sure you tick "Transparent". The way GM for Mac determines which pixels are transparent is by looking at the bottom-left pixel. The transparent color will be set to whatever color's in the bottom-left.
 
 > ##### Sidenote
 
@@ -408,6 +411,10 @@ In the collision with the bullet, we want to decrement `hp` and now only want to
 
 > If you want a conditional item to apply to a block of events, you can use the ![blocks](../images/shooter/blocks.png) items to specify how far the block should reach. We'll see an example of bigger conditionals in the explosion section.
 
+##### Checkpoint
+
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/4_enemyhp.gmz).
+
 <a id="alarms-periodic"></a>
 ##2.5 Alarms and Periodic Events
 
@@ -441,6 +448,9 @@ Create a cEnemies (or cEnemySpawner) object without attaching a sprite, with an 
 
 To put the enemies at random positions, we can set the `y` to be `-32` and `x` to be `irandom(room_width-32)`, which generates a random integer from 0 to the coordinate of the rightmost side of the room every time it's called. This approximately evenly distributes the enemies.
 
+> ##### Mac Users
+> GM for Mac has no `irandom(...)`. Instead, use `floor(random(...))`.
+
 Finally, put the controller object somewhere in the room. People normally put controllers in the top left, but we programmed this controller so its location doesn't matter. It pops up as a blue question mark, but that's only visible in the room editor.
 > ##### Sidenote
 > The reason we set y to -32 is so that the bottom of the enemy are at `y = 0`, or the top of the screen, when they're spawned. Similarly, `room_width-32` is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is `x = 0`, where the left end of the enemy touches the left edge of the room). 
@@ -463,7 +473,7 @@ Unlike sprites, backgrounds aren't associated with objects, but rather with room
 
 > ##### Sidenote
 
-> Backgrounds are modifiable at any time by objects through a set of variables beginning with "background\_". Variables can be set using the ![variable set](../images/shooter/act_var.png) action, or through a script, which we'll get into for the platformer, which is a step up in programming complexity.
+> Backgrounds are modifiable at any time by objects through a set of variables beginning with `background_`. Variables can be set using the ![variable set](../images/shooter/act_var.png) action, or through a script, which we'll get into for the platformer, which is a step up in programming complexity.
 
 <a id="animations-explosions"></a>
 ### 2.6.2 Animations & Explosions
@@ -503,7 +513,7 @@ In the next tutorial, we'll go through the scripting capabilities of Game Maker 
 <a href="#top" class="top" id="level3">Top</a>
 #Level 3: Making a Platformer
 
-> **Goal** - Gearn more about the features of GM, familiarize with the game programming mindset, and make a basic platformer.
+> **Goal** - Learn more about the features of GM, familiarize with the game programming mindset, and make a basic platformer.
 
 In this platformer tutorial we'll take a different approach with GM, instead limiting ourselves to just a few of the built-in features related to resources and coding the rest ourselves, to get a feel for how GameMaker works underneath the event-driven model (and how game engines in general work), and look a bit at some of the problems games programmers face in implementing mechanics.
 
@@ -513,6 +523,9 @@ This section in particular will be a little more math-oriented as we figure out 
 ##3.1 Resource Setup
 
 Create and load the player and enemy sprite, as well as the background. Also load the background tileset, checking "Use as tileset" in the background properties. Alternatively, draw your own if you feel brave, but try to keep the poses similar and the image dimensions 16x16. In addition, create a 16x16 black square to represent the blocks our player is going to interact with, and create the corresponding `oBlock` object. The black sprite box is just for the level editor and won't be what the player sees, though; we'll cover the blocks up later with a tileset to make it visually pleasing. 
+
+> ##### Mac Users
+> Remember to untick "Transparent" on the player and enemy sprite, since their bottom-left corners are grey, the same color as the rest of their sprite.
 
 <a href="#top" class="top" id="scripts-step-events">Top</a>
 ##3.2 Scripts & the Step Event
@@ -533,7 +546,7 @@ With these two tools, we can reduce any object behavior to a single ![code](../i
 <a id="GM-defaults"></a>
 ###3.2.3 The GameMaker Defaults
 
-Game Maker has a bunch of options that might look relevant for our platformer, like "Uses Physics" (windows only) or "Solid" in the Object Properties window. One of them uses a powerful 2D physics engine, but it's overkill for our purposes. The other is a very naive collision system that would result in an annoying, broken platforming engine. It would make you sad.
+Game Maker has a bunch of options that might look relevant for our platformer, like "Uses Physics" (Windows only) or "Solid" in the Object Properties window. One of them uses a powerful 2D physics engine, but it's overkill for our purposes. The other is a very naive collision system that would result in an annoying, broken platforming engine. It would make you sad.
 
 ![settings](../images/platformer/settings.png)
 
@@ -618,7 +631,7 @@ A constant downward acceleration translates to a continuous addition of downward
 
 Jumping is usually an upward burst of motion. We can implement jumping with another constant in the step event, `jumpspeed = 6`, and a simple key check in the Step event:
 
-    if (keyboard_check(vk_up)) vspeed = -jumpspeed;
+    if (keyboard_check_pressed(vk_up)) vspeed = -jumpspeed;
 
 > ##### Sidenote
 
@@ -631,9 +644,9 @@ Often in platformers, one can control the player's jump height by releasing the 
 
     if (vspeed < 0 && keyboard_check_released(vk_up)) vspeed /= 2;
 
-Or, for a smoother motion, consider applying a stronger gravity while the player's moving upwards if the jump button isn't pressed:
+Or, for a smoother motion, consider applying a stronger gravity (something like `grav2 = 0.35` in the Create event) while the player's moving upwards if the jump button isn't pressed:
 
-    if (vspeed < 0 && !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav
+    if (vspeed < 0 && !keyboard_check(vk_up)) vspeed += grav2; else vspeed += grav;
 
 > ##### Sidenote
 
@@ -652,7 +665,7 @@ If we wanted to have the animation play at a speed according to how fast we were
 
 To get the player to change the direction he's facing, a common solution is to create another sprite sPlayerL with the graphics mirrored and then set the player's sprite according to his velocity, using GM's built-in variable `sprite_index`. Something in the Step event like
 
-    if (hspeed >= 0) sprite_index = sPlayer;
+    if (hspeed > 0) sprite_index = sPlayer;
     else sprite_index = sPlayerL;
 
 > ##### Sidenote
@@ -664,6 +677,9 @@ To get the player to change the direction he's facing, a common solution is to c
 > A slick (and/or disgusting) way to do it is this line in the Step:
 
 >     if (hspeed != 0) image_xscale = sign(hspeed);
+
+> ##### Mac Users
+> Duplicate and mirror the player sprite with an sPlayerL, instead of using `image_xscale`, otherwise the hitbox will be off by one no matter how you align it, and the player will shake upon hitting a wall.
 
 ##### Checkpoint
 
@@ -998,7 +1014,7 @@ You can download the GM project with everything up to this step [here](../resour
 <a href="#top" class="top" id="level4">Top</a>
 ##Level 4: States and Menus
 
-> **Goal** Use the concept of states in games by creating a multiple game screens with rooms, and learn about manual drawing
+> **Goal** Use the concept of states in games by creating a multiple game screens with rooms, and learn about manual drawing.
 
 <a href="#top" class="top" id="states">Top</a>
 ### 4.1 States in Games
