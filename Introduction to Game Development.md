@@ -503,7 +503,7 @@ One other thing you may notice is that the game isn't very fun. Try to tweak the
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz) or [here](../resources/checkpoints_mac/shooter/7_extras.gmk) for Mac.
+You can download the GM project with everything up to this step [here](../resources/checkpoints/shooter/7_extras.gmz) for Windows, or [here](../resources/checkpoints_mac/shooter/7_extras.gmk) for Mac.
 
 <a href="#top" class="top" id="MVP-review">Top</a>
 ## 2.7 A Few Last Words
@@ -1002,7 +1002,7 @@ To make the interaction less rough, we might want to add a death animation for t
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/8_enemies.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/8_enemies.gmz).
+You can download the GM project with everything up to this step [here](../resources/checkpoints/platformer/8_enemies.gmz) for Windows, or [here](../resources/checkpoints_mac/platformer/8_enemies.gmz) for Mac.
 
 <a id="coins"></a>
 ###3.8.2 Coins
@@ -1149,7 +1149,7 @@ Usage would then be reduced to `room_fade_to(room_next(room), 20);`
 
 ##### Checkpoint
 
-You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/2_transition.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/2_transition.gmz)..
+You can download the GM project with everything up to this step [here](../resources/checkpoints/menu/2_transition.gmz) for Windows, or [here](../resources/checkpoints_mac/menu/2_transition.gmk).
 
 <a href="#top" class="top" id="manual-drawing">Top</a>
 ##4.3 Manual Drawing

@@ -727,7 +727,7 @@ Back in the oPlayer object properties box, add a press <Space> event (click Add 
 <p>There are a lot more things that could be done to make the game more presentable, like generating more sounds (e.g., with bfxr) or restricting the player from moving outside of the screen, which can be done by only allowing rightward movement if the player <code>x</code> is less than <code>room_width-32</code>, and only allowing leftward if the player x exceeds 0. </p>
 <p>One other thing you may notice is that the game isn't very fun. Try to tweak the game to make it challenging! Make the game restart when an enemy reaches the bottom of the screen, or touches you. Change the enemy bullet pattern, perhaps aiming at the player instead of downwards (use <img alt="move in direction" src="./images/shooter/act_dir.png" /> in the bullet Create event, with direction <code>point_direction(x, y, oPlayer.x, oPlayer.y)</code>). Maybe also limit how many bullets there can be on the screen by preventing the player from shooting if there are too many (using <img alt="count number" src="./images/shooter/act_count.png" /> in the control tab). Get the enemies to move horizontally too, bouncing against the sides of the room, or add your own gimmick after exploring the actions GameMaker has. </p>
 <h5 id="checkpoint_6">Checkpoint</h5>
-<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/7_extras.gmz">here</a> or <a href="./resources/checkpoints_mac/shooter/7_extras.gmk">here</a> for Mac.</p>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/shooter/7_extras.gmz">here</a> for Windows, or <a href="./resources/checkpoints_mac/shooter/7_extras.gmk">here</a> for Mac.</p>
 <p><a href="#top" class="top" id="MVP-review">Top</a></p>
 <h2 id="27-a-few-last-words">2.7 A Few Last Words</h2>
 <p>Game Maker tries to make it simple to make simple games. Where there isn't a lot of complex logic, programming and gathering the assets is a matter of navigating the menus and specifying what to do at certain events. </p>
@@ -1082,7 +1082,7 @@ if (z != noone) {
 <h4 id="death-animation">Death Animation</h4>
 <p>To make the interaction less rough, we might want to add a death animation for the enemy, perhaps by having the enemy fall off the screen. A common way to do this is to replace the enemy with a different, identically-looking object with the sole purpose of falling off the screen, rather than keeping track of whether or not the enemy's dead.</p>
 <h5 id="checkpoint_14">Checkpoint</h5>
-<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/8_enemies.gmz">here</a> for Windows, or <a href="./resources/checkpoints_mac/platformer/8_enemies.gmz">here</a>.</p>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/platformer/8_enemies.gmz">here</a> for Windows, or <a href="./resources/checkpoints_mac/platformer/8_enemies.gmz">here</a> for Mac.</p>
 <p><a id="coins"></a></p>
 <h3 id="382-coins">3.8.2 Coins</h3>
 <p>Another common element in platformers are mass collectibles, like coins in Mario, bananas in Donkey Kong, or rings in Sonic, and with a little extra code, can make a nice effect.</p>
@@ -1193,7 +1193,7 @@ if (variable_local_exists("argument1")) z.fadeLength = argument1;
 </blockquote>
 <p>Usage would then be reduced to <code>room_fade_to(room_next(room), 20);</code></p>
 <h5 id="checkpoint_17">Checkpoint</h5>
-<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/2_transition.gmz">here</a> for Windows, or <a href="./resources/checkpoints_mac/menu/2_transition.gmz">here</a>..</p>
+<p>You can download the GM project with everything up to this step <a href="./resources/checkpoints/menu/2_transition.gmz">here</a> for Windows, or <a href="./resources/checkpoints_mac/menu/2_transition.gmk">here</a>.</p>
 <p><a href="#top" class="top" id="manual-drawing">Top</a></p>
 <h2 id="43-manual-drawing">4.3 Manual Drawing</h2>
 <p><a id="draw-event"></a></p>
