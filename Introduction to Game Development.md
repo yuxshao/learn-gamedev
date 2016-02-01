@@ -458,7 +458,7 @@ To put the enemies at random positions, we can set the `y` to be `-32` and `x` t
 
 Finally, put the controller object somewhere in the room. People normally put controllers in the top left, but we programmed this controller so its location doesn't matter. It pops up as a blue question mark, but that's only visible in the room editor.
 > ##### Sidenote
-> The reason we set y to -32 is so that the bottom of the enemy are at `y = 0`, or the top of the screen, when they're spawned. Similarly, `room_width-32` is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is `x = 0`, where the left end of the enemy touches the left edge of the room). 
+> The reason we set y to -32 is so that the bottom of the enemies are at `y = 0`, or the top of the screen, when they're spawned. Similarly, `room_width-32` is 32 pixels to the left of the right end of the room, so the farthest to the right the spawner can spawn is the position where the right side of the enemy touches the right edge of the room (the farthest to the left is `x = 0`, where the left end of the enemy touches the left edge of the room). 
 
 ##### Checkpoint
 
@@ -742,7 +742,7 @@ To determine how to reposition the player, consider the figure, which labels the
 
 > ##### Sidenote
 
-> If in addition, you resized the sprite hitboxes (which you probably didn't), you may need to avoid hard-coding the hitbox offsets or use a different approach, as GM doesn't provide hitbox dimensions and offsets (it doesn't work if the sprite hitbox setting were elliptical, or pixel-perfect). One way may be to use a loop to nudge the player upwards until he doesn't overlap with the block anymore, but it would have to be carefully written so that the player doesn't get nudged over the edge of the block.
+> If in addition, you resized the sprite hitboxes (which you probably didn't), you may need to hard-code the hitbox offsets or use a different approach, as GM doesn't provide hitbox dimensions and offsets (it doesn't work if the sprite hitbox setting were elliptical, or pixel-perfect). One way may be to use a loop to nudge the player upwards until he doesn't overlap with the block anymore, but it would have to be carefully written so that the player doesn't get nudged over the edge of the block.
 
 To summarize, we have the following block of code to make the player behave appropriately when he's about to fall onto a block:
 
